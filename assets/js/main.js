@@ -1,10 +1,13 @@
-// THEME TOGGLE — defaults to dark (better loader experience; light on explicit toggle)
-function getTheme(){return localStorage.getItem('theme')||'dark';}
+// THEME TOGGLE — defaults to light
+function getTheme(){return localStorage.getItem('theme')||'light';}
 function applyTheme(t){
   document.body.classList.toggle('light',t==='light');
-  // sync all toggle indicators
-  var balls=document.querySelectorAll('#mob-tog-ball,#mob-tog-ball2');
-  balls.forEach(function(b){b.style.transform=t==='light'?'translateX(18px)':'';b.style.background=t==='light'?'var(--accent2)':'var(--accent)';});
+  // sync mob2 ball slider
+  var ball2=document.getElementById('mob-tog-ball2');
+  if(ball2){ball2.style.transform=t==='light'?'translateX(18px)':'';ball2.style.background=t==='light'?'var(--accent2)':'var(--accent)';}
+  // sync round mob icon button
+  var mobBtn=document.getElementById('theme-toggle-mob');
+  if(mobBtn)mobBtn.innerHTML=t==='light'?'&#9728;':'&#9790;';
   localStorage.setItem('theme',t);
 }
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
@@ -127,4 +130,22 @@ document.querySelectorAll('.cc,.pc').forEach(function(card){
     card.style.transform='translateY(-8px) perspective(600px) rotateY('+x+'deg) rotateX('+y+'deg)';
   });
   card.addEventListener('mouseleave',function(){card.style.transform=''});
+});
+
+// EMAIL PUN TOAST
+document.addEventListener('DOMContentLoaded',function(){
+  var mailEl=document.getElementById('mail-link');
+  if(mailEl){
+    mailEl.addEventListener('click',function(){
+      setTimeout(function(){
+        if(document.getElementById('mail-toast'))return;
+        var t=document.createElement('div');
+        t.id='mail-toast';
+        t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(79,172,254,.25);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
+        t.innerHTML='Not opening? That\'s not a bug \u2014 your default email client just isn\'t configured. Very infrastructure of you to skip that step. &#128736;<br><span style="color:#4facfe;font-size:12px">Just email dhanyasukanth@gmail.com directly.</span>';
+        document.body.appendChild(t);
+        setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},6500);
+      },900);
+    });
+  }
 });
