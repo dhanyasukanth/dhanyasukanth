@@ -94,7 +94,7 @@ function type(){
 setTimeout(type,3400);
 
 // SCROLL REVEAL
-var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(function(el){io.observe(el)});
 
 // TIMELINE DOTS
@@ -110,7 +110,6 @@ var ios=new IntersectionObserver(function(entries){
     var el=e.target,target=+el.dataset.target,suf=el.dataset.suffix||'';
     var cur=0,step=Math.max(1,Math.ceil(target/60));
     var t=setInterval(function(){cur=Math.min(cur+step,target);el.textContent=cur+suf;if(cur>=target)clearInterval(t)},20);
-    ios.unobserve(el);
   });
 },{threshold:.6});
 document.querySelectorAll('.stn[data-target]').forEach(function(el){ios.observe(el)});
