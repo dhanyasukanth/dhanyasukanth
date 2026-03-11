@@ -505,9 +505,12 @@ body.light .pill:hover{border-color:var(--accent);color:var(--accent)}
   100%{opacity:0;visibility:hidden}
 }
 .theme-pun{
-  position:absolute;right:0;top:calc(100% + 8px);
-  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;
-  color:var(--muted);white-space:nowrap;pointer-events:none;
+  position:absolute;right:0;top:calc(100% + 10px);
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;
+  color:#e8f4ff;white-space:nowrap;pointer-events:none;
+  background:rgba(2,6,22,.92);border:1px solid rgba(79,172,254,.3);
+  border-radius:6px;padding:6px 14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.45),inset 0 1px 0 rgba(79,172,254,.1);
   opacity:0;visibility:hidden;
   animation:themePunFade 5.5s ease 0s forwards;
 }
