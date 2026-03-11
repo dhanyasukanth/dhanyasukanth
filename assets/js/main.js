@@ -5,7 +5,7 @@ function applyTheme(t){
   localStorage.setItem('theme',t);
 }
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
-applyTheme(getTheme());
+applyTheme('light');
 var tBtn=document.getElementById('theme-toggle');
 if(tBtn)tBtn.addEventListener('click',toggleTheme);
 var tBtnMob=document.getElementById('theme-toggle-mob');
