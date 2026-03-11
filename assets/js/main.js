@@ -1,11 +1,11 @@
-// THEME TOGGLE — defaults to light
-function getTheme(){return localStorage.getItem('theme')||'light';}
+// THEME TOGGLE — defaults to dark
+function getTheme(){return localStorage.getItem('theme')||'dark';}
 function applyTheme(t){
   document.body.classList.toggle('light',t==='light');
   localStorage.setItem('theme',t);
 }
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
-applyTheme('light');
+applyTheme(getTheme());
 var tBtn=document.getElementById('theme-toggle');
 if(tBtn)tBtn.addEventListener('click',toggleTheme);
 var tBtnMob=document.getElementById('theme-toggle-mob');
@@ -159,9 +159,10 @@ document.addEventListener('DOMContentLoaded',function(){
   var resumeChip=document.getElementById('resume-chip');
   if(resumeChip){resumeChip.addEventListener('click',showResumeToast);}
 });
-// DARK MODE TIP — shown once on page load when in light mode
+// MODE TIP — shown once on page load when user is in light mode
 document.addEventListener('DOMContentLoaded',function(){
   setTimeout(function(){
+    if(getTheme()!=='light')return;
     if(document.getElementById('theme-tip'))return;
     var tip=document.createElement('div');
     tip.id='theme-tip';
