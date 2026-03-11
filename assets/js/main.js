@@ -1,3 +1,21 @@
+// THEME TOGGLE — defaults to dark (better loader experience; light on explicit toggle)
+function getTheme(){return localStorage.getItem('theme')||'dark';}
+function applyTheme(t){
+  document.body.classList.toggle('light',t==='light');
+  // sync all toggle indicators
+  var balls=document.querySelectorAll('#mob-tog-ball,#mob-tog-ball2');
+  balls.forEach(function(b){b.style.transform=t==='light'?'translateX(18px)':'';b.style.background=t==='light'?'var(--accent2)':'var(--accent)';});
+  localStorage.setItem('theme',t);
+}
+function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
+applyTheme(getTheme());
+var tBtn=document.getElementById('theme-toggle');
+if(tBtn)tBtn.addEventListener('click',toggleTheme);
+var tBtnMob=document.getElementById('theme-toggle-mob');
+if(tBtnMob)tBtnMob.addEventListener('click',toggleTheme);
+var tBtnMob2=document.getElementById('theme-toggle-mob2');
+if(tBtnMob2)tBtnMob2.addEventListener('click',toggleTheme);
+
 // STARS
 (function(){
   var c=document.getElementById('star-canvas');

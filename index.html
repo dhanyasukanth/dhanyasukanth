@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Dhanya Sukanth &mdash; Senior Cloud Engineer</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="shortcut icon" href="favicon.svg"/>
 <!-- Security Headers -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src 'none'; object-src 'none';">
 <meta http-equiv="Referrer-Policy" content="no-referrer">
@@ -19,7 +21,17 @@
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="cloud-dark"></div>
+  <div class="srv-bg"></div>
+  <div class="srv-grid"></div>
+  <div class="srv-radial"></div>
+  <div class="srv-scan"></div>
+  <div class="srv-corner srv-corner--tl"></div>
+  <div class="srv-corner srv-corner--tr"></div>
+  <div class="srv-corner srv-corner--bl"></div>
+  <div class="srv-corner srv-corner--br"></div>
+  <div class="srv-hud">INITIALISING PORTFOLIO</div>
+  <div class="srv-status"><div class="srv-led"></div><div class="srv-led"></div><div class="srv-led"></div></div>
+  <div class="cloud-zoom-bg"></div>
   <canvas id="star-canvas"></canvas>
   <div class="ldr-term">
     <div class="term-bar">
@@ -36,15 +48,19 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="n-logo"><div class="n-dot"></div>Dhanya Sukanth</div>
+  <div class="n-logo"><div class="n-dot"></div></div>
   <div class="n-links">
     <a class="n-lnk" href="#about" data-sec="about">About</a>
     <a class="n-lnk" href="#experience" data-sec="experience">Experience</a>
     <a class="n-lnk" href="#certs" data-sec="certs">Certifications</a>
     <a class="n-lnk" href="#projects" data-sec="projects">Projects</a>
     <a class="n-lnk n-cta" href="#contact"><span>Let&rsquo;s Connect &#8599;</span></a>
+    <button id="theme-toggle" aria-label="Toggle theme"><span class="ti ti-moon">&#9790;</span><span class="ti ti-sun">&#9728;</span></button>
   </div>
-  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button id="theme-toggle-mob" class="ham" style="width:42px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);position:relative;padding:0;cursor:pointer;flex-shrink:0" aria-label="Toggle theme"><span style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--accent);transition:transform .3s,background .3s;display:block" id="mob-tog-ball"></span></button>
+    <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 <div class="mobn" id="mobn">
   <a href="#about" onclick="closeMob()">About</a>
@@ -52,6 +68,10 @@
   <a href="#certs" onclick="closeMob()">Certifications</a>
   <a href="#projects" onclick="closeMob()">Projects</a>
   <a href="#contact" onclick="closeMob()">Let&rsquo;s Connect</a>
+  <div class="mobn-toggle-row">
+    <span class="mobn-toggle-label">Light Mode</span>
+    <button id="theme-toggle-mob2" aria-label="Toggle theme" style="width:42px;height:24px;border-radius:12px;border:1px solid var(--border);background:var(--surface);position:relative;padding:0;cursor:pointer"><span id="mob-tog-ball2" style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--accent);transition:transform .3s;display:block"></span></button>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -341,7 +361,7 @@
         <div class="ccd-l">Location</div><div class="ccd-v">Bengaluru, India</div>
       </div>
     </div>
-    <div class="cbtn-row rv d4">
+    <div class="cbtn-row rv d4" style="display:none">
       <a href="https://www.linkedin.com/in/dhanya-sukanth-b-k" target="_blank" class="cbtn-li">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn &mdash; Prompt Response
@@ -354,9 +374,17 @@
   </div>
 </section>
 
+<!-- TECH TICKER -->
+<div class="ft-ticker-wrap">
+  <div class="ft-ticker-track">
+    <span class="fti">HTML5</span><span class="fti">CSS3</span><span class="fti">JavaScript</span><span class="fti">Azure</span><span class="fti">AWS</span><span class="fti">Terraform</span><span class="fti">Grafana</span><span class="fti">Prometheus</span><span class="fti">OpenSearch</span><span class="fti">CloudWatch</span><span class="fti">ServiceNow</span><span class="fti">Python</span><span class="fti">Shell</span><span class="fti">Docker</span><span class="fti">GitHub</span><span class="fti">GitHub Pages</span><span class="fti">JetBrains Mono</span><span class="fti">Clash Display</span>
+    <span class="fti">HTML5</span><span class="fti">CSS3</span><span class="fti">JavaScript</span><span class="fti">Azure</span><span class="fti">AWS</span><span class="fti">Terraform</span><span class="fti">Grafana</span><span class="fti">Prometheus</span><span class="fti">OpenSearch</span><span class="fti">CloudWatch</span><span class="fti">ServiceNow</span><span class="fti">Python</span><span class="fti">Shell</span><span class="fti">Docker</span><span class="fti">GitHub</span><span class="fti">GitHub Pages</span><span class="fti">JetBrains Mono</span><span class="fti">Clash Display</span>
+  </div>
+</div>
+
 <footer>
-  <div class="fl">&copy; 2026 <span>Dhanya Sukanth B.K.</span> &middot; Built with strong coffee &amp; a DevOps pun</div>
-  <div class="fr"><div class="fr-dot"></div>Uptime <span style="color:var(--accent3);margin-left:4px">99.99%</span></div>
+  <div class="fl">&copy; 2026 <span>Dhanya Sukanth B.K.</span> &middot; CI/CD: Coffee In &#9749;, Code Delivered.</div>
+  <div class="fr"><div class="fr-dot"></div><span style="color:var(--accent2)">Open to Opportunities</span></div>
 </footer>
 
 <!-- CHATBOT -->
