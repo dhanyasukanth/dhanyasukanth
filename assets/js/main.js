@@ -71,8 +71,8 @@ setTimeout(function(){
 },5000);
 
 // MOBILE NAV
-document.getElementById('ham').addEventListener('click',function(){document.getElementById('mobn').classList.toggle('open')});
-function closeMob(){document.getElementById('mobn').classList.remove('open')}
+var hamBtn=document.getElementById('ham');if(hamBtn)hamBtn.addEventListener('click',function(){var mn=document.getElementById('mobn');if(mn)mn.classList.toggle('open')});
+function closeMob(){var mn=document.getElementById('mobn');if(mn)mn.classList.remove('open')}
 
 // ACTIVE NAV
 var secIds=['about','experience','certs','projects','contact'];
@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded',function(){
     if(document.getElementById('theme-tip'))return;
     var tip=document.createElement('div');
     tip.id='theme-tip';
-    tip.style.cssText='position:fixed;top:72px;right:20px;background:rgba(4,6,22,.93);border:1px solid rgba(79,172,254,.22);padding:10px 15px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:11px;color:#c8daf0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .45s;line-height:1.6;max-width:210px;box-shadow:0 8px 32px rgba(0,0,0,.4)';
-    tip.innerHTML='&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the navigation bar</span>';
+    tip.style.cssText='position:fixed;top:68px;right:16px;background:rgba(4,6,22,.93);border:1px solid rgba(79,172,254,.28);padding:10px 14px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:11px;color:#c8daf0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .45s;line-height:1.6;max-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)';
+    tip.innerHTML='<div style="position:absolute;top:-6px;right:12px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(79,172,254,.28)"></div>&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the nav above &#8593;</span>';
     document.body.appendChild(tip);
     setTimeout(function(){tip.style.opacity='1';},50);
     setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},4500);
