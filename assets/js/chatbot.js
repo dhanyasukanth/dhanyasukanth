@@ -10,7 +10,7 @@ var kb = {
   relocation: "He's based in Bengaluru right now, but he's totally open to remote work or relocating for the right infrastructure role. He's been looking at a few international options lately.",
   bio: "Dhanya is a Senior Cloud Engineer specializing in Azure, AWS, and Terraform. Outside of work, he's usually tuning his VW Virtus, figuring out the budget for the F1 Japanese Grand Prix, or hunting down a really good coffee.",
   contact: "The fastest way to reach him is definitely <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2); text-decoration:underline;'>LinkedIn</a>. You can also just shoot an email over to <a href='https://mail.google.com/mail/?view=cm&fs=1&to=dhanyasukanth@gmail.com' target='_blank' style='color:var(--accent); text-decoration:underline;'>dhanyasukanth@gmail.com</a>. He replies pretty quick.",
-  resume: "You can grab a read-only look at his resume by hitting the View Resume button up top. If you want to save the PDF locally, just use your browser's Print to PDF option.",
+  resume: "You can grab a read-only look at his resume by hitting the View Resume button up top. If you want to save the PDF locally, just scroll down to download resume option.",
   page: "He built this site from scratch with plain HTML, CSS, and JavaScript. No heavy frameworks. You can poke around the source code on his <a href='https://github.com/dhanyasukanth/dhanyasukanth' target='_blank' style='color:var(--accent3);text-decoration:underline'>GitHub</a>.",
   hey: "Hey! I'm Dhanya's portfolio bot. I can give you a quick rundown on his tech stack, experience, or how to reach him. What's up?",
   thanks: "Anytime. Let me know if you need anything else!",

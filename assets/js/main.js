@@ -1,11 +1,9 @@
-// THEME TOGGLE — defaults to light
-function getTheme(){return localStorage.getItem('theme')||'light';}
-function applyTheme(t){
-  document.body.classList.toggle('light',t==='light');
-  localStorage.setItem('theme',t);
-}
+// THEME TOGGLE — always starts white (ignores any saved preference)
+var _theme='light';
+function getTheme(){return _theme;}
+function applyTheme(t){_theme=t;document.body.classList.toggle('light',t==='light');}
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
-applyTheme(getTheme());
+applyTheme('light');
 var tBtn=document.getElementById('theme-toggle');
 if(tBtn)tBtn.addEventListener('click',toggleTheme);
 var tBtnMob=document.getElementById('theme-toggle-mob');
