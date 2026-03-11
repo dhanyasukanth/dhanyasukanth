@@ -1,3 +1,7 @@
+// Force scroll to top on every load/refresh
+if(history.scrollRestoration)history.scrollRestoration='manual';
+window.scrollTo(0,0);
+
 // THEME TOGGLE — always starts white (ignores any saved preference)
 var _theme='light';
 function getTheme(){return _theme;}
