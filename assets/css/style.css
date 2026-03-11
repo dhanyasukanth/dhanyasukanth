@@ -151,18 +151,28 @@ img{display:block}
 
 /* THEME TOGGLE — shared pill style for desktop + mobile */
 #theme-toggle,#theme-toggle-mob,#theme-toggle-mob2{
-  width:50px;height:28px;border-radius:14px;border:1px solid var(--border);
-  background:var(--surface);cursor:pointer;position:relative;
-  transition:background .3s,border-color .3s;flex-shrink:0;padding:0;
-  margin-left:8px;
+  width:52px;height:30px;border-radius:15px;
+  border:1.5px solid rgba(79,172,254,.35);
+  background:rgba(79,172,254,.12);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  cursor:pointer;position:relative;
+  transition:background .4s cubic-bezier(.22,1,.36,1),border-color .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+  flex-shrink:0;padding:0;margin-left:8px;box-shadow:inset 0 1px 3px rgba(0,0,0,.15);
 }
 #theme-toggle::after,#theme-toggle-mob::after,#theme-toggle-mob2::after{
-  content:'';position:absolute;top:3px;left:3px;
-  width:22px;height:22px;border-radius:50%;
-  background:var(--accent);transition:transform .3s,background .3s;
+  content:'';position:absolute;top:4px;left:4px;
+  width:20px;height:20px;border-radius:50%;
+  background:#e8f4ff;
+  box-shadow:0 1px 4px rgba(0,0,0,.25);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),background .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
 }
-body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #theme-toggle-mob2::after{transform:translateX(22px);background:var(--accent2)}
-#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:9px;pointer-events:none;transition:opacity .2s}
+body.light #theme-toggle,body.light #theme-toggle-mob,body.light #theme-toggle-mob2{
+  background:rgba(18,86,180,.12);border-color:rgba(18,86,180,.35);
+}
+body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #theme-toggle-mob2::after{
+  transform:translateX(22px);background:#06101e;box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:9px;pointer-events:none;transition:opacity .3s}
 #theme-toggle .ti-moon,#theme-toggle-mob .ti-moon,#theme-toggle-mob2 .ti-moon{left:5px;opacity:1}
 #theme-toggle .ti-sun,#theme-toggle-mob .ti-sun,#theme-toggle-mob2 .ti-sun{right:4px;opacity:.45}
 body.light #theme-toggle .ti-moon,body.light #theme-toggle-mob .ti-moon,body.light #theme-toggle-mob2 .ti-moon{opacity:.45}
