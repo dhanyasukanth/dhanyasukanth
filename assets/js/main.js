@@ -94,7 +94,7 @@ function type(){
 setTimeout(type,3400);
 
 // SCROLL REVEAL
-var io=new IntersectionObserver(function(entries){entries.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(function(el){io.observe(el)});
 
 // TIMELINE DOTS
@@ -125,17 +125,16 @@ document.querySelectorAll('.cc,.pc').forEach(function(card){
   card.addEventListener('mouseleave',function(){card.style.transform=''});
 });
 
-// EMAIL PUN TOAST
-function showMailToast(){
-  setTimeout(function(){
-    if(document.getElementById('mail-toast'))return;
-    var t=document.createElement('div');
-    t.id='mail-toast';
-    t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(79,172,254,.25);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
-    t.innerHTML='Not opening? That\'s not a bug \u2014 your default email client just isn\'t configured. Very infrastructure of you to skip that step. &#128736;<br><span style="color:#4facfe;font-size:12px">Just email dhanyasukanth@gmail.com directly.</span>';
-    document.body.appendChild(t);
-    setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},6500);
-  },900);
+// EMAIL TOAST
+function showMailToast(e){
+  if(e)e.preventDefault();
+  if(document.getElementById('mail-toast'))return;
+  var t=document.createElement('div');
+  t.id='mail-toast';
+  t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(79,172,254,.25);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
+  t.innerHTML='&#128236; Default mail app not configured on this device.<br><span style="color:#4facfe;font-size:12px">Copy: <strong>dhanyasukanth@gmail.com</strong></span>';
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},6500);
 }
 document.addEventListener('DOMContentLoaded',function(){
   var mailEl=document.getElementById('mail-link');
@@ -158,6 +157,6 @@ document.addEventListener('DOMContentLoaded',function(){
     tip.innerHTML='<div style="position:absolute;top:-6px;right:'+Math.max(4,btnCenterOffset-6)+'px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(79,172,254,.28)"></div>&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the nav above &#8593;</span>';
     document.body.appendChild(tip);
     setTimeout(function(){tip.style.opacity='1';},50);
-    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},4500);
+    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},10000);
   },1400);
 });
