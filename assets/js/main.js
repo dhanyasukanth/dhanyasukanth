@@ -2,12 +2,6 @@
 function getTheme(){return localStorage.getItem('theme')||'light';}
 function applyTheme(t){
   document.body.classList.toggle('light',t==='light');
-  // sync mob2 ball slider
-  var ball2=document.getElementById('mob-tog-ball2');
-  if(ball2){ball2.style.transform=t==='light'?'translateX(18px)':'';ball2.style.background=t==='light'?'var(--accent2)':'var(--accent)';}
-  // sync round mob icon button
-  var mobBtn=document.getElementById('theme-toggle-mob');
-  if(mobBtn)mobBtn.innerHTML=t==='light'?'&#9728;':'&#9790;';
   localStorage.setItem('theme',t);
 }
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
@@ -148,4 +142,18 @@ document.addEventListener('DOMContentLoaded',function(){
       },900);
     });
   }
+});
+
+// DARK MODE TIP — shown once on page load when in light mode
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){
+    if(document.getElementById('theme-tip'))return;
+    var tip=document.createElement('div');
+    tip.id='theme-tip';
+    tip.style.cssText='position:fixed;top:72px;right:20px;background:rgba(4,6,22,.93);border:1px solid rgba(79,172,254,.22);padding:10px 15px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:11px;color:#c8daf0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .45s;line-height:1.6;max-width:210px;box-shadow:0 8px 32px rgba(0,0,0,.4)';
+    tip.innerHTML='&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the navigation bar</span>';
+    document.body.appendChild(tip);
+    setTimeout(function(){tip.style.opacity='1';},50);
+    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},4500);
+  },1400);
 });

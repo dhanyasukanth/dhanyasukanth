@@ -149,35 +149,26 @@ img{display:block}
 @keyframes tlIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 @keyframes tcurBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
 
-/* THEME TOGGLE */
-#theme-toggle{
+/* THEME TOGGLE — shared pill style for desktop + mobile */
+#theme-toggle,#theme-toggle-mob,#theme-toggle-mob2{
   width:42px;height:24px;border-radius:12px;border:1px solid var(--border);
   background:var(--surface);cursor:pointer;position:relative;
   transition:background .3s,border-color .3s;flex-shrink:0;padding:0;
   margin-left:8px;
 }
-#theme-toggle::after{
+#theme-toggle::after,#theme-toggle-mob::after,#theme-toggle-mob2::after{
   content:'';position:absolute;top:3px;left:3px;
   width:16px;height:16px;border-radius:50%;
   background:var(--accent);transition:transform .3s,background .3s;
 }
-body.light #theme-toggle::after{transform:translateX(18px);background:var(--accent2)}
-#theme-toggle .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:9px;pointer-events:none;transition:opacity .2s}
-#theme-toggle .ti-moon{left:5px;opacity:1}
-#theme-toggle .ti-sun{right:4px;opacity:.45}
-body.light #theme-toggle .ti-moon{opacity:.45}
-body.light #theme-toggle .ti-sun{opacity:1}
-/* MOBILE THEME BUTTON */
-.theme-btn-mob{
-  display:none;width:38px;height:38px;border-radius:50%;
-  background:var(--surface);border:1.5px solid var(--border);
-  cursor:pointer;font-size:18px;line-height:1;
-  color:var(--text);transition:all .28s cubic-bezier(.22,1,.36,1);
-  align-items:center;justify-content:center;flex-shrink:0;
-}
-body.light .theme-btn-mob{background:rgba(255,255,255,.7);border-color:rgba(21,86,180,.3);color:#06101e}
-.theme-btn-mob:hover{background:rgba(79,172,254,.12);border-color:var(--accent);transform:scale(1.1)}
-@media(max-width:900px){.theme-btn-mob{display:flex}}
+body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #theme-toggle-mob2::after{transform:translateX(18px);background:var(--accent2)}
+#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:9px;pointer-events:none;transition:opacity .2s}
+#theme-toggle .ti-moon,#theme-toggle-mob .ti-moon,#theme-toggle-mob2 .ti-moon{left:5px;opacity:1}
+#theme-toggle .ti-sun,#theme-toggle-mob .ti-sun,#theme-toggle-mob2 .ti-sun{right:4px;opacity:.45}
+body.light #theme-toggle .ti-moon,body.light #theme-toggle-mob .ti-moon,body.light #theme-toggle-mob2 .ti-moon{opacity:.45}
+body.light #theme-toggle .ti-sun,body.light #theme-toggle-mob .ti-sun,body.light #theme-toggle-mob2 .ti-sun{opacity:1}
+#theme-toggle-mob{display:none}
+@media(max-width:900px){#theme-toggle-mob{display:flex}}
 
 /* NAV */
 nav{
@@ -452,12 +443,19 @@ body.light .pill:hover{border-color:var(--accent);color:var(--accent);background
 body.light .cv:hover{border-color:var(--accent2);background:rgba(100,34,192,.12);box-shadow:0 8px 24px rgba(100,34,192,.2)}
 body.light .st:hover{background:rgba(18,86,180,.05)}
 body.light .st:hover::after{background:linear-gradient(90deg,var(--accent),var(--accent2))}
-body.light #chatwin{background:#f8fbff;border-color:rgba(26,127,222,.2)}
-body.light .msg.bot{background:rgba(26,127,222,.06);border-color:rgba(26,127,222,.12)}
-body.light .chm{color:var(--text)}
-body.light .msg.bot{color:var(--text)}
-body.light #chinp{background:rgba(0,0,0,.04);border-color:rgba(30,80,160,.15);color:var(--text)}
-body.light .chh{background:linear-gradient(135deg,rgba(26,127,222,.07),rgba(124,58,237,.04))}
+body.light #chatwin{background:#f0f6ff;border-color:rgba(18,86,180,.22)}
+body.light .chh{background:linear-gradient(135deg,rgba(18,86,180,.12),rgba(100,34,192,.07));border-bottom-color:rgba(18,86,180,.18)}
+body.light .chn{color:#06101e}
+body.light .chs{color:#047857}
+body.light .msg.bot{background:rgba(18,86,180,.07);border-color:rgba(18,86,180,.18);color:#06101e}
+body.light .chm{color:#06101e}
+body.light .msg.usr{color:#ffffff}
+body.light #chinp{background:#ffffff;border-color:rgba(18,86,180,.22);color:#06101e}
+body.light #chinp::placeholder{color:#6a8aaa}
+body.light .qb{color:#1256b4;border-color:rgba(18,86,180,.28);background:rgba(18,86,180,.06)}
+body.light .qb:hover{background:rgba(18,86,180,.14);border-color:#1256b4}
+body.light .chx{color:#243d5a}
+body.light .chx:hover{color:#06101e}
 body.light .n-lnk{color:#4a6080}
 body.light .n-lnk:hover,body.light .n-lnk.act{color:var(--text);background:rgba(26,127,222,.07);border-color:rgba(26,127,222,.18)}
 body.light .cbtn-gm{color:var(--text);border-color:rgba(30,80,160,.18)}
