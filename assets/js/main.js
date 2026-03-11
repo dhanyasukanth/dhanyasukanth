@@ -158,8 +158,6 @@ document.addEventListener('DOMContentLoaded',function(){
   if(mailChip){mailChip.addEventListener('click',showMailToast);}
   var resumeChip=document.getElementById('resume-chip');
   if(resumeChip){resumeChip.addEventListener('click',showResumeToast);}
-  var resumeBtn=document.getElementById('resume-btn');
-  if(resumeBtn){resumeBtn.addEventListener('click',showResumeToast);}
 });
 // DARK MODE TIP — shown once on page load when in light mode
 document.addEventListener('DOMContentLoaded',function(){
