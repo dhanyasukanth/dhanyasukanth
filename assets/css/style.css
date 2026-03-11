@@ -668,6 +668,8 @@ nav::after{
 }
 .cbtn-gmail--desktop{display:inline-flex}
 .cbtn-gmail--mobile{display:none}
+.chip-mail--desktop{display:inline-flex}
+.chip-mail--mobile{display:none}
 
 /* =============================================
    FOOTER STACK
@@ -708,6 +710,8 @@ body.light .cc::after,body.light .pc::before{
 @media(max-width:768px){
   .cbtn-gmail--desktop{display:none!important}
   .cbtn-gmail--mobile{display:inline-flex!important}
+  .chip-mail--desktop{display:none!important}
+  .chip-mail--mobile{display:inline-flex!important}
   .cbtn-row{flex-direction:column;align-items:center}
   .cbtn-pill{min-height:44px;padding:12px 28px;width:100%;max-width:340px;justify-content:center}
   .chip,.btn-s,.btn-p,.n-cta,.cv{min-height:44px}
