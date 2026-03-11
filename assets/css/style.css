@@ -9,6 +9,7 @@
   --glass-border:rgba(120,180,255,0.18);
   --glass-specular:rgba(255,255,255,0.08);
   --glass-blur:28px;
+  --chat-glow-rgb:100,150,255;
 }
 body.light{
   --bg:#f0f4f8;--bg1:#e8eef6;--bg2:#dce6f0;
@@ -19,6 +20,7 @@ body.light{
   --glass-bg:rgba(255,255,255,0.42);
   --glass-border:rgba(30,80,160,0.18);
   --glass-specular:rgba(255,255,255,0.7);
+  --chat-glow-rgb:90,110,160;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Cabinet Grotesk',sans-serif;font-size:16px;font-weight:500;overflow-x:hidden;cursor:none;transition:background .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1)}
@@ -179,7 +181,7 @@ body.light #theme-toggle,body.light #theme-toggle-mob,body.light #theme-toggle-m
 body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #theme-toggle-mob2::after{
   transform:translateX(22px);background:#06101e;box-shadow:0 1px 4px rgba(0,0,0,.3);
 }
-#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:9px;pointer-events:none;transition:opacity .3s}
+#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;transition:opacity .3s}
 #theme-toggle .ti-moon,#theme-toggle-mob .ti-moon,#theme-toggle-mob2 .ti-moon{left:5px;opacity:1}
 #theme-toggle .ti-sun,#theme-toggle-mob .ti-sun,#theme-toggle-mob2 .ti-sun{right:4px;opacity:.9;font-size:11px}
 body.light #theme-toggle .ti-moon,body.light #theme-toggle-mob .ti-moon,body.light #theme-toggle-mob2 .ti-moon{opacity:.45}
@@ -468,11 +470,11 @@ body.light .pill:hover{border-color:var(--accent);color:var(--accent);background
 body.light .cv:hover{border-color:var(--accent2);background:rgba(100,34,192,.12);box-shadow:0 8px 24px rgba(100,34,192,.2)}
 body.light .st:hover{background:rgba(18,86,180,.05)}
 body.light .st:hover::after{background:linear-gradient(90deg,var(--accent),var(--accent2))}
-body.light #chatwin{background:#f0f6ff;border-color:rgba(18,86,180,.22)}
+body.light #chatwin{background:rgba(230,238,255,.82);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);border-color:rgba(18,86,180,.22);box-shadow:0 32px 88px rgba(0,20,80,.18),inset 0 1px 0 rgba(255,255,255,.9)}
 body.light .chh{background:linear-gradient(135deg,rgba(18,86,180,.12),rgba(100,34,192,.07));border-bottom-color:rgba(18,86,180,.18)}
 body.light .chn{color:#06101e}
 body.light .chs{color:#047857}
-body.light .msg.bot{background:rgba(18,86,180,.07);border-color:rgba(18,86,180,.18);color:#06101e}
+body.light .msg.bot{background:rgba(0,0,0,.03);border-color:rgba(18,86,180,.18);color:#06101e}
 body.light .chm{color:#06101e}
 body.light .msg.usr{color:#ffffff}
 body.light #chinp{background:#ffffff;border-color:rgba(18,86,180,.22);color:#06101e}
@@ -493,10 +495,14 @@ body.light .pill{color:#4a6080}
 body.light .pill:hover{border-color:var(--accent);color:var(--accent)}
 
 /* CHATBOT */
-#chatfab{position:fixed;bottom:28px;right:28px;z-index:2000;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 30px rgba(79,172,254,.5);transition:transform .28s,box-shadow .28s}
-#chatfab:hover{transform:scale(1.12);box-shadow:0 12px 40px rgba(79,172,254,.6)}
+@keyframes iridescentPulse{
+  0%,100%{box-shadow:0 6px 30px rgba(var(--chat-glow-rgb),.5),0 0 0 0 rgba(var(--chat-glow-rgb),.35),inset 0 1px 0 rgba(255,255,255,.25)}
+  50%{box-shadow:0 10px 44px rgba(var(--chat-glow-rgb),.75),0 0 0 10px rgba(var(--chat-glow-rgb),0),inset 0 1px 0 rgba(255,255,255,.4)}
+}
+#chatfab{position:fixed;bottom:28px;right:28px;z-index:2000;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;animation:iridescentPulse 3s ease-in-out infinite;transition:transform .28s}
+#chatfab:hover{transform:scale(1.12);animation-play-state:paused;box-shadow:0 12px 40px rgba(var(--chat-glow-rgb),.7)}
 .fab-ping{position:absolute;top:-2px;right:-2px;width:13px;height:13px;background:var(--accent3);border-radius:50%;border:2px solid var(--bg);animation:pulse 2.5s ease infinite}
-#chatwin{position:fixed;bottom:96px;right:28px;z-index:2000;width:360px;max-width:calc(100vw - 40px);background:#040a1e;border:1px solid rgba(79,172,254,.15);border-radius:18px;box-shadow:0 32px 88px rgba(0,0,0,.75);display:none;flex-direction:column;overflow:hidden}
+#chatwin{position:fixed;bottom:96px;right:28px;z-index:2000;width:360px;max-width:calc(100vw - 40px);background:rgba(4,10,30,.72);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);border:1px solid rgba(79,172,254,.22);border-radius:18px;box-shadow:0 32px 88px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.08);display:none;flex-direction:column;overflow:hidden;background-clip:padding-box;-webkit-background-clip:padding-box}
 #chatwin.open{display:flex;animation:chatUp .3s cubic-bezier(.2,.8,.3,1)}
 @keyframes chatUp{from{opacity:0;transform:translateY(18px) scale(.95)}to{opacity:1;transform:none}}
 .chh{padding:16px 18px;background:linear-gradient(135deg,rgba(79,172,254,.09),rgba(167,139,250,.05));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
@@ -511,8 +517,8 @@ body.light .pill:hover{border-color:var(--accent);color:var(--accent)}
 .chm::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .msg{max-width:85%;padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.65;animation:msgIn .22s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.msg.bot{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:2px;align-self:flex-start}
-.msg.usr{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#040610;font-weight:600;border-bottom-right-radius:2px;align-self:flex-end}
+.msg.bot{background:rgba(255,255,255,.05);color:var(--text);border:1px solid rgba(255,255,255,.1);border-bottom-left-radius:2px;align-self:flex-start;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background-clip:padding-box;-webkit-background-clip:padding-box}
+.msg.usr{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#040610;font-weight:600;border-bottom-right-radius:2px;align-self:flex-end;border:1px solid rgba(255,255,255,.15)}
 .msg.typ span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:typD .9s ease infinite}
 .msg.typ span:nth-child(2){animation-delay:.15s}.msg.typ span:nth-child(3){animation-delay:.3s}
 @keyframes typD{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1.3);opacity:1}}
@@ -520,7 +526,7 @@ body.light .pill:hover{border-color:var(--accent);color:var(--accent)}
 .qb{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--accent);border:1px solid rgba(79,172,254,.18);background:rgba(79,172,254,.04);padding:5px 11px;border-radius:100px;cursor:pointer;transition:all .22s;white-space:nowrap}
 .qb:hover{background:rgba(79,172,254,.12);border-color:var(--accent)}
 .chi{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px}
-#chinp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;padding:9px 14px;color:var(--text);font-size:13px;font-family:'Cabinet Grotesk',sans-serif;outline:none;transition:border-color .22s}
+#chinp{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:9px 14px;color:var(--text);font-size:13px;font-family:'Cabinet Grotesk',sans-serif;outline:none;transition:border-color .22s;-webkit-appearance:none;appearance:none;background-clip:padding-box;-webkit-background-clip:padding-box}
 #chinp:focus{border-color:var(--accent)}
 #chsnd{width:36px;height:36px;background:var(--accent);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .22s,transform .22s}
 #chsnd:hover{background:#7dd3fc;transform:scale(1.1)}
