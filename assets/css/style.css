@@ -316,7 +316,7 @@ body.light .exu li:hover{color:var(--text)}
 .stl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 
 /* ABOUT */
-#about{background:var(--bg1);position:relative;overflow:hidden}
+#about{background:linear-gradient(135deg,#050a1e 0%,#060d25 45%,#080e28 100%);position:relative;overflow:hidden}
 #about::before{content:'';position:absolute;top:-20%;right:-10%;width:50%;height:70%;background:radial-gradient(ellipse,rgba(167,139,250,.05),transparent 65%);pointer-events:none}
 .ag{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:64px;align-items:start}
 .bio p{font-size:16px;color:var(--muted);line-height:1.95;margin-bottom:22px;font-weight:500}
@@ -328,7 +328,7 @@ body.light .exu li:hover{color:var(--text)}
 .pill:hover{border-color:var(--accent);color:var(--accent);background:rgba(79,172,254,.06);transform:translateY(-2px)}
 
 /* EXPERIENCE — fixed timeline */
-#experience{background:var(--bg2);position:relative;overflow:hidden}
+#experience{background:linear-gradient(135deg,#050c20 0%,#07102a 45%,#060a22 100%);position:relative;overflow:hidden}
 #experience::before{content:'';position:absolute;left:-5%;bottom:-10%;width:40%;height:60%;background:radial-gradient(ellipse,rgba(79,172,254,.04),transparent 65%);pointer-events:none}
 .exl{margin-top:60px;position:relative}
 /* The vertical line lives on the left edge */
@@ -369,7 +369,7 @@ body.light .exu li:hover{color:var(--text)}
 .exu li::before{content:'\25b9';color:var(--accent);font-size:11px;flex-shrink:0;margin-top:4px}
 
 /* CERTS */
-#certs{background:var(--bg1);position:relative;overflow:hidden}
+#certs{background:linear-gradient(135deg,#06091e 0%,#080d26 45%,#0a0c24 100%);position:relative;overflow:hidden}
 #certs::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:80%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.3}
 .cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:56px}
 .cc{background:var(--card-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;transition:border-color .4s,transform .4s,box-shadow .4s;cursor:default}
@@ -388,7 +388,7 @@ body.light .exu li:hover{color:var(--text)}
 .cv:hover{border-color:var(--accent2);background:rgba(167,139,250,.12);transform:translateY(-2px);box-shadow:0 8px 24px rgba(167,139,250,.15)}
 
 /* PROJECTS */
-#projects{background:var(--bg2);position:relative;overflow:hidden}
+#projects{background:linear-gradient(135deg,#07092a 0%,#08102e 45%,#060926 100%);position:relative;overflow:hidden}
 .pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:48px}
 .pc{background:var(--card-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:22px;padding:30px;cursor:pointer;position:relative;overflow:hidden;transition:border-color .35s,transform .35s,box-shadow .35s}
 .pc::after{content:'';position:absolute;top:0;left:-150%;width:80%;height:100%;background:linear-gradient(90deg,transparent,rgba(79,172,254,.04),transparent);transition:left .7s ease;pointer-events:none}
@@ -403,7 +403,7 @@ body.light .exu li:hover{color:var(--text)}
 .tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent2);padding:4px 11px;border:1px solid rgba(167,139,250,.25);border-radius:100px;background:rgba(167,139,250,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 
 /* CONTACT */
-#contact{background:var(--bg1);padding:112px 7% 140px;position:relative;overflow:hidden}
+#contact{background:linear-gradient(135deg,#060920 0%,#080d28 45%,#0b082a 100%);padding:112px 7% 140px;position:relative;overflow:hidden}
 #contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(79,172,254,.06),transparent 65%);pointer-events:none}
 .cin{max-width:700px;margin:0 auto;text-align:center}
 .cin .slbl{justify-content:center}.cin .slbl::before{display:none}
