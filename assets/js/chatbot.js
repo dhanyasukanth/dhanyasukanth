@@ -1,82 +1,72 @@
-// Chatbot knowledge base
-var kb={
-  skills:"Dhanya's core expertise is in Azure, AWS, and Terraform. He also works extensively with Ubuntu Linux, Grafana, Prometheus, OpenSearch, CloudWatch, and ServiceNow, alongside scripting in Python and Shell.",
-  certs:"Dhanya currently holds three active certifications:\n\u2022 AWS Certified Cloud Practitioner (CLF-C02)\n\u2022 Microsoft Azure Fundamentals (AZ-900)\n\u2022 HashiCorp Terraform Associate 003\nAll are verified on Credly or Microsoft Learn.",
-  open:"Yes, he is. Dhanya is open to new cloud and DevOps opportunities and would be pleased to connect. Feel free to message him on <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2);text-decoration:underline'>LinkedIn</a> or drop him an <a href='mailto:dhanyasukanth@gmail.com' style='color:var(--accent);text-decoration:underline'>email</a>.",
-  contact:"He would be glad to hear from you. You can reach Dhanya directly on <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2);text-decoration:underline'>LinkedIn</a> or send an email to <a href='mailto:dhanyasukanth@gmail.com' style='color:var(--accent);text-decoration:underline'>dhanyasukanth@gmail.com</a>. He typically replies promptly.",
-  connect:"It is great that you would like to connect. The best way to reach him for a quick chat is through <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2);text-decoration:underline'>LinkedIn</a>. For formal inquiries, sending an <a href='mailto:dhanyasukanth@gmail.com' style='color:var(--accent);text-decoration:underline'>email</a> works perfectly.",
-  exp:"Dhanya is currently a <strong>Senior Cloud Engineer at Microland</strong> (March 2024 \u2013 present), managing GE's global MyApps infrastructure across Azure and AWS.\nPreviously, he worked as an <strong>IoT Engineer at Knowx Solutions</strong>, building connected solutions with AWS IoT Core.",
-  edu:"He holds a <strong>Bachelor of Engineering in Electronics & Communication (B.E. ECE)</strong> from Visvesvaraya Technological University (VTU) in Bengaluru, India.",
-  projects:"A few of his notable GitHub projects include:\n\u2022 <strong>Cloud Infra Automation</strong> (Terraform modules)\n\u2022 <strong>Monitoring Stack Setup</strong> (Grafana/Prometheus/OpenSearch)\n\u2022 <strong>IoT with AWS IoT Core</strong>\nYou can review his code at <a href='https://github.com/dhanyasukanth' target='_blank' style='color:var(--accent3);text-decoration:underline'>github.com/dhanyasukanth</a>.",
-  bio:"Dhanya is a Senior Cloud Engineer based in Bengaluru, India. He specializes in Azure and AWS infrastructure, DevOps automation, Terraform IaC, and observability. He is always happy to connect and discuss cloud technologies.",
-  location:"Dhanya is currently based in <strong>Bengaluru, India</strong>. He is also open to remote work opportunities.",
-  hey:"Hello! I am Dhanya\u2019s portfolio assistant. How can I help you today? I can share information about his skills, experience, projects, or how to get in touch.",
-  thanks:"You are very welcome. Please let me know if there is anything else I can assist you with. Have a wonderful day!",
-  how_are_you:"I am doing well, thank you for asking. I am here and ready to help you learn more about Dhanya\u2019s work. What can I assist you with?",
-  page:"This portfolio is built with plain <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong> \u2014 no frameworks or build tools. It is hosted on <strong>GitHub Pages</strong> and the full source code is publicly available at <a href='https://github.com/dhanyasukanth/dhanyasukanth' target='_blank' style='color:var(--accent3);text-decoration:underline'>github.com/dhanyasukanth/dhanyasukanth</a>. You can inspect the code directly in your browser via DevTools, or browse it on GitHub.",
-  resume:"You can view Dhanya\u2019s resume by clicking the <strong style='color:var(--accent2)'>View Resume</strong> button in the hero section or by scrolling down to the <strong>Resume</strong> section at the bottom of the page. The PDF opens in a <strong>read-only view</strong> in your browser. Note that the button opens a view-only PDF \u2014 to save a copy, use your browser\u2019s built-in <em>Print \u2192 Save as PDF</em> option.",
-  def:"I am happy to help. I can share details about Dhanya\u2019s skills, certifications, work experience, projects, or contact information. What would you like to know?"
+// Chatbot knowledge base - Conversational, Human, Direct
+var kb = {
+  skills: "He's heavy into Azure, AWS, and Terraform. Basically, if it involves automating infrastructure, setting up Grafana dashboards, or keeping servers quiet with Python and Shell scripts, he's on it.",
+  certs: "He's got three active certs right now: AWS Cloud Practitioner, Azure Fundamentals, and Terraform Associate. All verified.",
+  projects: "He keeps a few solid repos on GitHub. It's mostly Terraform modules, monitoring stack setups, and some AWS IoT Core builds. You can check the code at <a href='https://github.com/dhanyasukanth' target='_blank' style='color:var(--accent3); text-decoration:underline;'>github.com/dhanyasukanth</a>.",
+  exp_general: "He's currently a Senior Cloud Engineer at Microland, keeping GE's global MyApps infrastructure running smoothly on Azure and AWS. Before that, he was doing IoT engineering with AWS IoT Core.",
+  exp_microland: "Right now, he's at Microland handling GE's global MyApps environment. It's a lot of Azure and AWS infrastructure management, making sure everything stays highly available.",
+  edu: "He got his B.E. in Electronics & Communication from VTU here in Bengaluru.",
+  open: "For sure. He's always open to talking about new cloud or DevOps roles. Just drop him a message on <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2); text-decoration:underline;'>LinkedIn</a>.",
+  relocation: "He's based in Bengaluru right now, but he's totally open to remote work or relocating for the right infrastructure role. He's been looking at a few international options lately.",
+  bio: "Dhanya is a Senior Cloud Engineer specializing in Azure, AWS, and Terraform. Outside of work, he's usually tuning his VW Virtus, figuring out the budget for the F1 Japanese Grand Prix, or hunting down a really good coffee.",
+  contact: "The fastest way to reach him is definitely <a href='https://www.linkedin.com/in/dhanya-sukanth-b-k' target='_blank' style='color:var(--accent2); text-decoration:underline;'>LinkedIn</a>. You can also just shoot an email over to <a href='https://mail.google.com/mail/?view=cm&fs=1&to=dhanyasukanth@gmail.com' target='_blank' style='color:var(--accent); text-decoration:underline;'>dhanyasukanth@gmail.com</a>. He replies pretty quick.",
+  resume: "You can grab a read-only look at his resume by hitting the View Resume button up top. If you want to save the PDF locally, just use your browser's Print to PDF option.",
+  page: "He built this site from scratch with plain HTML, CSS, and JavaScript. No heavy frameworks. You can poke around the source code on his <a href='https://github.com/dhanyasukanth/dhanyasukanth' target='_blank' style='color:var(--accent3);text-decoration:underline'>GitHub</a>.",
+  hey: "Hey! I'm Dhanya's portfolio bot. I can give you a quick rundown on his tech stack, experience, or how to reach him. What's up?",
+  thanks: "Anytime. Let me know if you need anything else!",
+  how_are_you: "Doing great, thanks for asking! Just hanging out in the DOM. What can I help you find?",
+  def: "I can give you the quick version of his skills, certs, work history, or contact info. What are you looking for?"
 };
 
-function reply(m){
-  var q=m.toLowerCase();
-  if(q.match(/^(hey|hi|hello|good)/))return kb.hey;
-  if(q.includes('thank'))return kb.thanks;
-  if(q.includes('how are you'))return kb.how_are_you;
-  if(q.includes('skill')||q.includes('tech')||q.includes('stack')||q.includes('tool'))return kb.skills;
-  if(q.includes('cert')||q.includes('badge')||q.includes('aws')||q.includes('azure')||q.includes('terraform'))return kb.certs;
-  if(q.includes('hire')||q.includes('open')||q.includes('job')||q.includes('opportunit')||q.includes('available')||q.includes('recruit'))return kb.open;
-  if(q.includes('project')||q.includes('github')||q.includes('repo'))return kb.projects;
-  if(q.includes('edu')||q.includes('degree')||q.includes('college')||q.includes('university')||q.includes('vtu')||q.includes('study'))return kb.edu;
-  if(q.includes('connect')||q.includes('reach')||q.includes('dm'))return kb.connect;
-  if(q.includes('contact')||q.includes('email')||q.includes('linkedin')||q.includes('gmail'))return kb.contact;
-  if(q.includes('exp')||q.includes('work')||q.includes('microland')||q.includes('career')||q.includes('role'))return kb.exp;
-  if(q.includes('locat')||q.includes('where')||q.includes('bengaluru')||q.includes('india'))return kb.location;
-  if(q.includes('resume')||q.includes('cv')||q.includes('pdf')||q.includes('download'))return kb.resume;
-  if(q.includes('who')||q.includes('about')||q.includes('bio')||q.includes('dhanya'))return kb.bio;
-  if(q.includes('page')||q.includes('site')||q.includes('portfolio')||q.includes('built')||q.includes('host')||q.includes('source')||q.includes('github page')||q.includes('language'))return kb.page;
+function reply(m) {
+  var q = m.toLowerCase();
+  
+  if(q.match(/^(hey|hi|hello|good|greetings)/)) return kb.hey;
+  if(q.includes('thank') || q.includes('appreciate')) return kb.thanks;
+  if(q.includes('how are you') || q.includes('what\'s up')) return kb.how_are_you;
+  
+  if(q.includes('skill') || q.includes('tech') || q.includes('stack') || q.includes('tool') || q.includes('python') || q.includes('terraform')) return kb.skills;
+  if(q.includes('cert') || q.includes('aws') || q.includes('azure') || q.includes('exam')) return kb.certs;
+  
+  if(q.includes('microland') || q.includes('ge') || q.includes('current role')) return kb.exp_microland;
+  if(q.includes('exp') || q.includes('work') || q.includes('career') || q.includes('role')) return kb.exp_general;
+  
+  if(q.includes('project') || q.includes('github') || q.includes('repo') || q.includes('code')) return kb.projects;
+  if(q.includes('edu') || q.includes('degree') || q.includes('college') || q.includes('vtu')) return kb.edu;
+  
+  if(q.includes('hobby') || q.includes('fun') || q.includes('who') || q.includes('about') || q.includes('bio') || q.includes('outside')) return kb.bio;
+  
+  if(q.includes('relocat') || q.includes('remote') || q.includes('locat') || q.includes('where') || q.includes('bengaluru')) return kb.relocation;
+  if(q.includes('hire') || q.includes('open') || q.includes('job') || q.includes('opportunit')) return kb.open;
+  if(q.includes('connect') || q.includes('reach') || q.includes('dm') || q.includes('contact') || q.includes('email') || q.includes('linkedin') || q.includes('gmail')) return kb.contact;
+  
+  if(q.includes('resume') || q.includes('cv') || q.includes('pdf') || q.includes('download')) return kb.resume;
+  if(q.includes('page') || q.includes('site') || q.includes('portfolio') || q.includes('built') || q.includes('source')) return kb.page;
+  
   return kb.def;
 }
 
+// UI Functions remain the same...
 function toggleChat(){document.getElementById('chatwin').classList.toggle('open')}
+function addMsg(t,f){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg '+f;if(f==='bot'){d.innerHTML=t.replace(/\n/g,'<br>');}else{d.textContent=t;}m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function showTyp(){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg bot typ';d.id='typ';d.innerHTML='<span></span><span></span><span></span>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function sendMsg(){var inp=document.getElementById('chinp'),t=(inp.value||'').trim();if(!t)return;addMsg(t,'usr');inp.value='';document.getElementById('chq').style.display='none';showTyp();setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(t),'bot');},750);}
+function qa(q){document.getElementById('chq').style.display='none';addMsg(q,'usr');showTyp();setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(q),'bot');},750);}
 
-function addMsg(t,f){
-  var m=document.getElementById('chm'),d=document.createElement('div');
-  d.className='msg '+f;
-  if(f==='bot'){d.innerHTML=t.replace(/\n/g,'<br>');}
-  else{d.textContent=t;}
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
-}
-
-function showTyp(){
-  var m=document.getElementById('chm'),d=document.createElement('div');
-  d.className='msg bot typ';d.id='typ';
-  d.innerHTML='<span></span><span></span><span></span>';
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
-}
-
-function sendMsg(){
-  var inp=document.getElementById('chinp'),t=(inp.value||'').trim();
-  if(!t)return;
-  addMsg(t,'usr');
-  inp.value='';
-  document.getElementById('chq').style.display='none';
-  showTyp();
-  setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(t),'bot');},750);
-}
-
-function qa(q){
-  document.getElementById('chq').style.display='none';
-  addMsg(q,'usr');
-  showTyp();
-  setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(q),'bot');},750);
-}
-
-// Quick replies
+// Quick Replies
 document.addEventListener('DOMContentLoaded',function(){
-  var qbEducation=document.createElement('button');
-  qbEducation.className='qb';qbEducation.textContent='Education';
-  qbEducation.onclick=function(){qa('Tell me about his education');};
-  var chq=document.getElementById('chq');
-  if(chq)chq.appendChild(qbEducation);
+  var chq = document.getElementById('chq');
+  if(!chq) return;
+  var suggestions = [
+    { text: 'Tech Stack', query: 'What is his tech stack?' },
+    { text: 'Current Role', query: 'Tell me about his role at Microland' },
+    { text: 'Download Resume', query: 'How do I download his resume?' }
+  ];
+  suggestions.forEach(function(item) {
+    var btn = document.createElement('button');
+    btn.className = 'qb';
+    btn.textContent = item.text;
+    btn.onclick = function(){ qa(item.query); };
+    chq.appendChild(btn);
+  });
 });
