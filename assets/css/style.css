@@ -424,9 +424,9 @@ body.light .exu li:hover{color:var(--text)}
 .ft-ticker-wrap::after{right:0;background:linear-gradient(-90deg,var(--bg2),transparent)}
 .ft-ticker-track{display:flex;width:max-content;animation:ftScroll 40s linear infinite;gap:0;align-items:center}
 .ft-ticker-track:hover{animation-play-state:paused}
-.fti{padding:4px 20px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;color:var(--text);text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:9px;transition:color .2s,background .2s;border-radius:100px}
-.fti:hover{color:var(--accent);background:rgba(79,172,254,.07)}
-.fti::before{content:'◆';color:var(--accent);opacity:.6;font-size:6px;flex-shrink:0}
+.fti{padding:0 40px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--text);white-space:nowrap;display:inline-flex;align-items:center}
+.fti-label{color:var(--accent);font-weight:700;margin-right:6px}
+.fti-sep{color:var(--accent2);opacity:.5;font-size:8px;padding:0 8px}
 @keyframes ftScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* FOOTER */

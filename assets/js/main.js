@@ -132,9 +132,9 @@ function showMailToast(e){
   var t=document.createElement('div');
   t.id='mail-toast';
   t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(79,172,254,.25);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
-  t.innerHTML='&#128236; Default mail app not configured on this device.<br><span style="color:#4facfe;font-size:12px">Copy: <strong>dhanyasukanth@gmail.com</strong></span>';
+  t.innerHTML='&#128236; No default mail app configured. Looks like we have to establish this connection the old-fashioned way: copy <strong style="color:#4facfe;user-select:all">dhanyasukanth@gmail.com</strong>';
   document.body.appendChild(t);
-  setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},6500);
+  setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},7000);
 }
 document.addEventListener('DOMContentLoaded',function(){
   var mailEl=document.getElementById('mail-link');
