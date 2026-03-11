@@ -447,13 +447,14 @@ footer{padding:22px 7%;background:var(--bg2);border-top:1px solid var(--border);
 .fr-dot{width:5px;height:5px;border-radius:50%;background:var(--accent3);animation:pulse 2s ease infinite}
 
 /* LIGHT MODE card backgrounds */
-body.light .cc,body.light .pc{background:rgba(255,255,255,.98);border-color:rgba(30,80,160,.16)}
-body.light .cc:hover,body.light .pc:hover{border-color:rgba(18,86,180,.7);box-shadow:0 24px 60px rgba(18,86,180,.24),0 8px 24px rgba(18,86,180,.12);transform:translateY(-9px)}
-body.light #about{background:#ebf2fa}
-body.light #experience{background:#f0f4f8}
-body.light #certs{background:#ebf2fa}
-body.light #projects{background:#f0f4f8}
-body.light #contact{background:#ebf2fa}
+body.light .cc,body.light .pc{background:rgba(255,255,255,.52);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:rgba(30,80,160,.18)}
+body.light .ccd{background:rgba(255,255,255,.52);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:rgba(30,80,160,.16)}
+body.light .cc:hover,body.light .pc:hover{border-color:rgba(18,86,180,.55);box-shadow:0 24px 60px rgba(18,86,180,.18),0 8px 24px rgba(18,86,180,.1);transform:translateY(-9px);background:rgba(255,255,255,.7)}
+body.light #about{background:linear-gradient(135deg,#ddeeff 0%,#edf4ff 45%,#e4eeff 100%)}
+body.light #experience{background:linear-gradient(135deg,#eef2ff 0%,#f0f4fc 45%,#e8eeff 100%)}
+body.light #certs{background:linear-gradient(135deg,#e4eeff 0%,#edf4ff 45%,#dde8ff 100%)}
+body.light #projects{background:linear-gradient(135deg,#eef2ff 0%,#f4f0ff 45%,#e8eeff 100%)}
+body.light #contact{background:linear-gradient(135deg,#e4eeff 0%,#edf4ff 45%,#ede0ff 100%)}
 body.light .chip:hover{border-color:var(--accent);color:var(--accent);background:rgba(18,86,180,.1);box-shadow:0 4px 16px rgba(18,86,180,.2);transform:translateY(-3px) scale(1.04)}
 body.light .pill:hover{border-color:var(--accent);color:var(--accent);background:rgba(18,86,180,.1);box-shadow:0 4px 12px rgba(18,86,180,.15)}
 body.light .cv:hover{border-color:var(--accent2);background:rgba(100,34,192,.12);box-shadow:0 8px 24px rgba(100,34,192,.2)}
