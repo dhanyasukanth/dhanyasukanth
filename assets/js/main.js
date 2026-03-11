@@ -154,8 +154,7 @@ function showResumeToast(e){
 document.addEventListener('DOMContentLoaded',function(){
   var mailEl=document.getElementById('mail-link');
   if(mailEl){mailEl.addEventListener('click',showMailToast);}
-  var mailChip=document.getElementById('mail-chip');
-  if(mailChip){mailChip.addEventListener('click',showMailToast);}
+  // mail-chip is now a plain mailto: link on mobile — no toast intercept needed
   var resumeChip=document.getElementById('resume-chip');
   if(resumeChip){resumeChip.addEventListener('click',showResumeToast);}
 });
