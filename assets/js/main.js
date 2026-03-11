@@ -94,7 +94,7 @@ function type(){
 setTimeout(type,3400);
 
 // SCROLL REVEAL
-var io=new IntersectionObserver(function(entries){entries.forEach(function(e){e.target.classList.toggle('on',e.isIntersecting)})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(function(el){io.observe(el)});
 
 // TIMELINE DOTS
