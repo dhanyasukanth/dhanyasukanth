@@ -168,7 +168,8 @@ body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #
 body.light #theme-toggle .ti-moon,body.light #theme-toggle-mob .ti-moon,body.light #theme-toggle-mob2 .ti-moon{opacity:.45}
 body.light #theme-toggle .ti-sun,body.light #theme-toggle-mob .ti-sun,body.light #theme-toggle-mob2 .ti-sun{opacity:1}
 #theme-toggle-mob{display:none}
-@media(max-width:900px){#theme-toggle-mob{display:flex}}
+#theme-toggle{display:flex}
+@media(max-width:900px){#theme-toggle-mob{display:flex}#theme-toggle{display:none}}
 
 /* NAV */
 nav{
