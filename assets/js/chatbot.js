@@ -14,6 +14,7 @@ var kb={
   thanks:"You are very welcome. Please let me know if there is anything else I can assist you with. Have a wonderful day!",
   how_are_you:"I am doing well, thank you for asking. I am here and ready to help you learn more about Dhanya\u2019s work. What can I assist you with?",
   page:"This portfolio is built with plain <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong> \u2014 no frameworks or build tools. It is hosted on <strong>GitHub Pages</strong> and the full source code is publicly available at <a href='https://github.com/dhanyasukanth/dhanyasukanth' target='_blank' style='color:var(--accent3);text-decoration:underline'>github.com/dhanyasukanth/dhanyasukanth</a>. You can inspect the code directly in your browser via DevTools, or browse it on GitHub.",
+  resume:"You can view Dhanya\u2019s resume by clicking the <strong style='color:var(--accent2)'>View Resume</strong> button in the hero section or by scrolling down to the <strong>Resume</strong> section at the bottom of the page. The PDF opens in a <strong>read-only view</strong> in your browser. Note that the button opens a view-only PDF \u2014 to save a copy, use your browser\u2019s built-in <em>Print \u2192 Save as PDF</em> option.",
   def:"I am happy to help. I can share details about Dhanya\u2019s skills, certifications, work experience, projects, or contact information. What would you like to know?"
 };
 
@@ -31,6 +32,7 @@ function reply(m){
   if(q.includes('contact')||q.includes('email')||q.includes('linkedin')||q.includes('gmail'))return kb.contact;
   if(q.includes('exp')||q.includes('work')||q.includes('microland')||q.includes('career')||q.includes('role'))return kb.exp;
   if(q.includes('locat')||q.includes('where')||q.includes('bengaluru')||q.includes('india'))return kb.location;
+  if(q.includes('resume')||q.includes('cv')||q.includes('pdf')||q.includes('download'))return kb.resume;
   if(q.includes('who')||q.includes('about')||q.includes('bio')||q.includes('dhanya'))return kb.bio;
   if(q.includes('page')||q.includes('site')||q.includes('portfolio')||q.includes('built')||q.includes('host')||q.includes('source')||q.includes('github page')||q.includes('language'))return kb.page;
   return kb.def;
