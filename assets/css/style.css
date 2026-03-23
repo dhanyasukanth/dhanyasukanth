@@ -501,6 +501,7 @@ body.light .n-cta{background:rgba(18,86,180,.12)!important;border-color:rgba(18,
 body.light .cbtn-gm{color:var(--text);border-color:rgba(30,80,160,.18)}
 body.light .ft-ticker-wrap,body.light footer{background:rgba(235,242,250,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 body.light .h-server{filter:drop-shadow(0 0 12px rgba(0,10,40,.08)) saturate(0) brightness(0.15);opacity:.55}
+body.light .h-badge-cloud{color:#111!important}
 body.light .pill{color:#4a6080}
 body.light .pill:hover{border-color:var(--accent);color:var(--accent)}
 
