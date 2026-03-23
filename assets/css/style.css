@@ -699,7 +699,7 @@ nav::after{
 .cbtn-gmail{
   background:rgba(234,67,53,.08);
   border:1.5px solid rgba(234,67,53,.22);
-  color:#e8847d;
+  color:#e8847d;font-weight:600;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 22px rgba(234,67,53,.07);
 }
 .cbtn-gmail:hover{
@@ -779,7 +779,7 @@ body.light .cc::after,body.light .pc::before{
     gap:7px!important;
     line-height:1.5;
   }
-  .h-badge-cloud{display:inline-flex!important;align-items:center!important}
+  .h-badge-cloud{display:inline-flex!important;align-items:center!important;vertical-align:middle!important}
   .h-badge-cloud svg{width:17px!important;height:17px!important}
   .h-badge svg,.h-badge img,.h-badge span{flex-shrink:0}
 
