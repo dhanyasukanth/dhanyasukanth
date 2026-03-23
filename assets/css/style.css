@@ -258,8 +258,8 @@ body.light .mobn{background:rgba(240,244,248,.98)}
   animation:fsu .8s ease 3.3s both;
 }
 .h-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s ease infinite;flex-shrink:0}
-.h-badge-cloud{flex-shrink:0;color:rgba(255,255,255,.92);display:flex;align-items:center;transition:color .3s}
-.h-badge-cloud svg{width:16px;height:16px;display:block;position:relative;top:1px}
+.h-badge-cloud{flex-shrink:0;color:rgba(255,255,255,.92);display:inline-flex;align-items:center;vertical-align:middle;transition:color .3s}
+.h-badge-cloud svg{width:16px;height:16px;display:block}
 .h-name{font-family:'Clash Display',sans-serif;font-weight:800;font-size:clamp(54px,8.5vw,110px);line-height:.9;color:var(--white);letter-spacing:-.03em;margin-bottom:22px;animation:fsu .9s ease 3.45s both}
 .h-name em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block}
 .h-typ{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.8vw,20px);color:var(--accent2);margin-bottom:28px;min-height:32px;display:flex;align-items:center;animation:fsu .9s ease 3.55s both}
@@ -697,14 +697,14 @@ nav::after{
   color:#9cd6f4;
 }
 .cbtn-gmail{
-  background:rgba(234,67,53,.1);
-  border:1.5px solid rgba(234,67,53,.35);
-  color:var(--text);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 22px rgba(234,67,53,.1);
+  background:rgba(234,67,53,.08);
+  border:1.5px solid rgba(234,67,53,.22);
+  color:#e8847d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 22px rgba(234,67,53,.07);
 }
 .cbtn-gmail:hover{
-  background:rgba(234,67,53,.18);border-color:rgba(234,67,53,.72);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 14px 46px rgba(234,67,53,.26);
+  background:rgba(234,67,53,.15);border-color:rgba(234,67,53,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 14px 46px rgba(234,67,53,.22);
   color:#f8a5a0;
 }
 .cbtn-gmail--desktop{display:inline-flex}
@@ -734,7 +734,7 @@ body.light nav::after{
 }
 body.light .cbtn-linkedin{background:rgba(0,119,181,.1);border-color:rgba(0,119,181,.35);color:#005f8a}
 body.light .cbtn-linkedin:hover{background:rgba(0,119,181,.18);box-shadow:0 14px 44px rgba(0,119,181,.22);color:#003d5c}
-body.light .cbtn-gmail{background:rgba(234,67,53,.07);border-color:rgba(234,67,53,.28);color:var(--text)}
+body.light .cbtn-gmail{background:rgba(234,67,53,.07);border-color:rgba(234,67,53,.28);color:#b83228}
 body.light .cbtn-gmail:hover{background:rgba(234,67,53,.14);box-shadow:0 14px 44px rgba(234,67,53,.18);color:#8b1c14}
 body.light .cc::after,body.light .pc::before{
   background:linear-gradient(135deg,
@@ -779,6 +779,7 @@ body.light .cc::after,body.light .pc::before{
     gap:7px!important;
     line-height:1.5;
   }
+  .h-badge-cloud{display:inline-flex!important;align-items:center!important}
   .h-badge-cloud svg{width:17px!important;height:17px!important}
   .h-badge svg,.h-badge img,.h-badge span{flex-shrink:0}
 
