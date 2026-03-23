@@ -258,7 +258,7 @@ body.light .mobn{background:rgba(240,244,248,.98)}
   animation:fsu .8s ease 3.3s both;
 }
 .h-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s ease infinite;flex-shrink:0}
-.h-badge-cloud{font-size:1.55em;line-height:1;flex-shrink:0}
+.h-badge-cloud{font-size:1.7em;line-height:1;flex-shrink:0}
 .h-name{font-family:'Clash Display',sans-serif;font-weight:800;font-size:clamp(54px,8.5vw,110px);line-height:.9;color:var(--white);letter-spacing:-.03em;margin-bottom:22px;animation:fsu .9s ease 3.45s both}
 .h-name em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block}
 .h-typ{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.8vw,20px);color:var(--accent2);margin-bottom:28px;min-height:32px;display:flex;align-items:center;animation:fsu .9s ease 3.55s both}
@@ -760,9 +760,14 @@ body.light .cc::after,body.light .pc::before{
   /* Hero pill badge — left-aligned on mobile, auto height */
   .h-badge{
     display:inline-flex!important;
+    width:fit-content!important;
+    width:-webkit-fit-content!important;
+    max-width:100%!important;
+    align-self:flex-start!important;
     flex-wrap:wrap!important;
     justify-content:flex-start!important;
     align-items:center!important;
+    text-align:left!important;
     padding:8px 18px!important;
     height:auto!important;
     white-space:normal!important;
@@ -771,7 +776,7 @@ body.light .cc::after,body.light .pc::before{
     gap:7px!important;
     line-height:1.5;
   }
-  .h-badge-cloud{font-size:1.6em!important}
+  .h-badge-cloud{font-size:2em!important}
   .h-badge svg,.h-badge img,.h-badge span{flex-shrink:0}
 
   /* Stats grid — 2 columns, 5th item spans full width */
