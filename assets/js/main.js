@@ -148,7 +148,8 @@ function showResumeToast(e){
   var t=document.createElement('div');
   t.id='resume-toast';
   t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(167,139,250,.3);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
-  t.innerHTML='&#128196; <strong style="color:#a78bfa">Read-only view.</strong> Grab the actual PDF by scrolling down or clicking the Resume button above.';
+  var isMobile=window.innerWidth<=768;
+  t.innerHTML='&#128196; <strong style="color:#a78bfa">Read-only view.</strong> '+(isMobile?'Grab the actual PDF by scrolling down to the bottom.':'Grab the actual PDF by scrolling down or clicking the Resume button above.');
   document.body.appendChild(t);
   setTimeout(function(){window.open(url,'_blank');},3000);
   setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},3500);
@@ -176,6 +177,6 @@ document.addEventListener('DOMContentLoaded',function(){
     tip.innerHTML='<div style="position:absolute;top:-6px;right:'+Math.max(4,btnCenterOffset-6)+'px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(79,172,254,.28)"></div>&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the nav above &#8593;</span>';
     document.body.appendChild(tip);
     setTimeout(function(){tip.style.opacity='1';},50);
-    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},10000);
+    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},18000);
   },1400);
 });
