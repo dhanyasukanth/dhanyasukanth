@@ -251,13 +251,14 @@ body.light .mobn{background:rgba(240,244,248,.98)}
 @keyframes srvFloat{0%,100%{transform:translateY(-50%) translateX(0)}33%{transform:translateY(-52%) translateX(8px)}66%{transform:translateY(-48%) translateX(-5px)}}
 .h-in{position:relative;z-index:1;max-width:780px}
 .h-badge{
-  display:inline-flex;align-items:center;gap:8px;margin-bottom:30px;
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:30px;
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;
-  border:1px solid rgba(79,172,254,.18);padding:7px 18px;border-radius:100px;
+  border:1px solid rgba(79,172,254,.18);padding:8px 22px;border-radius:100px;
   background:rgba(79,172,254,.04);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   animation:fsu .8s ease 3.3s both;
 }
 .h-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s ease infinite;flex-shrink:0}
+.h-badge-cloud{font-size:1.55em;line-height:1;flex-shrink:0}
 .h-name{font-family:'Clash Display',sans-serif;font-weight:800;font-size:clamp(54px,8.5vw,110px);line-height:.9;color:var(--white);letter-spacing:-.03em;margin-bottom:22px;animation:fsu .9s ease 3.45s both}
 .h-name em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block}
 .h-typ{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.8vw,20px);color:var(--accent2);margin-bottom:28px;min-height:32px;display:flex;align-items:center;animation:fsu .9s ease 3.55s both}
@@ -756,21 +757,21 @@ body.light .cc::after,body.light .pc::before{
   .qb{min-height:44px;padding:10px 14px}
   #chatfab{width:52px;height:52px;min-height:44px;min-width:44px}
 
-  /* Hero pill badge — flex-wrap on mobile, centered, auto height */
+  /* Hero pill badge — left-aligned on mobile, auto height */
   .h-badge{
-    display:flex!important;
+    display:inline-flex!important;
     flex-wrap:wrap!important;
-    justify-content:center!important;
+    justify-content:flex-start!important;
     align-items:center!important;
-    text-align:center!important;
-    padding:10px 16px!important;
+    padding:8px 18px!important;
     height:auto!important;
     white-space:normal!important;
     font-size:9px!important;
     letter-spacing:.10em!important;
-    gap:5px!important;
+    gap:7px!important;
     line-height:1.5;
   }
+  .h-badge-cloud{font-size:1.6em!important}
   .h-badge svg,.h-badge img,.h-badge span{flex-shrink:0}
 
   /* Stats grid — 2 columns, 5th item spans full width */
