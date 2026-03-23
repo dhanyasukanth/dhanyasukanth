@@ -710,6 +710,8 @@ nav::after{
 }
 .cbtn-gmail--desktop{display:inline-flex}
 .cbtn-gmail--mobile{display:none}
+.cbtn-linkedin--desktop{display:inline-flex}
+.cbtn-linkedin--mobile{display:none}
 .btn-txt-short{display:none}
 .chip-mail--desktop{display:inline-flex}
 .chip-mail--mobile{display:none}
@@ -753,12 +755,12 @@ body.light .cc::after,body.light .pc::before{
 @media(max-width:768px){
   .cbtn-gmail--desktop{display:none!important}
   .cbtn-gmail--mobile{display:inline-flex!important}
+  .cbtn-linkedin--desktop{display:none!important}
+  .cbtn-linkedin--mobile{display:inline-flex!important}
   .chip-mail--desktop{display:none!important}
   .chip-mail--mobile{display:inline-flex!important}
   .cbtn-row{display:flex!important;flex-wrap:nowrap!important;flex-direction:row!important;gap:10px!important;justify-content:center!important;align-items:stretch!important}
   .cbtn-pill{min-height:44px;padding:12px 20px;min-width:0;max-width:none;width:50%;flex:1 1 0;justify-content:center;font-size:13px;white-space:nowrap}
-  .btn-txt-full{display:none!important}
-  .btn-txt-short{display:inline!important}
   .chip,.btn-s,.btn-p,.n-cta,.cv{min-height:44px}
   .n-lnk{min-height:44px;display:inline-flex;align-items:center}
   .qb{min-height:44px;padding:10px 14px}
