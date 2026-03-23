@@ -439,9 +439,12 @@ body.light .exu li:hover{color:var(--text)}
 
 /* RESUME EMBED */
 .resume-embed-wrap{width:100%;max-width:860px;margin:0 auto 28px;border-radius:12px;overflow:hidden;border:1.5px solid rgba(79,172,254,.25);box-shadow:0 8px 40px rgba(0,0,0,.25);background:rgba(10,12,20,.6)}
-.resume-embed{width:100%;height:680px;border:none;display:block}
+.resume-preview-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:56px 32px;color:rgba(255,255,255,.7)}
+.resume-preview-card svg{color:rgba(79,172,254,.7);flex-shrink:0}
+.resume-preview-name{font-size:1rem;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.02em}
+.resume-preview-hint{font-size:.85rem;color:rgba(255,255,255,.45);max-width:340px;line-height:1.6}
+.resume-preview-hint strong{color:rgba(79,172,254,.85)}
 .resume-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-@media(max-width:600px){.resume-embed{height:460px}}
 
 /* FOOTER TECH TICKER */
 .ft-ticker-wrap{background:rgba(4,10,30,.65);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(79,172,254,.15);border-bottom:1px solid rgba(79,172,254,.12);overflow:hidden;padding:12px 0;position:relative}
