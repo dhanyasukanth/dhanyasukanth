@@ -181,7 +181,7 @@ body.light #theme-toggle,body.light #theme-toggle-mob,body.light #theme-toggle-m
 body.light #theme-toggle::after,body.light #theme-toggle-mob::after,body.light #theme-toggle-mob2::after{
   transform:translateX(22px);background:#06101e;box-shadow:0 1px 4px rgba(0,0,0,.3);
 }
-#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;transition:opacity .3s}
+#theme-toggle .ti,#theme-toggle-mob .ti,#theme-toggle-mob2 .ti{position:absolute;top:50%;transform:translateY(-60%);font-size:12px;pointer-events:none;transition:opacity .3s;line-height:1}
 #theme-toggle .ti-moon,#theme-toggle-mob .ti-moon,#theme-toggle-mob2 .ti-moon{left:5px;opacity:1}
 #theme-toggle .ti-sun,#theme-toggle-mob .ti-sun,#theme-toggle-mob2 .ti-sun{right:4px;opacity:.9;font-size:11px}
 body.light #theme-toggle .ti-moon,body.light #theme-toggle-mob .ti-moon,body.light #theme-toggle-mob2 .ti-moon{opacity:1;filter:brightness(0.15) grayscale(1)}
