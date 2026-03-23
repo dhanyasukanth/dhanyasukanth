@@ -662,16 +662,17 @@ nav::after{
 /* =============================================
    CONTACT — GLASS PILL BUTTONS
    ============================================= */
-.cbtn-row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin-bottom:40px}
+.cbtn-row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin-bottom:40px;align-items:stretch}
 
 .cbtn-pill{
-  display:inline-flex;align-items:center;gap:12px;
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
   padding:16px 36px;border-radius:100px;
   font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:15px;
   backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);
   position:relative;overflow:hidden;cursor:pointer;
   transition:transform .32s cubic-bezier(.2,.8,.3,1),box-shadow .32s,background .32s,border-color .32s,backdrop-filter .32s;
-  min-height:52px;text-decoration:none;letter-spacing:.01em;
+  min-height:52px;min-width:220px;text-decoration:none;letter-spacing:.01em;
+  flex:1;max-width:270px;
 }
 .cbtn-pill::before{
   content:'';position:absolute;inset:0;
@@ -751,7 +752,7 @@ body.light .cc::after,body.light .pc::before{
   .chip-mail--desktop{display:none!important}
   .chip-mail--mobile{display:inline-flex!important}
   .cbtn-row{display:flex!important;flex-wrap:wrap!important;gap:10px!important;justify-content:center!important;align-items:center!important}
-  .cbtn-pill{min-height:44px;padding:12px 28px;width:auto;max-width:340px;justify-content:center}
+  .cbtn-pill{min-height:44px;padding:12px 28px;min-width:0;max-width:340px;justify-content:center;flex:1}
   .chip,.btn-s,.btn-p,.n-cta,.cv{min-height:44px}
   .n-lnk{min-height:44px;display:inline-flex;align-items:center}
   .qb{min-height:44px;padding:10px 14px}
