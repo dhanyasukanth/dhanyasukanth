@@ -274,45 +274,59 @@ document.addEventListener('DOMContentLoaded',function(){
   var W,H,dpr=1,particles=[],animId,resizeTimer;
   var mouse={x:-9999,y:-9999};
   var lightVal=1,lightTarget=1,t=0;
-  var dc=[160,170,255],lc=[90,110,230]; // dark/light particle base colors
+  // ripple state
+  var ripple={x:0,y:0,r:0,alpha:0,active:false};
+  var mouseLastMove=0;
+  var dc=[130,140,255],lc=[60,80,210]; // dark/light line base colors
 
-  function pCount(){return W<768?150:W<1200?280:450;}
+  function pCount(){return W<768?180:W<1200?320:500;}
 
   function Particle(init){this.reset(init);}
   Particle.prototype.reset=function(init){
-    this.x=Math.random()*W;this.y=Math.random()*H;
-    this.vx=0;this.vy=0;
+    this.x=Math.random()*W;  this.y=Math.random()*H;
+    this.px=this.x;          this.py=this.y;
+    this.vx=0;               this.vy=0;
     this.age=init?Math.floor(Math.random()*300):0;
     this.life=Math.random()*250+150;
-    this.seed=Math.random()*Math.PI*2; // unique random offset per particle
+    this.seed=Math.random()*Math.PI*2;
+    this.wrapped=false;
   };
   Particle.prototype.update=function(){
-    // multi-frequency flow + time drift + per-particle seed = organic randomness
+    this.px=this.x; this.py=this.y; this.wrapped=false;
+    // multi-frequency flow field + per-particle seed + time
     var a=Math.sin(this.x*0.003+t*0.12+this.seed)*Math.PI
           +Math.cos(this.y*0.004-t*0.09+this.seed*0.7)*Math.PI*0.6
           +Math.sin((this.x+this.y)*0.002+t*0.06)*Math.PI*0.3;
-    this.vx+=Math.cos(a)*0.12;this.vy+=Math.sin(a)*0.12;
+    this.vx+=Math.cos(a)*0.14; this.vy+=Math.sin(a)*0.14;
+    // mouse repulsion
     var dx=mouse.x-this.x,dy=mouse.y-this.y;
-    var d=Math.sqrt(dx*dx+dy*dy),r=150;
-    if(d<r){var f=(r-d)/r;this.vx-=dx*f*0.05;this.vy-=dy*f*0.05;}
-    this.x+=this.vx;this.y+=this.vy;
-    this.vx*=0.95;this.vy*=0.95;
+    var d=Math.sqrt(dx*dx+dy*dy),r=160;
+    if(d<r){var f=(r-d)/r;this.vx-=dx*f*0.06;this.vy-=dy*f*0.06;}
+    this.x+=this.vx; this.y+=this.vy;
+    this.vx*=0.95;   this.vy*=0.95;
     this.age++;
     if(this.age>this.life)this.reset(false);
-    if(this.x<0)this.x=W;if(this.x>W)this.x=0;
-    if(this.y<0)this.y=H;if(this.y>H)this.y=0;
+    // wrap — flag so we skip drawing the cross-screen line
+    if(this.x<0) {this.x=W; this.wrapped=true;}
+    if(this.x>W) {this.x=0; this.wrapped=true;}
+    if(this.y<0) {this.y=H; this.wrapped=true;}
+    if(this.y>H) {this.y=0; this.wrapped=true;}
   };
   Particle.prototype.draw=function(){
+    if(this.wrapped)return;
     var a=1-Math.abs((this.age/this.life)-0.5)*2;
     ctx.globalAlpha=Math.max(0,a);
-    ctx.fillRect(this.x,this.y,1.0,1.0);
+    ctx.beginPath();
+    ctx.moveTo(this.px,this.py);
+    ctx.lineTo(this.x,this.y);
+    ctx.stroke();
   };
 
   function setupCanvas(){
     dpr=Math.min(window.devicePixelRatio||1,2);
-    W=window.innerWidth;H=window.innerHeight;
-    cvs.width=W*dpr;cvs.height=H*dpr;
-    cvs.style.width=W+'px';cvs.style.height=H+'px';
+    W=window.innerWidth; H=window.innerHeight;
+    cvs.width=W*dpr; cvs.height=H*dpr;
+    cvs.style.width=W+'px'; cvs.style.height=H+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
 
@@ -320,7 +334,7 @@ document.addEventListener('DOMContentLoaded',function(){
     lightVal=lightTarget=document.documentElement.classList.contains('light')?1:0;
     setupCanvas();
     particles=[];
-    var n=pCount();for(var i=0;i<n;i++)particles.push(new Particle(true));
+    var n=pCount(); for(var i=0;i<n;i++)particles.push(new Particle(true));
   }
 
   function resize(){
@@ -330,26 +344,68 @@ document.addEventListener('DOMContentLoaded',function(){
     while(particles.length<n)particles.push(new Particle(true));
   }
 
-  function lerp3(a,b,t){return[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+  function lerp3(a,b,u){return[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u];}
+
+  function drawRipple(){
+    if(!ripple.active)return;
+    ripple.r+=1.8;
+    ripple.alpha-=0.012;
+    if(ripple.alpha<=0){ripple.active=false;return;}
+    ctx.globalAlpha=ripple.alpha;
+    ctx.beginPath();
+    ctx.arc(ripple.x,ripple.y,ripple.r,0,Math.PI*2);
+    ctx.stroke();
+    // second inner ring
+    if(ripple.r>18){
+      ctx.globalAlpha=ripple.alpha*0.4;
+      ctx.beginPath();
+      ctx.arc(ripple.x,ripple.y,ripple.r-16,0,Math.PI*2);
+      ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  }
 
   function animate(){
     lightVal+=(lightTarget-lightVal)*0.04;
+    t+=0.016;
     ctx.globalAlpha=1;
-    t+=0.016; // ~60fps time increment
-    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.18)':'rgba(0,0,0,0.18)';
+    // trail fade — slower = longer lines
+    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.13)':'rgba(0,0,0,0.13)';
     ctx.fillRect(0,0,W,H);
+
     var c=lerp3(dc,lc,lightVal);
-    var pa=lightVal>0.5?0.18:0.42; // much more subtle opacity
-    ctx.fillStyle='rgba('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+','+pa+')';
+    var lineAlpha=lightVal>0.5?0.30:0.55;
+    var rgb='rgba('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+','+lineAlpha+')';
+    ctx.strokeStyle=rgb;
+    ctx.lineWidth=1.3;
+
     for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
+
+    // draw cursor ripple in same color
+    ctx.strokeStyle=rgb;
+    ctx.lineWidth=1.1;
+    drawRipple();
+
     ctx.globalAlpha=1;
     animId=requestAnimationFrame(animate);
   }
 
   window._setWebGLTheme=function(isLight){lightTarget=isLight?1:0;};
 
-  window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
-  document.addEventListener('mouseleave',function(){mouse.x=-9999;mouse.y=-9999;});
+  // mouse — start ripple after cursor stays still 400ms
+  var rippleDebounce;
+  window.addEventListener('mousemove',function(e){
+    mouse.x=e.clientX; mouse.y=e.clientY;
+    mouseLastMove=Date.now();
+    clearTimeout(rippleDebounce);
+    rippleDebounce=setTimeout(function(){
+      ripple.x=mouse.x; ripple.y=mouse.y;
+      ripple.r=6; ripple.alpha=0.7; ripple.active=true;
+    },400);
+  });
+  document.addEventListener('mouseleave',function(){
+    mouse.x=-9999; mouse.y=-9999; clearTimeout(rippleDebounce);
+  });
   window.addEventListener('touchmove',function(e){
     if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}
   },{passive:true});
