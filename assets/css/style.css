@@ -324,7 +324,10 @@ body.light .orbit-center{
   border-color:rgba(18,86,180,.5);
   box-shadow:0 0 0 18px rgba(18,86,180,.1),0 0 44px rgba(18,86,180,.28),inset 0 1px 0 rgba(255,255,255,.95);
 }
-.orbit-center-svg{width:88%;height:88%;display:block;flex-shrink:0}
+.orbit-center-img{width:90%;height:90%;object-fit:contain;display:block}
+.orbit-center-light-img{display:none}
+body.light .orbit-center-dark-img{display:none}
+body.light .orbit-center-light-img{display:block}
 
 .orbit-ring{
   position:absolute;
@@ -340,9 +343,9 @@ body.light .orbit-ring{
   border-color:rgba(18,86,180,.3);
   box-shadow:0 0 0 1px rgba(18,86,180,.08),inset 0 0 0 1px rgba(18,86,180,.06);
 }
-.or1{--r:165;--dur:14s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
-.or2{--r:250;--dur:20s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
-.or3{--r:338;--dur:27s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
+.or1{--r:165;--dur:7s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
+.or2{--r:250;--dur:11s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
+.or3{--r:338;--dur:16s;width:calc(var(--r) * 2px);height:calc(var(--r) * 2px)}
 @keyframes orSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 
 .oi-wrap{
@@ -350,6 +353,9 @@ body.light .orbit-ring{
   position:absolute;
   top:50%;
   left:50%;
+  width:56px;
+  height:56px;
+  margin:-28px 0 0 -28px;
   transform:rotate(var(--a)) translateX(calc(var(--r) * 1px)) rotate(calc(-1 * var(--a)));
   animation:orCounter var(--dur) linear infinite;
 }
@@ -393,6 +399,7 @@ body.light .oi-wrap:hover .oi{box-shadow:0 10px 26px rgba(18,86,180,.24),inset 0
   }
   body.light .orbit-wrap{border-right-color:rgba(18,86,180,.24)}
   .orbit-stage{right:calc(var(--orbit-size) * -0.52)}
+  .oi-wrap{width:50px;height:50px;margin:-25px 0 0 -25px}
   .oi{width:50px;height:50px;border-radius:50%;padding:8px}
 }
 
@@ -405,9 +412,10 @@ body.light .oi-wrap:hover .oi{box-shadow:0 10px 26px rgba(18,86,180,.24),inset 0
   }
   .orbit-stage{right:calc(var(--orbit-size) * -0.55)}
   .orbit-center{width:132px;height:132px}
-  .or1{--r:122;--dur:13s}
-  .or2{--r:185;--dur:18s}
-  .or3{--r:248;--dur:24s}
+  .oi-wrap{width:42px;height:42px;margin:-21px 0 0 -21px}
+  .or1{--r:122;--dur:6s}
+  .or2{--r:185;--dur:9s}
+  .or3{--r:248;--dur:13s}
   .oi{width:42px;height:42px;padding:7px;border-radius:50%}
 }
 
