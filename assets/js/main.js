@@ -19,7 +19,7 @@ var dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
 var mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
 (function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,.pc,.cc,.pill').forEach(function(el){
+document.querySelectorAll('a,button,.pc,.cc,.pill,.oi-wrap').forEach(function(el){
   el.addEventListener('mouseenter',function(){ring.classList.add('hovering')});
   el.addEventListener('mouseleave',function(){ring.classList.remove('hovering')});
 });
