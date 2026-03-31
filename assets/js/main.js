@@ -1,4 +1,9 @@
 ﻿// Force scroll to top on every load/refresh
+window.mgt = window.mgt || {};
+if (typeof window.mgt.clearMarks !== 'function') {
+  window.mgt.clearMarks = function() {};
+}
+
 if(history.scrollRestoration)history.scrollRestoration='manual';
 window.scrollTo(0,0);
 
