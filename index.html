@@ -219,10 +219,53 @@
       <div class="orbit-wrap rvs d5">
         <div class="orbit-stage">
 
-          <!-- Centre: cloud loop logo -->
+          <!-- Centre: cloud + devops infinity loop -->
           <div class="orbit-center">
-            <img src="assets/images/icons/cloud-center-dark.png" class="orbit-center-img orbit-center-dark-img" alt="Cloud DevOps Loop" title="Cloud DevOps Loop"/>
-            <img src="assets/images/icons/cloud-center.png" class="orbit-center-img orbit-center-light-img" alt="Cloud DevOps Loop" title="Cloud DevOps Loop"/>
+            <svg class="orbit-center-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-label="Cloud DevOps">
+              <defs>
+                <linearGradient id="ocCG" x1="100" y1="38" x2="100" y2="170" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#88d4ff"/><stop offset="52%" stop-color="#2e8de6"/><stop offset="100%" stop-color="#1158bc"/>
+                </linearGradient>
+                <radialGradient id="ocGL" cx="78" cy="58" r="74" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="rgba(255,255,255,.76)"/><stop offset="58%" stop-color="rgba(255,255,255,.12)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+                <linearGradient id="ocIG" x1="40" y1="128" x2="160" y2="152" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#42e3ee"/><stop offset="50%" stop-color="#36eba4"/><stop offset="100%" stop-color="#26d498"/>
+                </linearGradient>
+                <filter id="ocSH" x="-20%" y="-10%" width="140%" height="138%">
+                  <feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="#002070" flood-opacity=".52"/>
+                </filter>
+                <filter id="ocGW" x="-28%" y="-28%" width="156%" height="156%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="b"/>
+                  <feFlood flood-color="#36eba4" flood-opacity=".6" result="c"/>
+                  <feComposite in="c" in2="b" operator="in" result="g"/>
+                  <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <!-- Cloud body -->
+              <g filter="url(#ocSH)">
+                <rect x="42" y="118" width="116" height="52" rx="15" fill="url(#ocCG)"/>
+                <circle cx="69"  cy="118" r="29" fill="url(#ocCG)"/>
+                <circle cx="100" cy="107" r="37" fill="url(#ocCG)"/>
+                <circle cx="131" cy="118" r="29" fill="url(#ocCG)"/>
+                <circle cx="80"  cy="93"  r="27" fill="url(#ocCG)"/>
+                <circle cx="118" cy="88"  r="31" fill="url(#ocCG)"/>
+                <circle cx="100" cy="77"  r="29" fill="url(#ocCG)"/>
+              </g>
+              <!-- Bottom depth shadow -->
+              <ellipse cx="100" cy="165" rx="53" ry="13" fill="rgba(0,18,80,.3)"/>
+              <!-- Gloss highlight -->
+              <ellipse cx="83" cy="81" rx="43" ry="26" fill="url(#ocGL)" transform="rotate(-18,83,81)"/>
+              <ellipse cx="91" cy="69" rx="16" ry="9" fill="rgba(255,255,255,.42)" transform="rotate(-12,91,69)"/>
+              <!-- DevOps infinity loop with arrows -->
+              <g filter="url(#ocGW)">
+                <path d="M100,140 C100,128 84,117 72,117 C56,117 43,126 43,138 C43,150 56,159 72,159 C84,159 100,148 100,138 C100,128 116,117 128,117 C144,117 157,126 157,138 C157,150 144,159 128,159 C116,159 100,148 100,140 Z" stroke="url(#ocIG)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Left arrow — at leftmost point pointing down -->
+                <polyline points="36,131 43,141 50,131" stroke="#42e3ee" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Right arrow — at rightmost point pointing up -->
+                <polyline points="150,145 157,135 164,145" stroke="#26d498" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </g>
+            </svg>
           </div>
 
           <!-- Ring 1 -->
