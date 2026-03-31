@@ -153,57 +153,53 @@ document.addEventListener('DOMContentLoaded',function(){
   },3500);
 });
 
-// NAME PARTICLE REVEAL
+// NAME PARTICLE REVEAL — full viewport scatter
 function initNameEffect(){
   var cvs=document.getElementById('name-ptcl');
   if(!cvs)return;
   function run(){
     var ctx=cvs.getContext('2d');
     if(!ctx)return;
-    var isLight=document.documentElement.classList.contains('light');
-    var W=1000,H=210;
+    var isLt=document.documentElement.classList.contains('light');
+    var W=window.innerWidth,H=window.innerHeight;
     var dpr=Math.min(window.devicePixelRatio||1,2);
+    // Make canvas full viewport
+    cvs.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50;opacity:1;';
     cvs.width=W*dpr; cvs.height=H*dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    // Draw name to offscreen canvas at full resolution
+    // Off-screen canvas — render name at hero center position
     var off=document.createElement('canvas');
     off.width=W*dpr; off.height=H*dpr;
     var octx=off.getContext('2d');
     octx.setTransform(dpr,0,0,dpr,0,0);
+    var fs1=Math.min(Math.floor(W*0.135),105);
+    var fs2=Math.min(Math.floor(W*0.112),88);
+    var ny=H*0.37;
     octx.fillStyle='#fff';
-    var fs1=Math.floor(H*0.5),fs2=Math.floor(H*0.42);
-    octx.font='800 '+fs1+'px "Clash Display",sans-serif';
     octx.textAlign='center'; octx.textBaseline='top';
-    octx.fillText('Dhanya',W/2,4);
+    octx.font='800 '+fs1+'px "Clash Display",sans-serif';
+    octx.fillText('Dhanya',W/2,ny);
     octx.font='700 '+fs2+'px "Clash Display",sans-serif';
-    octx.fillText('Sukanth',W/2,H*0.52+6);
+    octx.fillText('Sukanth',W/2,ny+fs1*1.08);
     var imgData=octx.getImageData(0,0,W*dpr,H*dpr).data;
     var coords=[],step=Math.ceil(4*dpr);
     for(var i=0;i<imgData.length;i+=step*4){
-      if(imgData[i+3]>128){
-        coords.push({x:((i/4)%(W*dpr))/dpr,y:Math.floor((i/4)/(W*dpr))/dpr});
-      }
+      if(imgData[i+3]>128)coords.push({x:((i/4)%(W*dpr))/dpr,y:Math.floor((i/4)/(W*dpr))/dpr});
     }
-    if(!coords.length){return;}
-    // Shuffle for organic scatter
-    for(var j=coords.length-1;j>0;j--){
-      var k=Math.floor(Math.random()*(j+1));
-      var tmp=coords[j];coords[j]=coords[k];coords[k]=tmp;
-    }
-    var C=isLight?[18,86,180]:[79,172,254];
+    if(!coords.length)return;
+    for(var j=coords.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var tmp=coords[j];coords[j]=coords[k];coords[k]=tmp;}
+    var C=isLt?[18,86,180]:[79,172,254];
     var pts=[];
     for(var m=0;m<coords.length;m++){
       var sp=Math.random()*5+3;
-      pts.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,
-        tx:coords[m].x,ty:coords[m].y,sp:sp,f:sp*0.05,cw:0,cbr:Math.random()*0.02+0.005});
+      // scatter origin = entire visible viewport
+      pts.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,tx:coords[m].x,ty:coords[m].y,sp:sp,f:sp*0.05,cw:0,cbr:Math.random()*0.02+0.005});
     }
     var alpha=1,fading=false,startTime=Date.now(),animId;
-    cvs.style.opacity='1';
-    cvs.style.transition='opacity 0.35s';
     function frame(){
       var now=Date.now();
       ctx.globalAlpha=0.16;
-      ctx.fillStyle=isLight?'#f0f4f8':'#040610';
+      ctx.fillStyle=isLt?'#f0f4f8':'#040610';
       ctx.fillRect(0,0,W,H);
       for(var i=0;i<pts.length;i++){
         var p=pts[i];
@@ -235,61 +231,47 @@ function initNameEffect(){
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(run);}else{setTimeout(run,120);}
 }
 
-// FLOW FIELD BACKGROUND
+// FLOW FIELD BACKGROUND — exact NeuralBackground algorithm (hero area)
 (function(){
   var cvs=document.getElementById('webgl-bg');
   if(!cvs)return;
   var ctx=cvs.getContext('2d');
   if(!ctx)return;
-  var W,H,dpr=1,particles=[],animId,resizeTimer;
-  var mouse={x:-9999,y:-9999};
-  var lightVal=1,lightTarget=1,t=0;
-  // ripple state
-  var ripple={x:0,y:0,r:0,alpha:0,active:false};
-  var mouseLastMove=0;
-  var dc=[130,140,255],lc=[60,80,210]; // dark/light line base colors
+  var W,H,dpr=1,particles=[],animId,resizeTimer,paused=false;
+  var mouse={x:-1000,y:-1000};
+  var speed=1;
 
-  function pCount(){return W<768?180:W<1200?320:500;}
+  function isLt(){return document.documentElement.classList.contains('light');}
+  function pColor(){return isLt()?'rgba(79,100,220,0.55)':'rgba(129,140,248,0.65)';}
+  function tColor(){return isLt()?'rgba(240,244,248,0.15)':'rgba(0,0,0,0.15)';}
+  function pCount(){return W<768?150:W<1200?350:600;}
 
-  function Particle(init){this.reset(init);}
-  Particle.prototype.reset=function(init){
-    this.x=Math.random()*W;  this.y=Math.random()*H;
-    this.px=this.x;          this.py=this.y;
-    this.vx=0;               this.vy=0;
-    this.age=init?Math.floor(Math.random()*300):0;
-    this.life=Math.random()*250+150;
-    this.seed=Math.random()*Math.PI*2;
-    this.wrapped=false;
-  };
+  // Exact NeuralBackground Particle
+  function Particle(){
+    this.x=Math.random()*W; this.y=Math.random()*H;
+    this.vx=0; this.vy=0;
+    this.age=0; this.life=Math.random()*200+100;
+  }
   Particle.prototype.update=function(){
-    this.px=this.x; this.py=this.y; this.wrapped=false;
-    // multi-frequency flow field + per-particle seed + time
-    var a=Math.sin(this.x*0.003+t*0.12+this.seed)*Math.PI
-          +Math.cos(this.y*0.004-t*0.09+this.seed*0.7)*Math.PI*0.6
-          +Math.sin((this.x+this.y)*0.002+t*0.06)*Math.PI*0.3;
-    this.vx+=Math.cos(a)*0.14; this.vy+=Math.sin(a)*0.14;
-    // mouse repulsion
+    // EXACT src angle formula
+    var angle=(Math.cos(this.x*0.005)+Math.sin(this.y*0.005))*Math.PI;
+    this.vx+=Math.cos(angle)*0.2*speed;
+    this.vy+=Math.sin(angle)*0.2*speed;
+    // Mouse repulsion — exact src
     var dx=mouse.x-this.x,dy=mouse.y-this.y;
-    var d=Math.sqrt(dx*dx+dy*dy),r=160;
-    if(d<r){var f=(r-d)/r;this.vx-=dx*f*0.06;this.vy-=dy*f*0.06;}
+    var dist=Math.sqrt(dx*dx+dy*dy),ir=150;
+    if(dist<ir){var f=(ir-dist)/ir;this.vx-=dx*f*0.05;this.vy-=dy*f*0.05;}
     this.x+=this.vx; this.y+=this.vy;
-    this.vx*=0.95;   this.vy*=0.95;
+    this.vx*=0.95; this.vy*=0.95;
     this.age++;
-    if(this.age>this.life)this.reset(false);
-    // wrap — flag so we skip drawing the cross-screen line
-    if(this.x<0) {this.x=W; this.wrapped=true;}
-    if(this.x>W) {this.x=0; this.wrapped=true;}
-    if(this.y<0) {this.y=H; this.wrapped=true;}
-    if(this.y>H) {this.y=0; this.wrapped=true;}
+    if(this.age>this.life){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=0;this.vy=0;this.age=0;this.life=Math.random()*200+100;}
+    if(this.x<0)this.x=W; if(this.x>W)this.x=0;
+    if(this.y<0)this.y=H; if(this.y>H)this.y=0;
   };
   Particle.prototype.draw=function(){
-    if(this.wrapped)return;
-    var a=1-Math.abs((this.age/this.life)-0.5)*2;
-    ctx.globalAlpha=Math.max(0,a);
-    ctx.beginPath();
-    ctx.moveTo(this.px,this.py);
-    ctx.lineTo(this.x,this.y);
-    ctx.stroke();
+    // Exact src: fade in/out based on age
+    ctx.globalAlpha=Math.max(0,1-Math.abs((this.age/this.life)-0.5)*2);
+    ctx.fillRect(this.x,this.y,1.5,1.5);
   };
 
   function setupCanvas(){
@@ -299,88 +281,43 @@ function initNameEffect(){
     cvs.style.width=W+'px'; cvs.style.height=H+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
-
   function init(){
-    lightVal=lightTarget=document.documentElement.classList.contains('light')?1:0;
     setupCanvas();
     particles=[];
-    var n=pCount(); for(var i=0;i<n;i++)particles.push(new Particle(true));
-  }
-
-  function resize(){
-    setupCanvas();
     var n=pCount();
-    while(particles.length>n)particles.pop();
-    while(particles.length<n)particles.push(new Particle(true));
+    for(var i=0;i<n;i++)particles.push(new Particle());
   }
-
-  function lerp3(a,b,u){return[a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u];}
-
-  function drawRipple(){
-    if(!ripple.active)return;
-    ripple.r+=1.8;
-    ripple.alpha-=0.012;
-    if(ripple.alpha<=0){ripple.active=false;return;}
-    ctx.globalAlpha=ripple.alpha;
-    ctx.beginPath();
-    ctx.arc(ripple.x,ripple.y,ripple.r,0,Math.PI*2);
-    ctx.stroke();
-    // second inner ring
-    if(ripple.r>18){
-      ctx.globalAlpha=ripple.alpha*0.4;
-      ctx.beginPath();
-      ctx.arc(ripple.x,ripple.y,ripple.r-16,0,Math.PI*2);
-      ctx.stroke();
-    }
-    ctx.globalAlpha=1;
-  }
-
   function animate(){
-    lightVal+=(lightTarget-lightVal)*0.04;
-    t+=0.016;
+    if(paused){animId=requestAnimationFrame(animate);return;}
+    ctx.fillStyle=tColor();
     ctx.globalAlpha=1;
-    // trail fade — slower = longer lines
-    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.13)':'rgba(0,0,0,0.13)';
     ctx.fillRect(0,0,W,H);
-
-    var c=lerp3(dc,lc,lightVal);
-    var lineAlpha=lightVal>0.5?0.30:0.55;
-    var rgb='rgba('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+','+lineAlpha+')';
-    ctx.strokeStyle=rgb;
-    ctx.lineWidth=1.3;
-
+    ctx.fillStyle=pColor();
     for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
-
-    // draw cursor ripple in same color
-    ctx.strokeStyle=rgb;
-    ctx.lineWidth=1.1;
-    drawRipple();
-
     ctx.globalAlpha=1;
     animId=requestAnimationFrame(animate);
   }
 
-  window._setWebGLTheme=function(isLight){lightTarget=isLight?1:0;};
+  // Pause when scrolled well past hero to save battery
+  window.addEventListener('scroll',function(){paused=window.scrollY>H*1.2;},{passive:true});
 
-  // mouse — start ripple after cursor stays still 400ms
-  var rippleDebounce;
-  window.addEventListener('mousemove',function(e){
-    mouse.x=e.clientX; mouse.y=e.clientY;
-    mouseLastMove=Date.now();
-    clearTimeout(rippleDebounce);
-    rippleDebounce=setTimeout(function(){
-      ripple.x=mouse.x; ripple.y=mouse.y;
-      ripple.r=6; ripple.alpha=0.7; ripple.active=true;
-    },400);
-  });
-  document.addEventListener('mouseleave',function(){
-    mouse.x=-9999; mouse.y=-9999; clearTimeout(rippleDebounce);
-  });
+  window._setWebGLTheme=function(){ctx.clearRect(0,0,W,H);};
+
+  window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+  document.addEventListener('mouseleave',function(){mouse.x=-1000;mouse.y=-1000;});
   window.addEventListener('touchmove',function(e){
     if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}
   },{passive:true});
-  window.addEventListener('touchend',function(){mouse.x=-9999;mouse.y=-9999;},{passive:true});
-  window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,150);});
+  window.addEventListener('touchend',function(){mouse.x=-1000;mouse.y=-1000;},{passive:true});
+  window.addEventListener('resize',function(){
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(function(){
+      setupCanvas();
+      var n=pCount();
+      while(particles.length>n)particles.pop();
+      while(particles.length<n)particles.push(new Particle());
+    },150);
+  });
 
   init();
   animate();
