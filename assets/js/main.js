@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded',function(){
   Particle.prototype.draw=function(){
     var a=1-Math.abs((this.age/this.life)-0.5)*2;
     ctx.globalAlpha=Math.max(0,a);
-    ctx.fillRect(this.x,this.y,1.5,1.5);
+    ctx.fillRect(this.x,this.y,2.5,2.5);
   };
 
   function setupCanvas(){
@@ -247,10 +247,10 @@ document.addEventListener('DOMContentLoaded',function(){
   function animate(){
     lightVal+=(lightTarget-lightVal)*0.04;
     ctx.globalAlpha=1;
-    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.12)';
+    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.13)':'rgba(0,0,0,0.13)';
     ctx.fillRect(0,0,W,H);
     var c=lerp3(dc,lc,lightVal);
-    var pa=lightVal>0.5?0.45:0.85;
+    var pa=lightVal>0.5?0.65:1.0;
     ctx.fillStyle='rgba('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+','+pa+')';
     for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
     ctx.globalAlpha=1;
