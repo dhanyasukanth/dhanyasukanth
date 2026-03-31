@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded',function(){
   },3500);
 });
 
-// NAME PARTICLE REVEAL — full viewport scatter
+// NAME PARTICLE REVEAL — full viewport edge scatter → forms name
 function initNameEffect(){
   var cvs=document.getElementById('name-ptcl');
   if(!cvs)return;
@@ -163,66 +163,75 @@ function initNameEffect(){
     var isLt=document.documentElement.classList.contains('light');
     var W=window.innerWidth,H=window.innerHeight;
     var dpr=Math.min(window.devicePixelRatio||1,2);
-    // Make canvas full viewport
-    cvs.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50;opacity:1;';
+    cvs.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50;';
     cvs.width=W*dpr; cvs.height=H*dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    // Off-screen canvas — render name at hero center position
+    // Sample name pixels from offscreen canvas (CSS pixels, no DPR scaling needed)
     var off=document.createElement('canvas');
-    off.width=W*dpr; off.height=H*dpr;
+    off.width=W; off.height=H;
     var octx=off.getContext('2d');
-    octx.setTransform(dpr,0,0,dpr,0,0);
-    var fs1=Math.min(Math.floor(W*0.135),105);
-    var fs2=Math.min(Math.floor(W*0.112),88);
-    var ny=H*0.37;
+    var fs1=Math.min(Math.floor(W*0.13),100);
+    var fs2=Math.min(Math.floor(W*0.108),85);
+    var ny=H*0.34;
     octx.fillStyle='#fff';
     octx.textAlign='center'; octx.textBaseline='top';
     octx.font='800 '+fs1+'px "Clash Display",sans-serif';
     octx.fillText('Dhanya',W/2,ny);
     octx.font='700 '+fs2+'px "Clash Display",sans-serif';
-    octx.fillText('Sukanth',W/2,ny+fs1*1.08);
-    var imgData=octx.getImageData(0,0,W*dpr,H*dpr).data;
-    var coords=[],step=Math.ceil(4*dpr);
-    for(var i=0;i<imgData.length;i+=step*4){
-      if(imgData[i+3]>128)coords.push({x:((i/4)%(W*dpr))/dpr,y:Math.floor((i/4)/(W*dpr))/dpr});
+    octx.fillText('Sukanth B.K.',W/2,ny+fs1*1.1);
+    var imgData=octx.getImageData(0,0,W,H).data;
+    var coords=[],step=3;
+    for(var py=0;py<H;py+=step){
+      for(var px=0;px<W;px+=step){
+        if(imgData[(py*W+px)*4+3]>100)coords.push({x:px,y:py});
+      }
     }
     if(!coords.length)return;
+    // Shuffle for natural converge order
     for(var j=coords.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var tmp=coords[j];coords[j]=coords[k];coords[k]=tmp;}
-    var C=isLt?[18,86,180]:[79,172,254];
+    var CR=isLt?[30,90,210]:[100,185,255];
     var pts=[];
-    for(var m=0;m<coords.length;m++){
+    var maxP=Math.min(coords.length,1800);
+    for(var m=0;m<maxP;m++){
       var sp=Math.random()*5+3;
-      // scatter origin = entire visible viewport
-      pts.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,tx:coords[m].x,ty:coords[m].y,sp:sp,f:sp*0.05,cw:0,cbr:Math.random()*0.02+0.005});
+      // Scatter origin — random viewport edge (top/right/bottom/left)
+      var edge=Math.floor(Math.random()*4),sx,sy;
+      if(edge===0){sx=Math.random()*W;sy=-40;}
+      else if(edge===1){sx=W+40;sy=Math.random()*H;}
+      else if(edge===2){sx=Math.random()*W;sy=H+40;}
+      else{sx=-40;sy=Math.random()*H;}
+      pts.push({x:sx,y:sy,vx:(Math.random()-0.5)*2,vy:(Math.random()-0.5)*2,
+                tx:coords[m].x,ty:coords[m].y,sp:sp,f:sp*0.04,cw:0,cbr:Math.random()*0.025+0.006});
     }
-    var alpha=1,fading=false,startTime=Date.now(),animId;
+    var gAlpha=1,fading=false,startTime=Date.now(),animId;
     function frame(){
       var now=Date.now();
-      ctx.globalAlpha=0.16;
-      ctx.fillStyle=isLt?'#f0f4f8':'#040610';
+      // destination-out fades existing pixels to transparent — NO colored rectangle visible over the page
+      ctx.globalCompositeOperation='destination-out';
+      ctx.globalAlpha=0.13;
       ctx.fillRect(0,0,W,H);
+      ctx.globalCompositeOperation='source-over';
+      ctx.fillStyle='rgb('+CR[0]+','+CR[1]+','+CR[2]+')';
       for(var i=0;i<pts.length;i++){
         var p=pts[i];
         var dx=p.tx-p.x,dy=p.ty-p.y;
         var dist=Math.sqrt(dx*dx+dy*dy)||0.001;
         var prox=dist<80?dist/80:1;
-        var tx=(dx/dist)*p.sp*prox,ty=(dy/dist)*p.sp*prox;
-        var sx=tx-p.vx,sy=ty-p.vy;
+        var fx=(dx/dist)*p.sp*prox,fy=(dy/dist)*p.sp*prox;
+        var sx=fx-p.vx,sy=fy-p.vy;
         var sm=Math.sqrt(sx*sx+sy*sy)||0.001;
         p.vx+=(sx/sm)*p.f; p.vy+=(sy/sm)*p.f;
         p.x+=p.vx; p.y+=p.vy;
-        p.vx*=0.9; p.vy*=0.9;
+        p.vx*=0.88; p.vy*=0.88;
         if(p.cw<1)p.cw=Math.min(p.cw+p.cbr,1);
-        ctx.globalAlpha=p.cw*alpha;
-        ctx.fillStyle='rgb('+C[0]+','+C[1]+','+C[2]+')';
-        ctx.fillRect(p.x,p.y,2,2);
+        ctx.globalAlpha=p.cw*gAlpha;
+        ctx.fillRect(p.x-0.5,p.y-0.5,2.5,2.5);
       }
       ctx.globalAlpha=1;
-      if(!fading&&now-startTime>1600)fading=true;
+      if(!fading&&now-startTime>1500)fading=true;
       if(fading){
-        alpha=Math.max(0,alpha-0.018);
-        cvs.style.opacity=alpha;
-        if(alpha<=0){cancelAnimationFrame(animId);cvs.style.display='none';return;}
+        gAlpha=Math.max(0,gAlpha-0.016);
+        if(gAlpha<=0){cancelAnimationFrame(animId);ctx.clearRect(0,0,W,H);cvs.style.display='none';return;}
       }
       animId=requestAnimationFrame(frame);
     }
