@@ -20,16 +20,6 @@ portfolio/
 │       └── chatbot.js  # Portfolio assistant chatbot
 ```
 
-## Features
-
-- Animated star field loader terminal
-- Scroll-reveal animations
-- Interactive stats counters
-- Card tilt effects
-- Keyword-matching portfolio chatbot
-- Security headers (CSP, Referrer-Policy, Permissions-Policy)
-- No tracking, no Cloudflare proxies
-
 ## Certifications
 
 - AWS Certified Cloud Practitioner (CLF-C02)

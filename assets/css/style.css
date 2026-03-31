@@ -22,8 +22,11 @@ body.light{
   --glass-specular:rgba(255,255,255,0.7);
   --chat-glow-rgb:90,110,160;
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Cabinet Grotesk',sans-serif;font-size:16px;font-weight:500;overflow-x:hidden;cursor:none;transition:background .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1)}
+html{scroll-behavior:smooth;background:#040610;transition:background .6s cubic-bezier(.22,1,.36,1)}
+html.light{background:#f0f4f8}
+#webgl-bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block;touch-action:none;image-rendering:pixelated}
+#page-wrap{position:relative;z-index:1}
+body{background:transparent;color:var(--text);font-family:'Cabinet Grotesk',sans-serif;font-size:16px;font-weight:500;overflow-x:hidden;cursor:none;transition:background .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1)}
 body.light{cursor:auto}
 a{color:inherit;text-decoration:none}
 img{display:block}
@@ -709,9 +712,9 @@ nav::after{
   color:#f8a5a0;
 }
 .cbtn-gmail--desktop{display:inline-flex}
-.cbtn-gmail--mobile{display:none}
+.cbtn-gmail--mobile{display:none!important}
 .cbtn-linkedin--desktop{display:inline-flex}
-.cbtn-linkedin--mobile{display:none}
+.cbtn-linkedin--mobile{display:none!important}
 .btn-txt-short{display:none}
 .chip-mail--desktop{display:inline-flex}
 .chip-mail--mobile{display:none}

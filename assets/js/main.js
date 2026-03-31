@@ -5,7 +5,7 @@ window.scrollTo(0,0);
 // THEME TOGGLE — always starts white (ignores any saved preference)
 var _theme='light';
 function getTheme(){return _theme;}
-function applyTheme(t){_theme=t;document.body.classList.toggle('light',t==='light');}
+function applyTheme(t){_theme=t;document.body.classList.toggle('light',t==='light');document.documentElement.classList.toggle('light',t==='light');if(window._setWebGLTheme)window._setWebGLTheme(t==='light');}
 function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
 applyTheme('light');
 var tBtn=document.getElementById('theme-toggle');
@@ -180,3 +180,93 @@ document.addEventListener('DOMContentLoaded',function(){
     setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},18000);
   },1400);
 });
+
+// FLOW FIELD BACKGROUND
+(function(){
+  var cvs=document.getElementById('webgl-bg');
+  if(!cvs)return;
+  var ctx=cvs.getContext('2d');
+  if(!ctx)return;
+  var W,H,dpr=1,particles=[],animId,resizeTimer;
+  var mouse={x:-9999,y:-9999};
+  var lightVal=1,lightTarget=1;
+  var dc=[129,140,248],lc=[79,100,220]; // dark/light particle base colors
+
+  function pCount(){return W<768?200:W<1200?350:600;}
+
+  function Particle(init){this.reset(init);}
+  Particle.prototype.reset=function(init){
+    this.x=Math.random()*W;this.y=Math.random()*H;
+    this.vx=0;this.vy=0;
+    this.age=init?Math.floor(Math.random()*300):0;
+    this.life=Math.random()*200+100;
+  };
+  Particle.prototype.update=function(){
+    var a=(Math.cos(this.x*0.005)+Math.sin(this.y*0.005))*Math.PI;
+    this.vx+=Math.cos(a)*0.16;this.vy+=Math.sin(a)*0.16;
+    var dx=mouse.x-this.x,dy=mouse.y-this.y;
+    var d=Math.sqrt(dx*dx+dy*dy),r=150;
+    if(d<r){var f=(r-d)/r;this.vx-=dx*f*0.05;this.vy-=dy*f*0.05;}
+    this.x+=this.vx;this.y+=this.vy;
+    this.vx*=0.95;this.vy*=0.95;
+    this.age++;
+    if(this.age>this.life)this.reset(false);
+    if(this.x<0)this.x=W;if(this.x>W)this.x=0;
+    if(this.y<0)this.y=H;if(this.y>H)this.y=0;
+  };
+  Particle.prototype.draw=function(){
+    var a=1-Math.abs((this.age/this.life)-0.5)*2;
+    ctx.globalAlpha=Math.max(0,a);
+    ctx.fillRect(this.x,this.y,1.5,1.5);
+  };
+
+  function setupCanvas(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=window.innerWidth;H=window.innerHeight;
+    cvs.width=W*dpr;cvs.height=H*dpr;
+    cvs.style.width=W+'px';cvs.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function init(){
+    lightVal=lightTarget=document.documentElement.classList.contains('light')?1:0;
+    setupCanvas();
+    particles=[];
+    var n=pCount();for(var i=0;i<n;i++)particles.push(new Particle(true));
+  }
+
+  function resize(){
+    setupCanvas();
+    var n=pCount();
+    while(particles.length>n)particles.pop();
+    while(particles.length<n)particles.push(new Particle(true));
+  }
+
+  function lerp3(a,b,t){return[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+
+  function animate(){
+    lightVal+=(lightTarget-lightVal)*0.04;
+    ctx.globalAlpha=1;
+    ctx.fillStyle=lightVal>0.5?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.12)';
+    ctx.fillRect(0,0,W,H);
+    var c=lerp3(dc,lc,lightVal);
+    var pa=lightVal>0.5?0.45:0.85;
+    ctx.fillStyle='rgba('+Math.round(c[0])+','+Math.round(c[1])+','+Math.round(c[2])+','+pa+')';
+    for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
+    ctx.globalAlpha=1;
+    animId=requestAnimationFrame(animate);
+  }
+
+  window._setWebGLTheme=function(isLight){lightTarget=isLight?1:0;};
+
+  window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+  document.addEventListener('mouseleave',function(){mouse.x=-9999;mouse.y=-9999;});
+  window.addEventListener('touchmove',function(e){
+    if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}
+  },{passive:true});
+  window.addEventListener('touchend',function(){mouse.x=-9999;mouse.y=-9999;},{passive:true});
+  window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,150);});
+
+  init();
+  animate();
+})();
