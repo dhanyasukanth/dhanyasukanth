@@ -17,11 +17,8 @@
 </head>
 <body>
 <canvas id="webgl-bg"></canvas>
-<div id="page-wrap">
-<div id="c-dot"></div>
-<div id="c-ring"></div>
 
-<!-- LOADER -->
+<!-- LOADER — must be OUTSIDE #page-wrap so its opacity is independent -->
 <div id="loader">
   <canvas id="aurora-canvas"></canvas>
   <div class="ldr-term">
@@ -36,6 +33,10 @@
     <div class="tl"><span class="g">&#10003;</span> Portfolio online. Zero downtime deploy. <span class="tcur"></span></div>
   </div>
 </div>
+
+<div id="page-wrap">
+<div id="c-dot"></div>
+<div id="c-ring"></div>
 
 <!-- NAV -->
 <nav id="nav">
