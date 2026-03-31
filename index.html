@@ -20,7 +20,7 @@
 
 <!-- LOADER — must be OUTSIDE #page-wrap so its opacity is independent -->
 <div id="loader">
-  <canvas id="aurora-canvas"></canvas>
+  <div id="falling-pattern"></div>
   <div class="ldr-term">
     <div class="term-bar">
       <div class="td"></div><div class="td"></div><div class="td"></div>
@@ -128,6 +128,7 @@
     </rect>
   </svg>
   <div class="h-in">
+    <canvas id="name-ptcl"></canvas>
     <div class="h-badge"><span class="h-badge-cloud"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></span> Senior Cloud Engineer &middot; Bengaluru, IN</div>
     <h1 class="h-name">Dhanya<em>Sukanth B.K.</em></h1>
     <div class="h-typ">
@@ -390,29 +391,35 @@
 </footer>
 
 <!-- CHATBOT -->
-<button id="chatfab" onclick="toggleChat()">&#128172;</button>
+<button id="chatfab" onclick="toggleChat()" aria-label="Open portfolio assistant">
+  <span class="fab-ring"></span>
+  <svg class="fab-ico fab-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 11V7"/><circle cx="12" cy="5" r="2"/><line x1="8" y1="15" x2="8" y2="15"/><line x1="16" y1="15" x2="16" y2="15"/></svg>
+  <svg class="fab-ico fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="20" height="20"><path d="M18 6L6 18M6 6l12 12"/></svg>
+</button>
 <div id="chatwin">
-  <div class="chh">
-    <div style="display:flex;align-items:center">
-      <div class="chav">&#9729;</div>
-      <div class="chin"><div class="chn">Portfolio Assistant</div><div class="chs">&#9679; Online &mdash; Ask me about Dhanya</div></div>
+  <div class="cw-head">
+    <div class="cw-head-l">
+      <div class="cw-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 11V7"/><circle cx="12" cy="5" r="2"/><line x1="8" y1="15" x2="8" y2="15"/><line x1="16" y1="15" x2="16" y2="15"/></svg></div>
+      <div>
+        <div class="cw-title">Portfolio Assistant</div>
+        <div class="cw-status"><span class="cw-online"></span>Online &mdash; Ask me about Dhanya</div>
+      </div>
     </div>
-    <button class="chx" onclick="toggleChat()">&#215;</button>
+    <button class="cw-close" onclick="toggleChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="15" height="15"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="chm" id="chm">
-    <div class="msg bot">Hello! I am Dhanya&rsquo;s portfolio assistant. Feel free to ask about his skills, certifications, experience, or how to get in touch.</div>
+    <div class="msg bot">Hello! I&rsquo;m Dhanya&rsquo;s portfolio assistant. Feel free to ask about his skills, certifications, experience, or how to get in touch.</div>
   </div>
-  <div class="chq" id="chq">
-    <button class="qb" onclick="qa('What is your core tech stack?')">Skills</button>
-    <button class="qb" onclick="qa('Tell me about your work experience')">Experience</button>
-    <button class="qb" onclick="qa('What are your GitHub projects?')">Projects</button>
-    <button class="qb" onclick="qa('How can I contact him?')">Contact</button>
-  </div>
-  <div class="chi">
-    <input type="text" id="chinp" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendMsg()"/>
-    <button id="chsnd" onclick="sendMsg()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#040610" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9z"/></svg>
-    </button>
+  <div class="chq" id="chq"></div>
+  <div class="cw-foot">
+    <div class="cw-inp-row">
+      <input type="text" id="chinp" placeholder="Ask anything about Dhanya..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button id="chsnd" onclick="sendMsg()" title="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9z"/></svg></button>
+    </div>
+    <div class="cw-hint">
+      <span>Press <kbd>Enter</kbd> to send</span>
+      <span class="cw-sys"><span class="cw-online"></span>All systems operational</span>
+    </div>
   </div>
 </div>
 </div><!-- /#page-wrap -->

@@ -47,7 +47,11 @@ function reply(m) {
 }
 
 // UI Functions remain the same...
-function toggleChat(){document.getElementById('chatwin').classList.toggle('open')}
+function toggleChat(){
+  document.getElementById('chatwin').classList.toggle('open');
+  var fab=document.getElementById('chatfab');
+  if(fab)fab.classList.toggle('open');
+}
 function addMsg(t,f){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg '+f;if(f==='bot'){d.innerHTML=t.replace(/\n/g,'<br>');}else{d.textContent=t;}m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function showTyp(){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg bot typ';d.id='typ';d.innerHTML='<span></span><span></span><span></span>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function sendMsg(){var inp=document.getElementById('chinp'),t=(inp.value||'').trim();if(!t)return;addMsg(t,'usr');inp.value='';document.getElementById('chq').style.display='none';showTyp();setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(t),'bot');},750);}
