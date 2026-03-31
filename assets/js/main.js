@@ -32,7 +32,6 @@ function dismissLoader(){
   setTimeout(function(){
     l.style.display='none';
     document.body.classList.add('page-ready');
-    initNameEffect();
   },700);
 }
 setTimeout(dismissLoader,2000);
@@ -152,93 +151,6 @@ document.addEventListener('DOMContentLoaded',function(){
     setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},18000);
   },3500);
 });
-
-// NAME PARTICLE REVEAL — full viewport edge scatter → forms name
-function initNameEffect(){
-  var cvs=document.getElementById('name-ptcl');
-  if(!cvs)return;
-  function run(){
-    var ctx=cvs.getContext('2d');
-    if(!ctx)return;
-    var isLt=document.documentElement.classList.contains('light');
-    var W=window.innerWidth,H=window.innerHeight;
-    var dpr=Math.min(window.devicePixelRatio||1,2);
-    cvs.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:50;';
-    cvs.width=W*dpr; cvs.height=H*dpr;
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    // Sample name pixels from offscreen canvas (CSS pixels, no DPR scaling needed)
-    var off=document.createElement('canvas');
-    off.width=W; off.height=H;
-    var octx=off.getContext('2d');
-    var fs1=Math.min(Math.floor(W*0.13),100);
-    var fs2=Math.min(Math.floor(W*0.108),85);
-    var ny=H*0.34;
-    octx.fillStyle='#fff';
-    octx.textAlign='center'; octx.textBaseline='top';
-    octx.font='800 '+fs1+'px "Clash Display",sans-serif';
-    octx.fillText('Dhanya',W/2,ny);
-    octx.font='700 '+fs2+'px "Clash Display",sans-serif';
-    octx.fillText('Sukanth B.K.',W/2,ny+fs1*1.1);
-    var imgData=octx.getImageData(0,0,W,H).data;
-    var coords=[],step=3;
-    for(var py=0;py<H;py+=step){
-      for(var px=0;px<W;px+=step){
-        if(imgData[(py*W+px)*4+3]>100)coords.push({x:px,y:py});
-      }
-    }
-    if(!coords.length)return;
-    // Shuffle for natural converge order
-    for(var j=coords.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var tmp=coords[j];coords[j]=coords[k];coords[k]=tmp;}
-    var CR=isLt?[30,90,210]:[100,185,255];
-    var pts=[];
-    var maxP=Math.min(coords.length,1800);
-    for(var m=0;m<maxP;m++){
-      var sp=Math.random()*5+3;
-      // Scatter origin — random viewport edge (top/right/bottom/left)
-      var edge=Math.floor(Math.random()*4),sx,sy;
-      if(edge===0){sx=Math.random()*W;sy=-40;}
-      else if(edge===1){sx=W+40;sy=Math.random()*H;}
-      else if(edge===2){sx=Math.random()*W;sy=H+40;}
-      else{sx=-40;sy=Math.random()*H;}
-      pts.push({x:sx,y:sy,vx:(Math.random()-0.5)*2,vy:(Math.random()-0.5)*2,
-                tx:coords[m].x,ty:coords[m].y,sp:sp,f:sp*0.04,cw:0,cbr:Math.random()*0.025+0.006});
-    }
-    var gAlpha=1,fading=false,startTime=Date.now(),animId;
-    function frame(){
-      var now=Date.now();
-      // destination-out fades existing pixels to transparent — NO colored rectangle visible over the page
-      ctx.globalCompositeOperation='destination-out';
-      ctx.globalAlpha=0.13;
-      ctx.fillRect(0,0,W,H);
-      ctx.globalCompositeOperation='source-over';
-      ctx.fillStyle='rgb('+CR[0]+','+CR[1]+','+CR[2]+')';
-      for(var i=0;i<pts.length;i++){
-        var p=pts[i];
-        var dx=p.tx-p.x,dy=p.ty-p.y;
-        var dist=Math.sqrt(dx*dx+dy*dy)||0.001;
-        var prox=dist<80?dist/80:1;
-        var fx=(dx/dist)*p.sp*prox,fy=(dy/dist)*p.sp*prox;
-        var sx=fx-p.vx,sy=fy-p.vy;
-        var sm=Math.sqrt(sx*sx+sy*sy)||0.001;
-        p.vx+=(sx/sm)*p.f; p.vy+=(sy/sm)*p.f;
-        p.x+=p.vx; p.y+=p.vy;
-        p.vx*=0.88; p.vy*=0.88;
-        if(p.cw<1)p.cw=Math.min(p.cw+p.cbr,1);
-        ctx.globalAlpha=p.cw*gAlpha;
-        ctx.fillRect(p.x-0.5,p.y-0.5,2.5,2.5);
-      }
-      ctx.globalAlpha=1;
-      if(!fading&&now-startTime>1500)fading=true;
-      if(fading){
-        gAlpha=Math.max(0,gAlpha-0.016);
-        if(gAlpha<=0){cancelAnimationFrame(animId);ctx.clearRect(0,0,W,H);cvs.style.display='none';return;}
-      }
-      animId=requestAnimationFrame(frame);
-    }
-    animId=requestAnimationFrame(frame);
-  }
-  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(run);}else{setTimeout(run,120);}
-}
 
 // FLOW FIELD BACKGROUND — exact NeuralBackground algorithm (hero area)
 (function(){
