@@ -1,4 +1,4 @@
-﻿// Force scroll to top on every load/refresh
+// Force scroll to top on every load/refresh
 if(history.scrollRestoration)history.scrollRestoration='manual';
 window.scrollTo(0,0);
 
@@ -131,6 +131,13 @@ document.addEventListener('DOMContentLoaded',function(){
   // mail-chip is now a plain mailto: link on mobile — no toast intercept needed
   var resumeChip=document.getElementById('resume-chip');
   if(resumeChip){resumeChip.addEventListener('click',showResumeToast);}
+  
+  // Project Cards
+  document.querySelectorAll('.project-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      window.open('https://github.com/dhanyasukanth','_blank');
+    });
+  });
 });
 // MODE TIP — shown once on page load when user is in light mode
 document.addEventListener('DOMContentLoaded',function(){
@@ -231,13 +238,13 @@ document.addEventListener('DOMContentLoaded',function(){
   },{passive:true});
   window.addEventListener('touchend',function(){mouse.x=-1000;mouse.y=-1000;},{passive:true});
   window.addEventListener('resize',function(){
-    clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(function(){
+    if(resizeTimer) cancelAnimationFrame(resizeTimer);
+    resizeTimer=requestAnimationFrame(function(){
       setupCanvas();
       var n=pCount();
       while(particles.length>n)particles.pop();
       while(particles.length<n)particles.push(new Particle());
-    },150);
+    });
   });
 
   init();

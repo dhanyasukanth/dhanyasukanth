@@ -24,7 +24,7 @@ body.light{
 }
 html{scroll-behavior:smooth;background:#040610;transition:background .6s cubic-bezier(.22,1,.36,1)}
 html.light{background:#f0f4f8}
-#webgl-bg{position:absolute;top:0;left:0;width:100%;height:100vh;z-index:0;pointer-events:none;display:block;touch-action:none}
+#webgl-bg{position:absolute;top:0;left:0;width:100%;height:100vh;height:100dvh;z-index:0;pointer-events:none;display:block;touch-action:none}
 #page-wrap{position:relative;z-index:1;opacity:0;transform:translateY(7px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
 body.page-ready #page-wrap{opacity:1;transform:none}
 body{background:var(--bg);color:var(--text);font-family:'Cabinet Grotesk',sans-serif;font-size:16px;font-weight:500;overflow-x:hidden;cursor:none;transition:background .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1)}
@@ -165,7 +165,7 @@ body.light .mobn{background:rgba(240,244,248,.98)}
 .mobn-toggle-label{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
 
 /* HERO */
-#hero{min-height:100vh;display:flex;align-items:center;padding:140px 7% 100px;position:relative;overflow:hidden}
+#hero{min-height:100vh;min-height:100dvh;display:flex;align-items:center;padding:140px 7% 100px;position:relative;overflow:hidden}
 .h-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(79,172,254,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(79,172,254,.02) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 70% 75% at 50% 50%,#000 20%,transparent 80%)}
 .h-atmo{position:absolute;top:-20%;left:-15%;width:70%;height:95%;background:radial-gradient(ellipse,rgba(79,172,254,.06) 0%,rgba(167,139,250,.04) 40%,transparent 68%);animation:atmoF 10s ease-in-out infinite;pointer-events:none}
 .h-atmo2{position:absolute;bottom:-10%;right:-5%;width:45%;height:60%;background:radial-gradient(ellipse,rgba(167,139,250,.04) 0%,transparent 65%);animation:atmoF 13s ease-in-out infinite reverse;pointer-events:none}

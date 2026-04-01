@@ -46,19 +46,50 @@ function reply(m) {
   return kb.def;
 }
 
-// UI Functions remain the same...
+// UI Functions
 function toggleChat(){
   document.getElementById('chatwin').classList.toggle('open');
   var fab=document.getElementById('chatfab');
   if(fab)fab.classList.toggle('open');
 }
-function addMsg(t,f){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg '+f;if(f==='bot'){d.innerHTML=t.replace(/\n/g,'<br>');}else{d.textContent=t;}m.appendChild(d);m.scrollTop=m.scrollHeight;}
+
+// Basic HTML sanitization for extra safety
+function sanitizeHTML(str) {
+  var temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
+}
+
+function addMsg(t,f){
+  var m=document.getElementById('chm'),d=document.createElement('div');
+  d.className='msg '+f;
+  if(f==='bot'){
+    // Bot draws from kb which is safe, but we sanitize just in case
+    d.innerHTML=t.replace(/\n/g,'<br>');
+  }else{
+    // textContent automatically sanitizes HTML tags
+    d.textContent=t;
+  }
+  m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
 function showTyp(){var m=document.getElementById('chm'),d=document.createElement('div');d.className='msg bot typ';d.id='typ';d.innerHTML='<span></span><span></span><span></span>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function sendMsg(){var inp=document.getElementById('chinp'),t=(inp.value||'').trim();if(!t)return;addMsg(t,'usr');inp.value='';document.getElementById('chq').style.display='none';showTyp();setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(t),'bot');},750);}
 function qa(q){document.getElementById('chq').style.display='none';addMsg(q,'usr');showTyp();setTimeout(function(){var ti=document.getElementById('typ');if(ti)ti.remove();addMsg(reply(q),'bot');},750);}
 
-// Quick Replies
+// Event Listeners & Quick Replies
 document.addEventListener('DOMContentLoaded',function(){
+  // Bind Chatbot triggers
+  var chatfab = document.getElementById('chatfab');
+  if (chatfab) chatfab.addEventListener('click', toggleChat);
+  
+  var chatclose = document.getElementById('chatclose');
+  if (chatclose) chatclose.addEventListener('click', toggleChat);
+  
+  var chinp = document.getElementById('chinp');
+  if (chinp) chinp.addEventListener('keydown', function(event) { if (event.key === 'Enter') sendMsg(); });
+  
+  var chsnd = document.getElementById('chsnd');
+  if (chsnd) chsnd.addEventListener('click', sendMsg);
   var chq = document.getElementById('chq');
   if(!chq) return;
   var suggestions = [
