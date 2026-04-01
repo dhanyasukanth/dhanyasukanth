@@ -168,35 +168,39 @@ document.addEventListener('DOMContentLoaded',function(){
   var speed=0.6;
 
   function isLt(){return document.documentElement.classList.contains('light');}
-  function pColor(){return isLt()?'rgba(79,100,220,0.55)':'rgba(129,140,248,0.65)';}
-  function tColor(){return isLt()?'rgba(240,244,248,0.15)':'rgba(0,0,0,0.15)';}
-  function pCount(){return W<768?80:W<1200?180:300;}
+  function pColor(){return isLt()?'rgba(30,60,140,0.8)':'rgba(160,175,255,0.85)';}
+  function pCount(){return W<768?150:W<1200?350:600;}
 
-  // Exact NeuralBackground Particle
+  // Particle
   function Particle(){
     this.x=Math.random()*W; this.y=Math.random()*H;
     this.vx=0; this.vy=0;
     this.age=0; this.life=Math.random()*200+100;
+    this.prevX=this.x; this.prevY=this.y;
   }
   Particle.prototype.update=function(){
-    // EXACT src angle formula
     var angle=(Math.cos(this.x*0.005)+Math.sin(this.y*0.005))*Math.PI;
     this.vx+=Math.cos(angle)*0.2*speed;
     this.vy+=Math.sin(angle)*0.2*speed;
-    // Mouse repulsion — exact src
+    // Mouse ATTRACTION — particles drift toward cursor
     var dx=mouse.x-this.x,dy=mouse.y-this.y;
-    var dist=Math.sqrt(dx*dx+dy*dy),ir=150;
-    if(dist<ir){var f=(ir-dist)/ir;this.vx-=dx*f*0.05;this.vy-=dy*f*0.05;}
+    var dist=Math.sqrt(dx*dx+dy*dy),ir=250;
+    if(dist<ir&&dist>1){var f=(ir-dist)/ir*0.03;this.vx+=dx/dist*f*ir;this.vy+=dy/dist*f*ir;}
+    this.prevX=this.x; this.prevY=this.y;
     this.x+=this.vx; this.y+=this.vy;
     this.vx*=0.95; this.vy*=0.95;
     this.age++;
-    if(this.age>this.life){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=0;this.vy=0;this.age=0;this.life=Math.random()*200+100;}
+    if(this.age>this.life){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=0;this.vy=0;this.age=0;this.life=Math.random()*200+100;this.prevX=this.x;this.prevY=this.y;}
     if(this.x<0)this.x=W; if(this.x>W)this.x=0;
     if(this.y<0)this.y=H; if(this.y>H)this.y=0;
   };
   Particle.prototype.draw=function(){
-    ctx.globalAlpha=Math.max(0,(1-Math.abs((this.age/this.life)-0.5)*2))*0.55;
-    ctx.fillRect(this.x,this.y,2,2);
+    var alpha=Math.max(0,(1-Math.abs((this.age/this.life)-0.5)*2))*0.7;
+    ctx.globalAlpha=alpha;
+    ctx.beginPath();
+    ctx.moveTo(this.prevX,this.prevY);
+    ctx.lineTo(this.x,this.y);
+    ctx.stroke();
   };
 
   function setupCanvas(){
@@ -215,7 +219,9 @@ document.addEventListener('DOMContentLoaded',function(){
   function animate(){
     if(paused){animId=requestAnimationFrame(animate);return;}
     ctx.clearRect(0,0,W,H);
-    ctx.fillStyle=pColor();
+    ctx.strokeStyle=pColor();
+    ctx.lineWidth=1.8;
+    ctx.lineCap='round';
     for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
     ctx.globalAlpha=1;
     animId=requestAnimationFrame(animate);
