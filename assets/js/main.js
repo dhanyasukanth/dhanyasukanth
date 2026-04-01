@@ -165,12 +165,12 @@ document.addEventListener('DOMContentLoaded',function(){
   if(!ctx)return;
   var W,H,dpr=1,particles=[],animId,resizeTimer,paused=false;
   var mouse={x:-1000,y:-1000};
-  var speed=1;
+  var speed=0.6;
 
   function isLt(){return document.documentElement.classList.contains('light');}
   function pColor(){return isLt()?'rgba(79,100,220,0.55)':'rgba(129,140,248,0.65)';}
   function tColor(){return isLt()?'rgba(240,244,248,0.15)':'rgba(0,0,0,0.15)';}
-  function pCount(){return W<768?150:W<1200?350:600;}
+  function pCount(){return W<768?80:W<1200?180:300;}
 
   // Exact NeuralBackground Particle
   function Particle(){
@@ -195,9 +195,8 @@ document.addEventListener('DOMContentLoaded',function(){
     if(this.y<0)this.y=H; if(this.y>H)this.y=0;
   };
   Particle.prototype.draw=function(){
-    // Exact src: fade in/out based on age
-    ctx.globalAlpha=Math.max(0,1-Math.abs((this.age/this.life)-0.5)*2);
-    ctx.fillRect(this.x,this.y,1.5,1.5);
+    ctx.globalAlpha=Math.max(0,(1-Math.abs((this.age/this.life)-0.5)*2))*0.55;
+    ctx.fillRect(this.x,this.y,2,2);
   };
 
   function setupCanvas(){
@@ -215,9 +214,7 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   function animate(){
     if(paused){animId=requestAnimationFrame(animate);return;}
-    ctx.fillStyle=tColor();
-    ctx.globalAlpha=1;
-    ctx.fillRect(0,0,W,H);
+    ctx.clearRect(0,0,W,H);
     ctx.fillStyle=pColor();
     for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
     ctx.globalAlpha=1;
