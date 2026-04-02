@@ -24,7 +24,7 @@ document.querySelectorAll('a,button,.pc,.cc,.pill').forEach(function(el){
   el.addEventListener('mouseleave',function(){ring.classList.remove('hovering')});
 });
 
-// LOADER
+// LOADER ASTRO DROP
 function dismissLoader(){
   var l=document.getElementById('loader');
   if(!l){document.body.classList.add('page-ready');return;}
@@ -34,14 +34,65 @@ function dismissLoader(){
     document.body.classList.add('page-ready');
   },700);
 }
-setTimeout(dismissLoader,2000);
+
+document.addEventListener("DOMContentLoaded", function() {
+  const astroWrap = document.getElementById('astro-wrap');
+  const term = document.querySelector('.ldr-term');
+  const loader = document.getElementById('loader');
+
+  if(astroWrap && term && loader) {
+    let animDur = 3800; // Match the 3.8s CSS transition time sync
+    function calculateAstroDrop() {
+      let tRect = term.getBoundingClientRect();
+      let astroClip = document.getElementById('astro-clip-zone');
+
+      // Forces the clipping zone boundary to precisely match the top of the terminal
+      if(astroClip) {
+        astroClip.style.height = tRect.top + 'px';
+      }
+      
+      // Since the astronaut character occupies roughly 1/3rd of the square image padding
+      // Multiplying by 1.5 effectively forces the VISUAL astronaut to strictly hit 50% of the terminal width!
+      let termWidth = tRect.width;
+      astroWrap.style.width = (termWidth * 1.5) + 'px';
+      
+      // Capture the bounding rect after width rules have immediately painted
+      let aRect = astroWrap.getBoundingClientRect();
+      
+      // To ensure the visually drawn astronaut mathematically drops completely across the terminal line 
+      // without freezing halfway on wide/mobile screens, we offset the target by the bounding box density
+      let targetY = tRect.top - (aRect.height * 0.15); 
+      astroWrap.style.top = targetY + 'px';
+    }
+
+    function startDrop() {
+      // Begin the fall absolutely instantly as the page loads
+      setTimeout(() => {
+        calculateAstroDrop();
+        window.addEventListener('resize', calculateAstroDrop);
+        
+        setTimeout(() => {
+          console.log("landed");
+          dismissLoader(); 
+        }, animDur);
+      }, 0); // 0 delay
+    }
+    
+    // Execute immediately without waiting for massive image buffering!
+    startDrop();
+
+  } else {
+    setTimeout(dismissLoader, 2000);
+  }
+});
+
 // absolute fallback — always show portfolio even if something fails
 setTimeout(function(){
   document.body.classList.add('page-ready');
   var l=document.getElementById('loader');
   if(l){l.classList.add('out');l.style.display='none';}
   if(window._stopAurora)window._stopAurora();
-},5000);
+}, 6500);
 
 // MOBILE NAV
 var hamBtn=document.getElementById('ham');if(hamBtn)hamBtn.addEventListener('click',function(){var mn=document.getElementById('mobn');if(mn)mn.classList.toggle('open')});
