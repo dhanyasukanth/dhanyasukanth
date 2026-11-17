@@ -1,436 +1,405 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Dhanya Sukanth &mdash; Senior Cloud Engineer</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-<link rel="shortcut icon" href="favicon.svg"/>
-<!-- Security Headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none';">
-<meta http-equiv="Referrer-Policy" content="no-referrer">
-<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/css/style.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Security policy. Everything is served from this origin: no third-party scripts, styles, fonts or network calls.
+     Header-only protections (HSTS, frame-ancestors, nosniff, Permissions-Policy) are set at the CDN: see _headers and README. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Dhanya Sukanth B.K. | Cloud Administrator</title>
+<meta name="description" content="Dhanya Sukanth B.K. is a Cloud Administrator at Microland in Bengaluru, working on cloud infrastructure, application security and production support for global enterprise clients.">
+<meta name="author" content="Dhanya Sukanth B.K.">
+<meta name="theme-color" content="#e6edf9">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dhanya Sukanth B.K. | Cloud Administrator">
+<meta property="og:description" content="Cloud infrastructure, application security and production support for global enterprise clients. AWS, Azure and Terraform certified.">
+<meta property="og:site_name" content="Dhanya Sukanth B.K.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preload" href="assets/fonts/sora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/images/astronaut.webp" as="image" type="image/webp">
+<link rel="stylesheet" href="assets/css/style.css">
+<noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
+<script src="assets/js/chatbot.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Dhanya Sukanth B.K.","jobTitle":"Cloud Administrator","worksFor":{"@type":"Organization","name":"Microland"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"alumniOf":{"@type":"CollegeOrUniversity","name":"Visvesvaraya Technological University"},"knowsAbout":["Amazon Web Services","Microsoft Azure","Terraform","Akamai","Imperva Cloud WAF","Grafana","Prometheus","Linux administration"],"sameAs":["https://www.linkedin.com/in/dhanya-sukanth-b-k","https://github.com/dhanyasukanth"]}
+</script>
 </head>
 <body>
-<canvas id="webgl-bg"></canvas>
 
-<!-- LOADER — must be OUTSIDE #page-wrap so its opacity is independent -->
-<div id="loader">
-  <div id="falling-pattern"></div>
-  <div id="astro-clip-zone">
-    <div id="astro-wrap">
-      <div id="astro-pendulum">
-        <img id="astro-fall" src="assets/images/astronaut.png" alt="Astronaut" />
-      </div>
-    </div>
+<!-- Icon sprite -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 21.796 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="m22 7-10 6.5L2 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97A6 6 0 0 0 6.34 9.02 5 5 0 0 0 7 19h10.5z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4" rx=".5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="18" height="11" rx="3"/><path d="M12 10V6"/><circle cx="12" cy="4.2" r="1.8"/><path d="M8.5 15.5h.01M15.5 15.5h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- LOADER: a 3 second, CSS-timed sequence. Purely decorative. -->
+<div id="loader" aria-hidden="true">
+  <div class="rain rain-a"></div>
+  <div class="rain rain-b"></div>
+  <div class="rain rain-c"></div>
+  <div id="astro-clip">
+    <div id="astro"><img id="astro-img" src="assets/images/astronaut.webp" width="276" height="640" alt="" decoding="sync" fetchpriority="high"></div>
   </div>
-  <div class="ldr-term">
-    <div class="term-bar">
-      <div class="td"></div><div class="td"></div><div class="td"></div>
-      <span class="term-ttl">cloud-terminal &mdash; portfolio.sh</span>
-    </div>
+  <div class="term">
+    <div class="term-bar"><span class="td"></span><span class="td"></span><span class="td"></span><span class="term-ttl">cloud-terminal &mdash; portfolio.sh</span></div>
     <div class="tl"><span class="m">$</span> ./deploy-portfolio.sh --env production</div>
-    <div class="tl"><span class="g">&#10003;</span> Connecting to AWS... credentials valid</div>
-    <div class="tl"><span class="g">&#10003;</span> Terraform plan: <span class="y">3 to add</span>, 0 to destroy</div>
-    <div class="tl"><span class="g">&#10003;</span> Provisioning infrastructure to the cloud&#8230;</div>
-    <div class="tl"><span class="g">&#10003;</span> Portfolio online. Zero downtime deploy. <span class="tcur"></span></div>
+    <div class="tl"><span class="ok">&#10003;</span> Connecting to AWS... credentials valid</div>
+    <div class="tl"><span class="ok">&#10003;</span> Terraform plan: <span class="y">3 to add</span>, 0 to destroy</div>
+    <div class="tl"><span class="ok">&#10003;</span> Provisioning infrastructure to the cloud&hellip;</div>
+    <div class="tl"><span class="ok">&#10003;</span> Portfolio online. Zero downtime deploy.<span class="tcur"></span></div>
   </div>
 </div>
 
-<div id="page-wrap">
-<div id="c-dot"></div>
-<div id="c-ring"></div>
-
 <!-- NAV -->
-<nav id="nav">
-  <div class="n-logo"></div>
-  <div class="n-links">
-    <a class="n-lnk" href="#about" data-sec="about">About</a>
-    <a class="n-lnk" href="#experience" data-sec="experience">Experience</a>
-    <a class="n-lnk" href="#certs" data-sec="certs">Certifications</a>
-    <a class="n-lnk" href="#projects" data-sec="projects">Projects</a>
-    <a class="n-lnk" href="#resume" data-sec="resume">Resume</a>
-    <a class="n-lnk n-cta" href="#contact"><span>Let&rsquo;s Connect &#8599;</span></a>
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Dhanya Sukanth, back to top">
+      <span class="brand-mark" aria-hidden="true">DS</span>
+      <span class="brand-name">Dhanya Sukanth</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <span class="nav-ind" aria-hidden="true"></span>
+      <a class="n-lnk" href="#about" data-sec="about">About</a>
+      <a class="n-lnk" href="#experience" data-sec="experience">Experience</a>
+      <a class="n-lnk" href="#certs" data-sec="certs">Certifications</a>
+      <a class="n-lnk" href="#projects" data-sec="projects">Projects</a>
+      <a class="n-cta" href="#contact" data-sec="contact">Let&rsquo;s Connect <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="ic ic-moon"><use href="#i-moon"/></svg>
+        <svg class="ic ic-sun"><use href="#i-sun"/></svg>
+      </button>
+      <span class="theme-pun" aria-hidden="true"><span class="pun-to-dark">Toggle to initiate dark mode &uarr;</span><span class="pun-to-light">Toggle to initiate light mode &uarr;</span></span>
+    </div>
   </div>
-  <div class="n-right">
-    <button id="theme-toggle" aria-label="Toggle theme"><span class="ti ti-moon">&#127769;</span><span class="ti ti-sun">&#9728;&#65039;</span></button>
-    <button id="theme-toggle-mob" aria-label="Toggle theme"><span class="ti ti-moon">&#127769;</span><span class="ti ti-sun">&#9728;&#65039;</span></button>
-    <span class="theme-pun">Toggle to Initiate Dark Mode &#8593;</span>
-  </div>
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+</header>
+<!-- Bottom tab bar (phones and tablets) -->
+<nav class="tabbar" aria-label="Sections">
+  <span class="tab-ind" aria-hidden="true"></span>
+  <a class="tab" href="#about" data-sec="about"><svg class="ic"><use href="#i-user"/></svg><span>About</span></a>
+  <a class="tab" href="#experience" data-sec="experience"><svg class="ic"><use href="#i-briefcase"/></svg><span>Work</span></a>
+  <a class="tab" href="#certs" data-sec="certs"><svg class="ic"><use href="#i-award"/></svg><span>Certs</span></a>
+  <a class="tab" href="#projects" data-sec="projects"><svg class="ic"><use href="#i-layers"/></svg><span>Projects</span></a>
+  <a class="tab" href="#contact" data-sec="contact"><svg class="ic"><use href="#i-mail"/></svg><span>Contact</span></a>
 </nav>
 
+<main id="main">
+<span id="top"></span>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="h-grid"></div>
-  <div class="h-atmo"></div>
-  <div class="h-atmo2"></div>
-  <svg class="h-server" viewBox="0 0 300 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4facfe" stop-opacity=".75"/><stop offset="100%" stop-color="#a78bfa" stop-opacity=".4"/></linearGradient>
-      <linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4facfe" stop-opacity=".14"/><stop offset="100%" stop-color="#4facfe" stop-opacity=".02"/></linearGradient>
-      <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <rect x="12" y="6" width="276" height="448" rx="10" stroke="url(#sg1)" stroke-width="1.5" fill="url(#sg2)"/>
-    <rect x="22" y="16" width="256" height="428" rx="6" stroke="rgba(79,172,254,.15)" stroke-width=".8" fill="none"/>
-    <g stroke="rgba(79,172,254,.4)" stroke-width=".9">
-      <rect x="34" y="28" width="232" height="44" rx="4" fill="rgba(79,172,254,.07)"/>
-      <circle cx="54" cy="50" r="6" fill="#34d399" filter="url(#glow)"><animate attributeName="opacity" values="1;.25;1" dur="1.9s" repeatCount="indefinite"/></circle>
-      <circle cx="72" cy="50" r="4" fill="rgba(79,172,254,.6)"/>
-      <rect x="90" y="43" width="80" height="5.5" rx="2.5" fill="rgba(79,172,254,.22)"/>
-      <rect x="90" y="53" width="54" height="3.5" rx="1.5" fill="rgba(79,172,254,.14)"/>
-      <rect x="210" y="38" width="42" height="24" rx="3" fill="rgba(79,172,254,.06)" stroke="rgba(79,172,254,.3)"/>
-      <rect x="34" y="82" width="232" height="44" rx="4" fill="rgba(79,172,254,.07)"/>
-      <circle cx="54" cy="104" r="6" fill="#34d399" filter="url(#glow)"><animate attributeName="opacity" values="1;.2;1" dur="2.3s" repeatCount="indefinite"/></circle>
-      <circle cx="72" cy="104" r="4" fill="rgba(79,172,254,.6)"/>
-      <rect x="90" y="97" width="94" height="5.5" rx="2.5" fill="rgba(79,172,254,.22)"/>
-      <rect x="90" y="107" width="66" height="3.5" rx="1.5" fill="rgba(79,172,254,.14)"/>
-      <rect x="210" y="92" width="42" height="24" rx="3" fill="rgba(79,172,254,.06)" stroke="rgba(79,172,254,.3)"/>
-      <rect x="34" y="136" width="232" height="44" rx="4" fill="rgba(251,191,36,.04)"/>
-      <circle cx="54" cy="158" r="6" fill="#fbbf24" filter="url(#glow)"><animate attributeName="opacity" values="1;.35;1" dur="1.5s" repeatCount="indefinite"/></circle>
-      <circle cx="72" cy="158" r="4" fill="rgba(79,172,254,.4)"/>
-      <rect x="90" y="151" width="70" height="5.5" rx="2.5" fill="rgba(79,172,254,.2)"/>
-      <rect x="90" y="161" width="100" height="3.5" rx="1.5" fill="rgba(79,172,254,.12)"/>
-      <rect x="210" y="146" width="42" height="24" rx="3" fill="rgba(251,191,36,.06)" stroke="rgba(251,191,36,.3)"/>
-      <rect x="34" y="190" width="232" height="44" rx="4" fill="rgba(79,172,254,.07)"/>
-      <circle cx="54" cy="212" r="6" fill="#34d399" filter="url(#glow)"><animate attributeName="opacity" values="1;.3;1" dur="2.1s" repeatCount="indefinite"/></circle>
-      <circle cx="72" cy="212" r="4" fill="rgba(79,172,254,.6)"/>
-      <rect x="90" y="205" width="86" height="5.5" rx="2.5" fill="rgba(79,172,254,.22)"/>
-      <rect x="90" y="215" width="60" height="3.5" rx="1.5" fill="rgba(79,172,254,.14)"/>
-      <rect x="210" y="200" width="42" height="24" rx="3" fill="rgba(79,172,254,.06)" stroke="rgba(79,172,254,.3)"/>
-      <rect x="34" y="244" width="232" height="32" rx="4" fill="rgba(167,139,250,.05)" stroke="rgba(167,139,250,.3)"/>
-      <g fill="rgba(167,139,250,.5)">
-        <rect x="46" y="253" width="8" height="13" rx="1.5"/><rect x="60" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="74" y="253" width="8" height="13" rx="1.5"/><rect x="88" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="102" y="253" width="8" height="13" rx="1.5"/><rect x="116" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="130" y="253" width="8" height="13" rx="1.5"/><rect x="144" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="158" y="253" width="8" height="13" rx="1.5"/><rect x="172" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="186" y="253" width="8" height="13" rx="1.5"/><rect x="200" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="214" y="253" width="8" height="13" rx="1.5"/><rect x="228" y="253" width="8" height="13" rx="1.5"/>
-        <rect x="242" y="253" width="8" height="13" rx="1.5"/>
-      </g>
-      <path d="M50 276 Q50 300 90 307 Q120 312 126 334" stroke="#34d399" stroke-width="1" fill="none" opacity=".5"/>
-      <path d="M64 276 Q64 302 118 308 Q150 312 158 336" stroke="#4facfe" stroke-width="1" fill="none" opacity=".5"/>
-      <path d="M78 276 Q78 295 148 302 Q183 306 190 330" stroke="#a78bfa" stroke-width="1" fill="none" opacity=".5"/>
-      <rect x="34" y="286" width="232" height="42" rx="4" fill="rgba(79,172,254,.05)"/>
-      <circle cx="54" cy="307" r="6" fill="#34d399" filter="url(#glow)"><animate attributeName="opacity" values="1;.28;1" dur="1.7s" repeatCount="indefinite"/></circle>
-      <rect x="90" y="300" width="75" height="5" rx="2" fill="rgba(79,172,254,.16)"/>
-      <rect x="210" y="294" width="42" height="22" rx="3" fill="rgba(79,172,254,.05)" stroke="rgba(79,172,254,.22)"/>
-      <g opacity=".22" stroke="rgba(79,172,254,.7)" stroke-width=".7">
-        <line x1="44" y1="346" x2="256" y2="346"/><line x1="44" y1="354" x2="256" y2="354"/>
-        <line x1="44" y1="362" x2="256" y2="362"/><line x1="44" y1="370" x2="256" y2="370"/>
-        <line x1="44" y1="378" x2="256" y2="378"/><line x1="44" y1="386" x2="256" y2="386"/>
-        <line x1="44" y1="394" x2="256" y2="394"/><line x1="44" y1="402" x2="256" y2="402"/>
-        <line x1="44" y1="410" x2="256" y2="410"/><line x1="44" y1="418" x2="256" y2="418"/>
-        <line x1="44" y1="426" x2="256" y2="426"/><line x1="44" y1="434" x2="256" y2="434"/>
-        <line x1="44" y1="442" x2="256" y2="442"/>
-      </g>
-    </g>
-    <rect x="34" y="0" width="232" height="1.5" fill="url(#sg1)" opacity=".6">
-      <animateTransform attributeName="transform" type="translate" from="0 28" to="0 450" dur="3.2s" repeatCount="indefinite"/>
-    </rect>
-  </svg>
-  <div class="h-in">
-    <div class="h-badge"><span class="h-badge-cloud"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></span> Senior Cloud Engineer &middot; Bengaluru, IN</div>
-    <h1 class="h-name">Dhanya<em>Sukanth B.K.</em></h1>
-    <div class="h-typ">
-      <span class="h-pre">&rarr;</span>
-      <span id="typed"></span>
-      <span class="tcursor"></span>
+<section id="hero" class="hero">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="role in i1"><b>Cloud Administrator</b><span>Microland &middot; Bengaluru, India</span></p>
+      <h1 class="hero-name">
+        <span class="line"><span class="line-in l1">Dhanya</span></span>
+        <span class="line"><span class="line-in l2 grad">Sukanth B.K.</span></span>
+      </h1>
+      <p class="hero-typ in i3"><span class="hero-pre" aria-hidden="true">&gt;</span><span id="typed">Cloud Infrastructure</span><span class="caret" aria-hidden="true"></span></p>
+      <p class="hero-desc in i4">
+        Cloud Administrator at <strong>Microland</strong> with over two years in cloud infrastructure, application security and production support.
+        I currently manage the Akamai and Imperva WAF platforms for <strong>Baker Hughes</strong>, and previously supported
+        GE&rsquo;s global <strong>MyApps</strong> infrastructure on AWS.
+      </p>
+      <div class="hero-cta in i5">
+        <a href="#contact" class="btn btn-primary">Let&rsquo;s Connect <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a href="./Dhanya_Sukanth_Resume.pdf" download="Dhanya_Sukanth_Resume.pdf" class="btn btn-ghost"><svg class="ic"><use href="#i-download"/></svg>Download Resume</a>
+      </div>
     </div>
-    <p class="h-desc">
-      I keep the cloud alive, the alerts <strong>suspiciously quiet</strong>, and the on-call schedule manageable.
-      Senior Cloud Engineer at <strong>Microland</strong> &mdash; supporting GE&rsquo;s <strong>MyApps Application</strong> global infrastructure
-      across Azure &amp; AWS, one Terraform module at a time.
-    </p>
-    <div class="h-chips">
-      <a href="https://www.linkedin.com/in/dhanya-sukanth-b-k" target="_blank" class="chip">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://github.com/dhanyasukanth" target="_blank" class="chip">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 21.796 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <!-- Desktop: opens Gmail compose -->
-      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=dhanyasukanth@gmail.com" target="_blank" rel="noopener" class="chip chip-mail--desktop">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
-        Email
-      </a>
-      <!-- Mobile: opens mail app -->
-      <a href="mailto:dhanyasukanth@gmail.com" class="chip chip-mail--mobile" id="mail-chip">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
-        Email
-      </a>
-      <a href="./Dhanya_Sukanth_Resume.pdf" target="_blank" class="chip chip-resume" id="resume-chip">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        View Resume
-      </a>
+
+    <div class="hero-visual in i4" aria-hidden="true">
+      <div class="hv-glow"></div>
+      <div class="hv-stage">
+      <svg class="rack" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rk-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="rk-s1"/><stop offset="1" class="rk-s2"/></linearGradient>
+        </defs>
+        <rect class="rk-frame" x="8" y="6" width="284" height="388" rx="14"/>
+        <rect class="rk-inner" x="19" y="17" width="262" height="366" rx="8"/>
+        <g class="rk-unit"><rect x="32" y="30" width="236" height="46" rx="6"/><circle class="led led-g b1" cx="54" cy="53" r="5.5"/><circle class="dot" cx="72" cy="53" r="3.5"/><rect class="bar" x="90" y="45" width="84" height="6" rx="3"/><rect class="bar bar-2" x="90" y="56" width="54" height="4" rx="2"/><rect class="port" x="212" y="41" width="42" height="24" rx="4"/></g>
+        <g class="rk-unit"><rect x="32" y="86" width="236" height="46" rx="6"/><circle class="led led-g b2" cx="54" cy="109" r="5.5"/><circle class="dot" cx="72" cy="109" r="3.5"/><rect class="bar" x="90" y="101" width="98" height="6" rx="3"/><rect class="bar bar-2" x="90" y="112" width="66" height="4" rx="2"/><rect class="port" x="212" y="97" width="42" height="24" rx="4"/></g>
+        <g class="rk-unit rk-warn"><rect x="32" y="142" width="236" height="46" rx="6"/><circle class="led led-y b3" cx="54" cy="165" r="5.5"/><circle class="dot" cx="72" cy="165" r="3.5"/><rect class="bar" x="90" y="157" width="70" height="6" rx="3"/><rect class="bar bar-2" x="90" y="168" width="104" height="4" rx="2"/><rect class="port" x="212" y="153" width="42" height="24" rx="4"/></g>
+        <g class="rk-unit"><rect x="32" y="198" width="236" height="46" rx="6"/><circle class="led led-g b4" cx="54" cy="221" r="5.5"/><circle class="dot" cx="72" cy="221" r="3.5"/><rect class="bar" x="90" y="213" width="88" height="6" rx="3"/><rect class="bar bar-2" x="90" y="224" width="60" height="4" rx="2"/><rect class="port" x="212" y="209" width="42" height="24" rx="4"/></g>
+        <g class="rk-patch"><rect x="32" y="254" width="236" height="34" rx="6"/>
+          <path d="M46 264v14M60 264v14M74 264v14M88 264v14M102 264v14M116 264v14M130 264v14M144 264v14M158 264v14M172 264v14M186 264v14M200 264v14M214 264v14M228 264v14M242 264v14M254 264v14"/></g>
+        <g class="rk-unit"><rect x="32" y="298" width="236" height="46" rx="6"/><circle class="led led-g b5" cx="54" cy="321" r="5.5"/><circle class="dot" cx="72" cy="321" r="3.5"/><rect class="bar" x="90" y="313" width="76" height="6" rx="3"/><rect class="bar bar-2" x="90" y="324" width="92" height="4" rx="2"/><rect class="port" x="212" y="309" width="42" height="24" rx="4"/></g>
+        <path class="rk-vents" d="M44 356h212M44 364h212M44 372h212"/>
+        <rect class="rk-scan" x="32" y="0" width="236" height="2" rx="1"/>
+      </svg>
+      <div class="hv-chip hv-1"><span class="pulse-dot"></span>All systems operational</div>
+      <div class="hv-chip hv-2"><span class="hv-k">terraform apply</span><svg class="ic"><use href="#i-check"/></svg></div>
+      <div class="hv-chip hv-3"><span class="hv-k">alerts firing</span><b>0</b></div>
+      </div>
     </div>
   </div>
-  <div class="scroll-cue"><div class="sc-line"></div><div class="sc-dot"></div></div>
+  <a class="scroll-cue" href="#about" aria-label="Scroll to About"><span class="sc-line"></span></a>
 </section>
 
 <!-- MARQUEE -->
-<div class="mq-wrap">
-  <div class="mq-track">
-    <span class="mi">Azure Cloud</span><span class="mi">AWS Infrastructure</span><span class="mi">Terraform IaC</span>
-    <span class="mi">Grafana Monitoring</span><span class="mi">Prometheus Alerts</span><span class="mi">Ubuntu Linux</span>
-    <span class="mi">ServiceNow ITSM</span><span class="mi">DevOps Automation</span><span class="mi">OpenSearch</span>
-    <span class="mi">Zscaler Proxy</span><span class="mi">Shell Scripting</span><span class="mi">Python</span><span class="mi">LDAP</span><span class="mi">DNS &amp; VPN</span>
-    <span class="mi">Azure Cloud</span><span class="mi">AWS Infrastructure</span><span class="mi">Terraform IaC</span>
-    <span class="mi">Grafana Monitoring</span><span class="mi">Prometheus Alerts</span><span class="mi">Ubuntu Linux</span>
-    <span class="mi">ServiceNow ITSM</span><span class="mi">DevOps Automation</span><span class="mi">OpenSearch</span>
-    <span class="mi">Zscaler Proxy</span><span class="mi">Shell Scripting</span><span class="mi">Python</span><span class="mi">LDAP</span><span class="mi">DNS &amp; VPN</span>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" data-speed="60">
+    <div class="marquee-group">
+      <span>AWS</span><span>Microsoft Azure</span><span>Terraform</span><span>Akamai</span><span>Imperva Cloud WAF</span><span>SecureSphere</span><span>SSL/TLS Certificates</span><span>Grafana</span><span>Prometheus</span><span>OpenSearch</span><span>Ubuntu Linux</span><span>ServiceNow ITSM</span><span>Zscaler Proxy</span><span>DNS &amp; VPN</span><span>Docker</span><span>Python</span><span>Shell Scripting</span>
+    </div>
   </div>
 </div>
 
 <!-- STATS -->
-<section id="stats">
-  <div class="sr">
-    <a href="#experience" class="st rv"><div class="stn" data-target="2" data-suffix="+">2+</div><div class="stl">Years Experience</div></a>
-    <a href="#certs" class="st rv d1"><div class="stn" data-target="3" data-suffix="">3</div><div class="stl">Certifications</div></a>
-    <a href="#about" class="st rv d2"><div class="stn" data-target="4" data-suffix="">4</div><div class="stl">GE Business Units</div></a>
-    <a href="#experience" class="st rv d3"><div class="stn" data-target="100" data-suffix="+">100+</div><div class="stl">Incidents Resolved</div></a>
-    <a href="#about" class="st rv d4"><div class="stn" data-target="99" data-suffix="%">99%</div><div class="stl">Uptime Maintained</div></a>
+<section id="stats" class="stats" aria-label="Key numbers">
+  <div class="wrap">
+    <div class="stat-grid">
+      <a href="#experience" class="stat rv"><span class="stat-n" data-target="2" data-suffix="+">2+</span><span class="stat-l">Years Experience</span></a>
+      <a href="#certs" class="stat rv d1"><span class="stat-n" data-target="3" data-suffix="">3</span><span class="stat-l">Certifications</span></a>
+      <a href="#experience" class="stat rv d2"><span class="stat-n" data-target="2" data-suffix="">2</span><span class="stat-l">Global Enterprise Clients</span></a>
+      <a href="#experience" class="stat rv d3"><span class="stat-n" data-target="50" data-suffix="+">50+</span><span class="stat-l">Incidents Resolved</span></a>
+    </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="si">
-    <div class="slbl rv">// who&rsquo;s behind the keyboard</div>
-    <h2 class="stitle rv d1">Not just another <span>cloud jockey.</span></h2>
-    <div class="ag">
-      <div class="bio rvl d2">
-        <p>Hey! I&rsquo;m <em>Dhanya Sukanth B.K.</em> &mdash; a Senior Cloud Engineer in <strong>Bengaluru</strong> who genuinely enjoys babysitting servers at 2 AM. Okay, the monitoring dashboards do most of the babysitting &mdash; but I set them up, so it counts.</p>
-        <p>At <em>Microland</em>, I keep GE&rsquo;s global <em>MyApps infrastructure</em> breathing across Azure and AWS. Think of me as the person who ensures the cloud doesn&rsquo;t rain indoors.</p>
-        <p>Armed with a B.E. in <em>Electronics &amp; Communications from VTU</em>, I pivoted hard into cloud infra and DevOps &mdash; and honestly? Best decision since someone invented automated deployments.</p>
-        <p>Currently levelling up on DevOps with an eye on <strong>international opportunities</strong>. The cloud is borderless &mdash; so why should careers be?</p>
+<section id="about" class="sec">
+  <div class="wrap">
+    <p class="eyebrow rv">about</p>
+    <h2 class="title rv d1">Not just another <span class="grad">cloud jockey.</span></h2>
+    <div class="about-grid">
+      <div class="bio rv d2">
+        <p>I&rsquo;m <em>Dhanya Sukanth B.K.</em>, a Cloud Administrator based in <strong>Bengaluru</strong> with over two years of experience in cloud infrastructure, application security and production support.</p>
+        <p>At <em>Microland</em> I work with global enterprise clients. Today I manage the Akamai, Imperva Cloud WAF and SecureSphere platforms for <em>Baker Hughes</em>: onboarding and decommissioning applications, managing SSL/TLS certificates, and troubleshooting DNS and traffic issues across cloud and on-premises environments.</p>
+        <p>Before that I supported <em>GE&rsquo;s MyApps</em> global infrastructure, covering AWS operations, Linux server maintenance and patching, L3 support, and a monitoring stack built on Grafana, Prometheus, Alert Manager and OpenSearch.</p>
+        <p>I hold a B.E. in <em>Electronics &amp; Communication from VTU</em> and certifications in AWS, Azure and Terraform. I enjoy work where reliability and security meet, and I&rsquo;m open to <strong>new opportunities</strong>, including international roles.</p>
       </div>
-      <div class="skg rvr d3">
-        <div><div class="sg-l">&#9729; Cloud &amp; Infra</div><div class="pills"><span class="pill">Microsoft Azure</span><span class="pill">AWS</span><span class="pill">Terraform</span><span class="pill">CloudWatch</span><span class="pill">OpenSearch</span></div></div>
-        <div><div class="sg-l">&#128202; Observability</div><div class="pills"><span class="pill">Grafana</span><span class="pill">Alert Manager</span><span class="pill">Prometheus</span><span class="pill">OpenSearch</span><span class="pill">CloudWatch</span></div></div>
-        <div><div class="sg-l">&#128039; OS &amp; Scripting</div><div class="pills"><span class="pill">Ubuntu Linux</span><span class="pill">Shell Scripting</span><span class="pill">Python</span><span class="pill">PowerShell</span></div></div>
-        <div><div class="sg-l">&#128274; Network &amp; Proxy</div><div class="pills"><span class="pill">Zscaler / Private PZEN</span><span class="pill">DNS</span><span class="pill">VPN</span><span class="pill">LDAP</span><span class="pill">Proxy Config</span></div></div>
-        <div><div class="sg-l">&#9881;&#65039; Automation &amp; CI/CD</div><div class="pills"><span class="pill">Jenkins</span><span class="pill">Docker</span><span class="pill">Shell Scripting</span><span class="pill">Python</span></div></div>
-        <div><div class="sg-l">&#127915; ITSM &amp; Debug</div><div class="pills"><span class="pill">ServiceNow</span><span class="pill">ITIL</span><span class="pill">SLA Mgmt</span><span class="pill">Wireshark</span><span class="pill">Fiddler</span><span class="pill">HAR</span></div></div>
+      <div class="skills rv d3">
+        <div class="skill-g"><h3 class="skill-h">Cloud &amp; Infrastructure</h3><ul class="pills"><li>AWS</li><li>Microsoft Azure</li><li>Terraform</li><li>On-prem Datacenters</li></ul></div>
+        <div class="skill-g"><h3 class="skill-h">Application Security</h3><ul class="pills"><li>Akamai</li><li>Imperva Cloud WAF</li><li>SecureSphere</li><li>SSL/TLS Certificates</li></ul></div>
+        <div class="skill-g"><h3 class="skill-h">Monitoring</h3><ul class="pills"><li>Grafana</li><li>Prometheus</li><li>Alert Manager</li><li>OpenSearch</li><li>CloudWatch</li></ul></div>
+        <div class="skill-g"><h3 class="skill-h">Networking &amp; Proxy</h3><ul class="pills"><li>Zscaler / Private PZEN</li><li>URL Policy Admin</li><li>DNS</li><li>VPN</li></ul></div>
+        <div class="skill-g"><h3 class="skill-h">Systems &amp; Scripting</h3><ul class="pills"><li>Linux (Ubuntu)</li><li>Python</li><li>Shell Scripting</li><li>Docker</li></ul></div>
+        <div class="skill-g"><h3 class="skill-h">ITSM &amp; Debugging</h3><ul class="pills"><li>ServiceNow</li><li>ITIL</li><li>SLA Tracking</li><li>Wireshark</li><li>Fiddler</li><li>HAR Analysis</li></ul></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
-  <div class="si">
-    <div class="slbl rv">// professional timeline</div>
-    <h2 class="stitle rv d1">Where I&rsquo;ve been <span>keeping clouds alive.</span></h2>
-    <div class="exl">
-      <div class="exi rvl d2">
-        <div class="exp-dot" id="dot1"></div>
-        <div class="exh">
-          <div><div class="ext">Senior Engineer &mdash; Cloud</div><div class="exc">Microland Pvt. Ltd &middot; Bengaluru, India</div></div>
-          <div class="exd">MAR 2024 &mdash; PRESENT</div>
+<section id="experience" class="sec">
+  <div class="wrap">
+    <p class="eyebrow rv">professional timeline</p>
+    <h2 class="title rv d1">Experience across <span class="grad">cloud and security.</span></h2>
+    <ol class="timeline">
+      <li class="job rv d2">
+        <span class="job-dot" aria-hidden="true"></span>
+        <div class="job-head">
+          <div><h3 class="job-title">Cloud Administrator</h3><p class="job-co">Microland Pvt. Ltd &middot; Bengaluru, India &middot; Client: Baker Hughes</p></div>
+          <p class="job-date">Sep 2026 &ndash; Present</p>
         </div>
-        <ul class="exu">
-          <li>Managed and maintained GE MyApps global infrastructure across production and stage environments; built and maintained monitoring stack including OpenSearch, Alert Manager, and Grafana.</li>
-          <li>Regularly checked server health, handled server maintenance (patching, updates, and security fixes), and optimized performance by cleaning up unused resources via disk cleanup on production and stage environments.</li>
-          <li>Provisioned and managed cloud infrastructure on Azure and AWS using Terraform &mdash; maintaining state files, writing reusable modules, and applying changes through controlled plan/apply workflows.</li>
-          <li>Monitored AWS resources using AWS Management Console, CloudTrail, and AWS Config; used ServiceNow to track and resolve user issues.</li>
-          <li>Established incident response plans, managed change processes and request items, and tracked system performance with Prometheus as the data source for Grafana dashboards.</li>
-          <li>Set up proactive alerts and moved alerts from Prometheus Alert Manager into Grafana dashboards for better readability and visibility.</li>
+        <ul class="job-list">
+          <li>Manage the Akamai, Imperva Cloud WAF and SecureSphere platforms for Baker Hughes, supporting application security across cloud and on-premises environments.</li>
+          <li>Execute application onboarding and decommissioning activities, ensuring secure and compliant application lifecycle management.</li>
+          <li>Handle SSL/TLS certificate management and DNS troubleshooting to maintain application availability and secure connectivity.</li>
+          <li>Troubleshoot application traffic, DNS resolution and WAF-related issues in collaboration with cross-functional infrastructure and security teams.</li>
+        </ul>
+      </li>
+      <li class="job rv d2">
+        <span class="job-dot" aria-hidden="true"></span>
+        <div class="job-head">
+          <div><h3 class="job-title">Senior Cloud Engineer</h3><p class="job-co">Microland Pvt. Ltd &middot; Bengaluru, India &middot; Client: General Electric</p></div>
+          <p class="job-date">Mar 2024 &ndash; Aug 2026</p>
+        </div>
+        <ul class="job-list">
+          <li>Managed and maintained GE MyApps global infrastructure across production and stage environments; built and maintained a monitoring stack including OpenSearch, Alert Manager and Grafana.</li>
+          <li>Regularly checked server health, handled server maintenance (patching, updates and security), and optimized performance by cleaning up unused resources on production and stage environments.</li>
+          <li>Monitored AWS resources using the AWS Management Console, CloudTrail and AWS Config; used ServiceNow to track and resolve user issues.</li>
+          <li>Established incident response plans, managed change processes and request items, and tracked system performance with Prometheus as the data source for Grafana.</li>
+          <li>Set up alerts for proactive issue detection, managed log data with AWS CloudWatch, and moved alerts from Prometheus Alert Manager into Grafana dashboards for better readability.</li>
           <li>Resolved technical issues with a focus on client satisfaction; maintained web proxies and VPN connections, and worked with L4 advisors to meet SLAs.</li>
           <li>Troubleshot Zscaler proxy issues and managed URL classification policies (Zscaler / Private PZEN) via Policy Admin.</li>
-          <li>Validated DNS configurations and coordinated with DNS teams for domain setup and resolution issues.</li>
-          <li>Used Wireshark, Fiddler, application logs, and HAR files for debugging and network-level troubleshooting.</li>
-          <li>Created documentation and knowledge base articles to assist L1, L1.5, and L2 support teams.</li>
-          <li>Audited ServiceNow incidents, changes, and requests to ensure data accuracy and process compliance.</li>
+          <li>Validated DNS configurations and coordinated with DNS teams on domain setup and resolution issues.</li>
+          <li>Used Wireshark, Fiddler, application logs and HAR files for debugging and network troubleshooting.</li>
+          <li>Created documentation and knowledge base articles to assist L1, L1.5 and L2 support teams.</li>
+          <li>Managed server decommissions, handled escalations and client communication with clear SLA ownership, and audited ServiceNow incidents, changes and requests for accuracy and compliance.</li>
         </ul>
-      </div>
-      <div class="exi rvl d3">
-        <div class="exp-dot" id="dot2"></div>
-        <div class="exh">
-          <div><div class="ext">IoT Engineer</div><div class="exc">Knowx Solutions Ltd &middot; Bengaluru, India</div></div>
-          <div class="exd">DEC 2023 &mdash; APR 2024</div>
+      </li>
+      <li class="job rv d2">
+        <span class="job-dot" aria-hidden="true"></span>
+        <div class="job-head">
+          <div><h3 class="job-title">IoT Engineer</h3><p class="job-co">Knowx Solutions Ltd &middot; Bengaluru, India</p></div>
+          <p class="job-date">Dec 2023 &ndash; Mar 2024</p>
         </div>
-        <ul class="exu">
+        <ul class="job-list">
           <li>Worked on embedded systems using C and Python, integrating with IoT platforms like AWS IoT Core, MQTT, and Blynk.</li>
           <li>Built solutions based on client requirements and worked closely with the team to deliver them on time.</li>
         </ul>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="si">
-    <div class="slbl rv">// validated credentials</div>
-    <h2 class="stitle rv d1">Certifications that prove <span>I actually know stuff.</span></h2>
-    <p class="ssub rv d2">Industry-recognised certifications from AWS, Microsoft, and HashiCorp, earned through rigorous examination and validated technical expertise.</p>
-    <div class="cg">
-      <div class="cc rvs d1">
-        <div class="ct">
-          <div class="cbadge"><img src="assets/images/badge-aws.png" alt="AWS Certified Cloud Practitioner" loading="lazy" decoding="async"/></div>
+<section id="certs" class="sec">
+  <div class="wrap">
+    <p class="eyebrow rv">credentials</p>
+    <h2 class="title rv d1">Industry <span class="grad">certifications.</span></h2>
+    <p class="lede rv d2">Certifications from AWS, Microsoft and HashiCorp, covering cloud fundamentals and infrastructure as code.</p>
+    <div class="card-grid">
+      <article class="card cert tilt rv d1">
+        <div class="cert-top">
+          <div class="cert-badge"><img src="assets/images/badge-aws.webp" width="256" height="256" alt="AWS Certified Cloud Practitioner badge" loading="lazy" decoding="async"></div>
           <div>
-            <div class="cn">Certified Cloud Practitioner</div>
-            <div class="ci">Amazon Web Services</div>
-            <div class="cs">CLF-C02 &middot; Active</div>
+            <h3 class="card-title">Certified Cloud Practitioner</h3>
+            <p class="cert-org">Amazon Web Services</p>
+            <p class="cert-state"><span class="pulse-dot"></span>CLF-C02 &middot; Active</p>
           </div>
         </div>
-        <a href="https://www.credly.com/org/amazon-web-services/badge/aws-certified-cloud-practitioner" target="_blank" class="cv">Verify on Credly &#8599;</a>
-      </div>
-      <div class="cc rvs d2">
-        <div class="ct">
-          <div class="cbadge"><img src="assets/images/badge-azure.png" alt="Microsoft Azure Fundamentals" loading="lazy" decoding="async"/></div>
+        <a href="https://www.credly.com/org/amazon-web-services/badge/aws-certified-cloud-practitioner" target="_blank" rel="noopener noreferrer" class="verify">Verify on Credly <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card cert tilt rv d2">
+        <div class="cert-top">
+          <div class="cert-badge"><img src="assets/images/badge-azure.webp" width="256" height="256" alt="Microsoft Azure Fundamentals badge" loading="lazy" decoding="async"></div>
           <div>
-            <div class="cn">Azure Fundamentals</div>
-            <div class="ci">Microsoft</div>
-            <div class="cs">AZ-900 &middot; Active</div>
+            <h3 class="card-title">Azure Fundamentals</h3>
+            <p class="cert-org">Microsoft</p>
+            <p class="cert-state"><span class="pulse-dot"></span>AZ-900 &middot; Active</p>
           </div>
         </div>
-        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank" class="cv">Verify on Microsoft &#8599;</a>
-      </div>
-      <div class="cc rvs d3">
-        <div class="ct">
-          <div class="cbadge"><img src="assets/images/badge-terraform.png" alt="HashiCorp Terraform Associate" loading="lazy" decoding="async"/></div>
+        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank" rel="noopener noreferrer" class="verify">Verify on Microsoft <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card cert tilt rv d3">
+        <div class="cert-top">
+          <div class="cert-badge"><img src="assets/images/badge-terraform.webp" width="256" height="256" alt="HashiCorp Certified Terraform Associate badge" loading="lazy" decoding="async"></div>
           <div>
-            <div class="cn">Certified: Terraform Associate</div>
-            <div class="ci">HashiCorp</div>
-            <div class="cs">004 &middot; Active</div>
+            <h3 class="card-title">Certified: Terraform Associate</h3>
+            <p class="cert-org">HashiCorp</p>
+            <p class="cert-state"><span class="pulse-dot"></span>004 &middot; Active</p>
           </div>
         </div>
-        <a href="https://www.credly.com/org/hashicorp/badge/hashicorp-certified-terraform-associate-004" target="_blank" class="cv">Verify on Credly &#8599;</a>
-      </div>
+        <a href="https://www.credly.com/org/hashicorp/badge/hashicorp-certified-terraform-associate-004" target="_blank" rel="noopener noreferrer" class="verify">Verify on Credly <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="si">
-    <div class="slbl rv">// open source &amp; side projects</div>
-    <h2 class="stitle rv d1">GitHub <span>Projects.</span></h2>
-    <div class="pg">
-      <div class="pc rvl project-card">
-        <div class="pt"><span class="pi">&#9729;</span><span class="pa">&#8599;</span></div>
-        <div class="pn">Cloud Infra Automation</div>
-        <div class="pd">Terraform modules and shell scripts for automating Azure and AWS infrastructure provisioning. Declarative, repeatable, and production-ready.</div>
-        <div class="ptags"><span class="tag">Terraform</span><span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Shell</span></div>
-      </div>
-      <div class="pc rv d1 project-card">
-        <div class="pt"><span class="pi">&#128202;</span><span class="pa">&#8599;</span></div>
-        <div class="pn">Monitoring Stack Setup</div>
-        <div class="pd">Grafana + Prometheus + OpenSearch configuration for end-to-end observability across cloud and on-premise environments.</div>
-        <div class="ptags"><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">OpenSearch</span><span class="tag">Python</span></div>
-      </div>
-      <div class="pc rvr d2 project-card">
-        <div class="pt"><span class="pi">&#129302;</span><span class="pa">&#8599;</span></div>
-        <div class="pn">IoT with AWS IoT Core</div>
-        <div class="pd">MQTT-based IoT solutions using AWS IoT Core and Blynk with C and Python firmware for connected device architectures.</div>
-        <div class="ptags"><span class="tag">AWS IoT</span><span class="tag">MQTT</span><span class="tag">Python</span><span class="tag">C</span></div>
-      </div>
+<section id="projects" class="sec">
+  <div class="wrap">
+    <p class="eyebrow rv">open source &amp; side projects</p>
+    <h2 class="title rv d1">GitHub <span class="grad">Projects.</span></h2>
+    <div class="card-grid">
+      <a class="card proj tilt rv d1" href="https://github.com/dhanyasukanth" target="_blank" rel="noopener noreferrer">
+        <div class="proj-top"><span class="proj-ic"><svg class="ic"><use href="#i-cloud"/></svg></span><svg class="ic proj-go"><use href="#i-arrow"/></svg></div>
+        <h3 class="card-title">Cloud Infra Automation</h3>
+        <p class="proj-desc">Terraform modules and shell scripts for automating Azure and AWS infrastructure provisioning. Declarative, repeatable, and production-ready.</p>
+        <ul class="tags"><li>Terraform</li><li>Azure</li><li>AWS</li><li>Shell</li></ul>
+      </a>
+      <a class="card proj tilt rv d2" href="https://github.com/dhanyasukanth" target="_blank" rel="noopener noreferrer">
+        <div class="proj-top"><span class="proj-ic"><svg class="ic"><use href="#i-chart"/></svg></span><svg class="ic proj-go"><use href="#i-arrow"/></svg></div>
+        <h3 class="card-title">Monitoring Stack Setup</h3>
+        <p class="proj-desc">Grafana + Prometheus + OpenSearch configuration for end-to-end observability across cloud and on-premise environments.</p>
+        <ul class="tags"><li>Grafana</li><li>Prometheus</li><li>OpenSearch</li><li>Python</li></ul>
+      </a>
+      <a class="card proj tilt rv d3" href="https://github.com/dhanyasukanth" target="_blank" rel="noopener noreferrer">
+        <div class="proj-top"><span class="proj-ic"><svg class="ic"><use href="#i-chip"/></svg></span><svg class="ic proj-go"><use href="#i-arrow"/></svg></div>
+        <h3 class="card-title">IoT with AWS IoT Core</h3>
+        <p class="proj-desc">MQTT-based IoT solutions using AWS IoT Core and Blynk with C and Python firmware for connected device architectures.</p>
+        <ul class="tags"><li>AWS IoT</li><li>MQTT</li><li>Python</li><li>C</li></ul>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="cin">
-    <div class="slbl rv">// get in touch</div>
-    <h2 class="stitle rv d1">Let&rsquo;s <span>Connect.</span></h2>
-    <p class="csub rv d2">
-      Got a cloud project in mind, a role to discuss, or just want to talk tech? I&rsquo;d love to connect.<br><br>
-      Shoot me a message on <strong>LinkedIn</strong> for a quick chat, or drop me an <strong>Email</strong> for anything more detailed.
-    </p>
-    <div class="cbtn-row rv d3">
-      <a href="https://www.linkedin.com/in/dhanya-sukanth-b-k" target="_blank" class="cbtn-pill cbtn-linkedin">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=dhanyasukanth@gmail.com" target="_blank" rel="noopener" class="cbtn-pill cbtn-gmail cbtn-gmail--desktop">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" fill="#EA4335" fill-opacity=".15" stroke="#EA4335" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="#EA4335" stroke-width="1.5"/></svg>
-        Email
-      </a>
-      <a href="mailto:dhanyasukanth@gmail.com" class="cbtn-pill cbtn-gmail cbtn-gmail--mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" fill="#EA4335" fill-opacity=".15" stroke="#EA4335" stroke-width="1.5"/><polyline points="22,6 12,13 2,6" stroke="#EA4335" stroke-width="1.5"/></svg>
-        Email
-      </a>
+<section id="contact" class="sec contact">
+  <div class="wrap contact-in">
+    <p class="eyebrow rv">get in touch</p>
+    <h2 class="title rv d1">Let&rsquo;s <span class="grad">Connect.</span></h2>
+    <p class="lede rv d2">If you have a role to discuss, a project in mind, or a question about my work, I would be glad to hear from you. Message me on <strong>LinkedIn</strong> for a quick conversation, or send an <strong>email</strong> for anything more detailed.</p>
+    <div class="contact-row rv d3">
+      <a href="https://www.linkedin.com/in/dhanya-sukanth-b-k" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg"><svg class="ic"><use href="#i-linkedin"/></svg>LinkedIn</a>
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=dhanyasukanth@gmail.com" target="_blank" rel="noopener noreferrer" class="btn btn-mail btn-lg only-desktop"><svg class="ic"><use href="#i-mail"/></svg>Email</a>
+      <a href="mailto:dhanyasukanth@gmail.com" class="btn btn-mail btn-lg only-mobile"><svg class="ic"><use href="#i-mail"/></svg>Email</a>
     </div>
-    <div id="resume" class="rv d4" style="margin-top:32px;text-align:center">
-      <a href="./Dhanya_Sukanth_Resume.pdf" download="Dhanya_Sukanth_Resume.pdf" class="btn-s" id="resume-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Resume
-      </a>
+    <div id="resume" class="resume-row rv d4">
+      <a href="./Dhanya_Sukanth_Resume.pdf" download="Dhanya_Sukanth_Resume.pdf" class="btn btn-quiet"><svg class="ic"><use href="#i-download"/></svg>Download Resume</a>
+      <a href="./Dhanya_Sukanth_Resume.pdf" target="_blank" rel="noopener" class="btn btn-quiet"><svg class="ic"><use href="#i-eye"/></svg>View in Browser</a>
     </div>
   </div>
 </section>
+</main>
 
 <!-- TECH TICKER -->
-<div class="ft-ticker-wrap">
-  <div class="ft-ticker-track">
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
-    <span class="fti"><span class="fti-label">HTML5</span> &nbsp;&bull;&nbsp; <span class="fti-label">CSS3</span> &nbsp;&bull;&nbsp; JavaScript &nbsp;&bull;&nbsp; Hosted on GitHub Pages &nbsp;&bull;&nbsp; <a href="https://github.com/dhanyasukanth/dhanyasukanth" target="_blank" style="color:var(--accent);text-decoration:none">View Source &#8599;</a></span>
-    <span class="fti-sep">&bull;</span>
+<div class="marquee marquee-foot" aria-hidden="true">
+  <div class="marquee-track" data-speed="45">
+    <div class="marquee-group">
+      <span><b>HTML5</b></span><span><b>CSS3</b></span><span>JavaScript</span><span>Zero dependencies</span><span>No trackers</span><span>No cookies</span><span>Built by hand</span>
+    </div>
   </div>
 </div>
 
-<footer>
-  <div class="fl">&copy; 2026 <span>Dhanya Sukanth B.K.</span> &middot; CI/CD: Coffee In &#9749;, Code Delivered.</div>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p><b class="foot-copy">&copy; 2026 <span>Dhanya Sukanth B.K.</span></b><b class="foot-sep" aria-hidden="true"> &middot; </b><b class="foot-tag">CI/CD: <b class="nw">Coffee In &#9749;,</b> <b class="nw">Code Delivered.</b></b></p>
+    <a href="#top" class="foot-top">Back to top &uarr;</a>
+  </div>
 </footer>
 
 <!-- CHATBOT -->
-<button id="chatfab" aria-label="Open portfolio assistant">
-  <span class="fab-ring"></span>
-  <svg class="fab-ico fab-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 11V7"/><circle cx="12" cy="5" r="2"/><line x1="8" y1="15" x2="8" y2="15"/><line x1="16" y1="15" x2="16" y2="15"/></svg>
-  <svg class="fab-ico fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="20" height="20"><path d="M18 6L6 18M6 6l12 12"/></svg>
+<button id="chatfab" type="button" aria-label="Open portfolio assistant" aria-expanded="false" aria-controls="chatwin">
+  <span class="fab-ring" aria-hidden="true"></span>
+  <svg class="ic fab-bot"><use href="#i-bot"/></svg>
+  <svg class="ic fab-x"><use href="#i-close"/></svg>
 </button>
-<div id="chatwin">
+<div id="chatwin" role="dialog" aria-label="Portfolio assistant" hidden>
   <div class="cw-head">
     <div class="cw-head-l">
-      <div class="cw-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 11V7"/><circle cx="12" cy="5" r="2"/><line x1="8" y1="15" x2="8" y2="15"/><line x1="16" y1="15" x2="16" y2="15"/></svg></div>
+      <div class="cw-avatar"><svg class="ic"><use href="#i-bot"/></svg></div>
       <div>
         <div class="cw-title">Portfolio Assistant</div>
-        <div class="cw-status"><span class="cw-online"></span>Online &mdash; Ask me about Dhanya</div>
+        <div class="cw-status"><span class="pulse-dot"></span>Online &middot; Ask me about Dhanya</div>
       </div>
     </div>
-    <button class="cw-close" id="chatclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="15" height="15"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <button class="cw-close" id="chatclose" type="button" aria-label="Close assistant"><svg class="ic"><use href="#i-close"/></svg></button>
   </div>
-  <div class="chm" id="chm">
-    <div class="msg bot">Hello! I&rsquo;m Dhanya&rsquo;s portfolio assistant. Feel free to ask about his skills, certifications, experience, or how to get in touch.</div>
-  </div>
-  <div class="chq" id="chq"></div>
+  <div class="chm" id="chm" role="log" aria-live="polite"></div>
+  <div class="chq" id="chq" role="group" aria-label="Suggested topics"></div>
   <div class="cw-foot">
     <div class="cw-inp-row">
-      <input type="text" id="chinp" placeholder="Ask anything about Dhanya..."/>
-      <button id="chsnd" title="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9z"/></svg></button>
+      <input type="text" id="chinp" placeholder="Ask me anything about Dhanya&hellip;" aria-label="Your question" maxlength="200" autocomplete="off" enterkeyhint="send">
+      <button id="chsnd" type="button" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button>
     </div>
     <div class="cw-hint">
-      <span>Press <kbd>Enter</kbd> to send</span>
-      <span class="cw-sys"><span class="cw-online"></span>All systems operational</span>
+      <span>Runs in your browser. Nothing you type is sent or stored.</span>
+      <button class="cw-clear" id="chclear" type="button">Clear chat</button>
     </div>
   </div>
 </div>
-</div><!-- /#page-wrap -->
 
-<script src="assets/js/chatbot.js"></script>
-<script src="assets/js/main.js"></script>
 </body>
 </html>

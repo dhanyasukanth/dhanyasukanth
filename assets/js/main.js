@@ -1,303 +1,512 @@
-// Force scroll to top on every load/refresh
-if(history.scrollRestoration)history.scrollRestoration='manual';
-window.scrollTo(0,0);
+/* Dhanya Sukanth B.K. — portfolio interactions.
+   No dependencies, no network calls, no storage. CSP-safe: no inline script/style injection. */
+(function () {
+  'use strict';
 
-// THEME TOGGLE — always starts white (ignores any saved preference)
-var _theme='light';
-function getTheme(){return _theme;}
-function applyTheme(t){_theme=t;document.body.classList.toggle('light',t==='light');document.documentElement.classList.toggle('light',t==='light');if(window._setWebGLTheme)window._setWebGLTheme(t==='light');}
-function toggleTheme(){applyTheme(getTheme()==='dark'?'light':'dark');}
-applyTheme('light');
-var tBtn=document.getElementById('theme-toggle');
-if(tBtn)tBtn.addEventListener('click',toggleTheme);
-var tBtnMob=document.getElementById('theme-toggle-mob');
-if(tBtnMob)tBtnMob.addEventListener('click',toggleTheme);
-var tBtnMob2=document.getElementById('theme-toggle-mob2');
-if(tBtnMob2)tBtnMob2.addEventListener('click',toggleTheme);
+  var root = document.documentElement;
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var LOADER_MS = 3000; // keep in sync with --t0 in style.css
 
-var dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
-var mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
-(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
-document.querySelectorAll('a,button,.pc,.cc,.pill').forEach(function(el){
-  el.addEventListener('mouseenter',function(){ring.classList.add('hovering')});
-  el.addEventListener('mouseleave',function(){ring.classList.remove('hovering')});
-});
+  // Always start at the top (the intro plays over the hero).
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) window.scrollTo(0, 0);
 
-// LOADER ASTRO DROP
-function dismissLoader(){
-  var l=document.getElementById('loader');
-  if(!l){document.body.classList.add('page-ready');return;}
-  l.classList.add('out');
-  setTimeout(function(){
-    l.style.display='none';
-    document.body.classList.add('page-ready');
-  },700);
-}
+  /* ---------- LOADER ---------- */
+  // The timeline itself is pure CSS (so it can never get stuck). JS only pins the
+  // astronaut's vanishing line to the terminal's top edge, then removes the node.
+  var loader = $('#loader');
+  var onReady = [];
+  (function () {
+    if (!loader) { setTimeout(ready, 0); return; }
+    var term = $('.term', loader);
+    function fit() { if (term) loader.style.setProperty('--clip-h', Math.max(0, Math.round(term.getBoundingClientRect().top)) + 'px'); }
+    fit();
+    window.addEventListener('resize', fit);
+    setTimeout(ready, LOADER_MS);
+    setTimeout(function () {
+      window.removeEventListener('resize', fit);
+      if (loader.parentNode) loader.parentNode.removeChild(loader);
+      loader = null;
+    }, LOADER_MS + 700);
+  })();
+  function ready() {
+    root.classList.add('ready');
+    onReady.forEach(function (fn) { try { fn(); } catch (e) { /* one feature failing must not block the rest */ } });
+  }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const astroWrap = document.getElementById('astro-wrap');
-  const term = document.querySelector('.ldr-term');
-  const loader = document.getElementById('loader');
+  /* ---------- THEME (starts in the device's own light/dark setting) ---------- */
+  var themeBtn = $('#theme-toggle');
+  var themeMeta = $('meta[name="theme-color"]');
+  var flowApi = null;
+  function setTheme(light) {
+    root.classList.toggle('light', light);
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-pressed', String(!light));
+      themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+    if (themeMeta) themeMeta.setAttribute('content', light ? '#e6edf9' : '#05070f');
+    if (flowApi) flowApi.clear();
+  }
+  // While the class is on, CSS transitions are switched off, so every colour lands in the
+  // same frame (otherwise each element fades on its own timer and the switch looks laggy).
+  function swapTheme(light) {
+    root.classList.add('theme-swap');
+    setTheme(light);
+    void root.offsetWidth; // apply the new colours now, with transitions off
+  }
+  function endSwap() { requestAnimationFrame(function () { root.classList.remove('theme-swap'); }); }
+  // Follow the device: dark if the OS/browser is set to dark, light otherwise. Until the
+  // visitor uses the toggle, the page also follows the device if it changes (e.g. at sunset).
+  var sysDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  var userPicked = false;
+  setTheme(!(sysDark && sysDark.matches));
+  function onSysChange(e) { if (!userPicked) { swapTheme(!e.matches); endSwap(); } }
+  if (sysDark) {
+    if (sysDark.addEventListener) sysDark.addEventListener('change', onSysChange);
+    else if (sysDark.addListener) sysDark.addListener(onSysChange);
+  }
+  if (themeBtn) themeBtn.addEventListener('click', function () {
+    userPicked = true;
+    var next = !root.classList.contains('light');
+    if (!document.startViewTransition || reduced) { swapTheme(next); endSwap(); return; }
+    var r = themeBtn.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var rad = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    var vt = document.startViewTransition(function () { swapTheme(next); });
+    vt.ready.then(function () {
+      root.animate(
+        { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + rad + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 460, easing: 'cubic-bezier(.4,0,.2,1)', pseudoElement: '::view-transition-new(root)' }
+      );
+    }).catch(function () {});
+    vt.finished.then(endSwap, endSwap);
+  });
 
-  if(astroWrap && term && loader) {
-    let animDur = 3800; // Match the 3.8s CSS transition time sync
-    function calculateAstroDrop() {
-      let tRect = term.getBoundingClientRect();
-      let astroClip = document.getElementById('astro-clip-zone');
+  /* ---------- SCROLL: nav state + progress bar (one rAF-throttled handler) ---------- */
+  var nav = $('#nav'), bar = $('#progress-bar'), ticking = false;
+  function onScroll() {
+    ticking = false;
+    var y = window.scrollY || 0;
+    var max = root.scrollHeight - window.innerHeight;
+    if (nav) nav.classList.toggle('scrolled', y > 8);
+    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } });
+  onScroll();
 
-      // Forces the clipping zone boundary to precisely match the top of the terminal
-      if(astroClip) {
-        astroClip.style.height = tRect.top + 'px';
+  /* ---------- SMOOTH SCROLLING ---------- */
+  // Native smooth scrolling runs fast over long jumps and slow over short ones, and a
+  // mouse wheel moves in hard steps. Here every anchor jump uses the same eased curve,
+  // and wheel steps glide to their target. Touch scrolling stays fully native.
+  (function () {
+    var cur = 0, target = 0, raf = 0, last = 0, tween = null;
+    function maxY() { return Math.max(0, root.scrollHeight - window.innerHeight); }
+    function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; tween = null; last = 0; }
+    function ease(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+    function step(t) {
+      raf = 0;
+      if (tween) {
+        if (tween.t0 === null) tween.t0 = t;
+        var p = Math.min(1, (t - tween.t0) / tween.dur);
+        window.scrollTo(0, tween.from + (tween.to - tween.from) * ease(p));
+        if (p < 1) raf = requestAnimationFrame(step); else tween = null;
+        return;
       }
-      
-      // Since the astronaut character occupies roughly 1/3rd of the square image padding
-      // Multiplying by 1.5 effectively forces the VISUAL astronaut to strictly hit 50% of the terminal width!
-      let termWidth = tRect.width;
-      astroWrap.style.width = (termWidth * 1.5) + 'px';
-      
-      // Capture the bounding rect after width rules have immediately painted
-      let aRect = astroWrap.getBoundingClientRect();
-      
-      // To ensure the visually drawn astronaut mathematically drops completely across the terminal line 
-      // without freezing halfway on wide/mobile screens, we offset the target by the bounding box density
-      let targetY = tRect.top - (aRect.height * 0.15); 
-      astroWrap.style.top = targetY + 'px';
+      // frame-rate independent glide towards the wheel target
+      var dt = last ? Math.min(64, t - last) : 16.7;
+      last = t;
+      cur += (target - cur) * (1 - Math.pow(0.86, dt / 16.7));
+      if (Math.abs(target - cur) < 0.5) cur = target;
+      window.scrollTo(0, cur);
+      if (cur !== target) raf = requestAnimationFrame(step); else last = 0;
+    }
+    function goTo(y) {
+      stop();
+      var from = window.scrollY || 0;
+      y = Math.max(0, Math.min(maxY(), y));
+      var dist = Math.abs(y - from);
+      if (dist < 2) return;
+      tween = { from: from, to: y, t0: null, dur: Math.min(900, 520 + dist * 0.06) };
+      raf = requestAnimationFrame(step);
     }
 
-    function startDrop() {
-      // Begin the fall absolutely instantly as the page loads
-      setTimeout(() => {
-        calculateAstroDrop();
-        window.addEventListener('resize', calculateAstroDrop);
-        
-        setTimeout(() => {
-          console.log("landed");
-          dismissLoader(); 
-        }, animDur);
-      }, 0); // 0 delay
-    }
-    
-    // Execute immediately without waiting for massive image buffering!
-    startDrop();
+    // in-page links: nav, tab bar, hero buttons, stats, footer, chatbot answers
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button > 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a || a.classList.contains('skip')) return;
+      var id = a.getAttribute('href').slice(1);
+      var el = id && document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      var y = id === 'top' ? 0 : el.getBoundingClientRect().top + (window.scrollY || 0) - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0);
+      goTo(y);
+      if (history.pushState && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    });
 
+    // mouse wheel (desktop only)
+    if (finePointer) window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (e.target.closest && e.target.closest('#chatwin')) return; // the chat log scrolls itself
+      e.preventDefault();
+      if (!raf || tween) { stop(); cur = target = window.scrollY || 0; }
+      var d = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? window.innerHeight : 1);
+      target = Math.max(0, Math.min(maxY(), target + d));
+      if (!raf) raf = requestAnimationFrame(step);
+    }, { passive: false });
+
+    // any other way of scrolling takes over immediately
+    window.addEventListener('keydown', stop);
+    window.addEventListener('touchstart', stop, { passive: true });
+    window.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.target === root) stop(); }, { passive: true });
+  })();
+
+  var hasIO = 'IntersectionObserver' in window;
+  window.addEventListener('resize', function () { requestAnimationFrame(measureNav); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureNav);
+  measureNav();
+
+  /* ---------- ACTIVE NAV LINK ---------- */
+  // top nav links (desktop) and bottom tab bar (phones) share the same active state
+  var navLinks = $$('.nav-links [data-sec], .tabbar [data-sec]');
+  var tabbar = $('.tabbar'), tabs = $$('.tabbar [data-sec]');
+  // desktop: a glass highlight that slides between the nav links as sections change
+  // Link positions are measured once (and on resize), never while scrolling, so a
+  // section change costs no layout work: it only updates two CSS variables.
+  var navBox = $('.nav-links'), navInd = $('.nav-ind'), curId = '', navGeo = {};
+  function measureNav() {
+    navGeo = {};
+    if (navBox) $$('[data-sec]', navBox).forEach(function (l) { if (l.offsetWidth) navGeo[l.dataset.sec] = [l.offsetLeft, l.offsetWidth]; });
+    placeInd();
+  }
+  function placeInd() {
+    if (!navBox || !navInd) return;
+    var g = navGeo[curId];
+    navBox.classList.toggle('has-act', !!g);
+    if (!g) return;
+    navInd.style.setProperty('--x', g[0] + 'px');
+    navInd.style.setProperty('--w', g[1] + 'px');
+  }
+  function setTab(id) {
+    curId = id || '';
+    placeInd();
+    if (!tabbar) return;
+    var i = -1;
+    tabs.forEach(function (t, n) { if (t.dataset.sec === id) i = n; });
+    tabbar.classList.toggle('has-act', i > -1);
+    if (i > -1) tabbar.style.setProperty('--i', i); // slides the glass indicator
+  }
+  if (hasIO && navLinks.length) {
+    var ioNav = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        setTab(e.target.id);
+        navLinks.forEach(function (l) {
+          var on = l.dataset.sec === e.target.id;
+          l.classList.toggle('act', on);
+          if (on) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navLinks.forEach(function (l) { var s = document.getElementById(l.dataset.sec); if (s) ioNav.observe(s); });
+    var hero = $('#hero');
+    if (hero) new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      setTab('');
+      navLinks.forEach(function (l) { l.classList.remove('act'); l.removeAttribute('aria-current'); });
+    }, { rootMargin: '-45% 0px -50% 0px' }).observe(hero);
+  }
+
+  /* ---------- SCROLL REVEAL (plays once, then the helper classes are removed) ---------- */
+  var revealEls = $$('.rv');
+  function finishReveal(el) { el.classList.remove('rv', 'on', 'd1', 'd2', 'd3', 'd4'); }
+  if (hasIO && !reduced) {
+    var ioRv = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        ioRv.unobserve(e.target);
+        e.target.classList.add('on');
+        setTimeout(finishReveal, 1100, e.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { ioRv.observe(el); });
   } else {
-    setTimeout(dismissLoader, 2000);
+    revealEls.forEach(finishReveal);
   }
-});
 
-// absolute fallback — always show portfolio even if something fails
-setTimeout(function(){
-  document.body.classList.add('page-ready');
-  var l=document.getElementById('loader');
-  if(l){l.classList.add('out');l.style.display='none';}
-  if(window._stopAurora)window._stopAurora();
-}, 6500);
-
-// MOBILE NAV
-var hamBtn=document.getElementById('ham');if(hamBtn)hamBtn.addEventListener('click',function(){var mn=document.getElementById('mobn');if(mn)mn.classList.toggle('open')});
-function closeMob(){var mn=document.getElementById('mobn');if(mn)mn.classList.remove('open')}
-
-// ACTIVE NAV
-var secIds=['about','experience','certs','projects','contact'];
-var navLinks=document.querySelectorAll('.n-lnk[data-sec]');
-var ioN=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){navLinks.forEach(function(l){l.classList.toggle('act',l.dataset.sec===e.target.id)})}});
-},{threshold:.2,rootMargin:'-80px 0px -35% 0px'});
-secIds.forEach(function(id){var el=document.getElementById(id);if(el)ioN.observe(el)});
-
-// TYPING EFFECT
-var phr=['Cloud Infrastructure','Monitoring & Alerting','DevOps Automation','Terraform IaC','Azure & AWS Ops'];
-var pi=0,ci=0,del=false;
-function type(){
-  var el=document.getElementById('typed');if(!el)return;
-  var p=phr[pi];
-  if(!del){el.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(type,2000);return;}setTimeout(type,62);}
-  else{el.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phr.length;setTimeout(type,360);return;}setTimeout(type,36);}
-}
-setTimeout(type,3000);
-
-// SCROLL REVEAL
-var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');}else{e.target.classList.remove('on');}});},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(function(el){io.observe(el)});
-
-// TIMELINE DOTS
-var dotIO=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){e.target.classList.toggle('pulsing',e.isIntersecting)});
-},{threshold:.5});
-document.querySelectorAll('.exp-dot').forEach(function(d){dotIO.observe(d)});
-
-// STATS COUNTERS
-var ios=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(!e.isIntersecting)return;
-    var el=e.target,target=+el.dataset.target,suf=el.dataset.suffix||'';
-    var cur=0,step=Math.max(1,Math.ceil(target/60));
-    var t=setInterval(function(){cur=Math.min(cur+step,target);el.textContent=cur+suf;if(cur>=target)clearInterval(t)},20);
-  });
-},{threshold:.6});
-document.querySelectorAll('.stn[data-target]').forEach(function(el){ios.observe(el)});
-
-// CARD TILT
-document.querySelectorAll('.cc,.pc').forEach(function(card){
-  card.addEventListener('mousemove',function(e){
-    var r=card.getBoundingClientRect();
-    var x=((e.clientX-r.left)/r.width-.5)*8;
-    var y=((e.clientY-r.top)/r.height-.5)*-8;
-    card.style.transform='translateY(-8px) perspective(600px) rotateY('+x+'deg) rotateX('+y+'deg)';
-  });
-  card.addEventListener('mouseleave',function(){card.style.transform=''});
-});
-
-// EMAIL TOAST
-function showMailToast(e){
-  if(e)e.preventDefault();
-  if(document.getElementById('mail-toast'))return;
-  var t=document.createElement('div');
-  t.id='mail-toast';
-  t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(79,172,254,.25);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
-  t.innerHTML='&#128236; No default mail app configured. Looks like we have to establish this connection the old-fashioned way: copy <strong style="color:#4facfe;user-select:all">dhanyasukanth@gmail.com</strong>';
-  document.body.appendChild(t);
-  setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},7000);
-}
-// RESUME TOAST
-function showResumeToast(e){
-  if(e)e.preventDefault();
-  var url=this&&this.href?this.href:'./Dhanya_Sukanth_Resume.pdf';
-  if(document.getElementById('resume-toast')){
-    window.open(url,'_blank');return;
+  /* ---------- STAT COUNTERS (count up once) ---------- */
+  var stats = $$('.stat-n[data-target]');
+  if (hasIO && !reduced) {
+    var ioSt = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        ioSt.unobserve(e.target);
+        var el = e.target, target = +el.dataset.target || 0, suf = el.dataset.suffix || '';
+        var dur = 1100, t0 = null;
+        el.textContent = '0' + suf;
+        requestAnimationFrame(function step(t) {
+          if (t0 === null) t0 = t;
+          var p = Math.min(1, (t - t0) / dur);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suf;
+          if (p < 1) requestAnimationFrame(step);
+        });
+      });
+    }, { threshold: 0.6 });
+    stats.forEach(function (el) { ioSt.observe(el); });
   }
-  var t=document.createElement('div');
-  t.id='resume-toast';
-  t.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(4,6,22,.96);border:1px solid rgba(167,139,250,.3);padding:14px 24px;border-radius:14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#e8f4ff;z-index:9999;max-width:94vw;text-align:center;line-height:1.75;box-shadow:0 14px 48px rgba(0,0,0,.55);opacity:1;transition:opacity .5s';
-  var isMobile=window.innerWidth<=768;
-  t.innerHTML='&#128196; <strong style="color:#a78bfa">Read-only view.</strong> '+(isMobile?'Grab the actual PDF by scrolling down to the bottom.':'Grab the actual PDF by scrolling down or clicking the Resume button above.');
-  document.body.appendChild(t);
-  setTimeout(function(){window.open(url,'_blank');},3000);
-  setTimeout(function(){t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.remove();},500);},3500);
-}
-document.addEventListener('DOMContentLoaded',function(){
-  var mailEl=document.getElementById('mail-link');
-  if(mailEl){mailEl.addEventListener('click',showMailToast);}
-  // mail-chip is now a plain mailto: link on mobile — no toast intercept needed
-  var resumeChip=document.getElementById('resume-chip');
-  if(resumeChip){resumeChip.addEventListener('click',showResumeToast);}
-  
-  // Project Cards
-  document.querySelectorAll('.project-card').forEach(function(card){
-    card.addEventListener('click', function(){
-      window.open('https://github.com/dhanyasukanth','_blank');
+
+  /* ---------- TYPING EFFECT ---------- */
+  var typed = $('#typed');
+  if (typed && !reduced) onReady.push(function () {
+    var phrases = ['Cloud Infrastructure', 'Application Security', 'WAF Operations', 'Monitoring & Alerting', 'Production Support'];
+    var pi = 0, ci = phrases[0].length, del = true;
+    (function tick() {
+      var p = phrases[pi], wait;
+      if (document.hidden) { setTimeout(tick, 600); return; }
+      if (del) {
+        typed.textContent = p.slice(0, --ci);
+        wait = 34;
+        if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; wait = 380; }
+      } else {
+        typed.textContent = p.slice(0, ++ci);
+        wait = 62;
+        if (ci === p.length) { del = true; wait = 2100; }
+      }
+      setTimeout(tick, wait);
+    })();
+    // first phrase is already on screen: hold it, then start deleting
+  });
+
+  /* ---------- MARQUEES: clone the group until it covers the viewport twice ---------- */
+  var tracks = $$('.marquee-track');
+  function buildMarquee(track) {
+    var group = track.firstElementChild;
+    if (!group) return;
+    $$('.marquee-group', track).slice(1).forEach(function (c) { track.removeChild(c); });
+    var w = group.getBoundingClientRect().width;
+    if (!w) return;
+    var copies = Math.ceil(window.innerWidth / w) + 1;
+    for (var i = 0; i < copies; i++) {
+      var c = group.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      $$('a', c).forEach(function (a) { a.tabIndex = -1; });
+      track.appendChild(c);
+    }
+    track.style.setProperty('--mq-w', w + 'px');
+    track.style.setProperty('--mq-dur', (w / (+track.dataset.speed || 50)) + 's');
+    track.classList.add('run');
+  }
+  function buildMarquees() { tracks.forEach(buildMarquee); }
+  if (!reduced) {
+    buildMarquees();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(buildMarquees);
+    var mqW = window.innerWidth, mqTimer;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === mqW) return; // ignore mobile URL-bar height changes
+      mqW = window.innerWidth;
+      clearTimeout(mqTimer);
+      mqTimer = setTimeout(buildMarquees, 200);
     });
+  }
+
+  /* ---------- NAV BAR DIP ---------- */
+  // The link pill (desktop) and the tab bar (phones) dip like one pressed button when one
+  // of their own links is pressed. The theme toggle and the name pill never trigger it.
+  [['.nav-links', '.nav-in'], ['.tabbar', '.tabbar']].forEach(function (pair) {
+    var zone = $(pair[0]), bar = $(pair[1]), t = 0;
+    if (!zone || !bar) return;
+    function up() { clearTimeout(t); t = setTimeout(function () { bar.classList.remove('press'); }, 120); }
+    zone.addEventListener('pointerdown', function (e) {
+      if (e.button > 0 || !e.target.closest('a')) return;
+      clearTimeout(t);
+      bar.classList.add('press');
+    }, { passive: true });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) { zone.addEventListener(ev, up, { passive: true }); });
   });
-});
-// MODE TIP — shown once on page load when user is in light mode
-document.addEventListener('DOMContentLoaded',function(){
-  setTimeout(function(){
-    if(getTheme()!=='dark')return;
-    if(document.getElementById('theme-tip'))return;
-    var tip=document.createElement('div');
-    tip.id='theme-tip';
-    var btn=document.getElementById('theme-toggle-mob');
-    if(!btn||btn.offsetParent===null)btn=document.getElementById('theme-toggle');
-    var bRect=btn?btn.getBoundingClientRect():{bottom:60,right:window.innerWidth-16,left:window.innerWidth-58};
-    var tipRight=Math.round(window.innerWidth-bRect.right);
-    var btnCenterOffset=Math.round((bRect.right-bRect.left)/2);
-    tip.style.cssText='position:fixed;top:'+(Math.round(bRect.bottom)+8)+'px;right:'+tipRight+'px;background:rgba(4,6,22,.93);border:1px solid rgba(79,172,254,.28);padding:10px 14px;border-radius:10px;font-family:JetBrains Mono,monospace;font-size:11px;color:#c8daf0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .45s;line-height:1.6;max-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.4)';
-    tip.innerHTML='<div style="position:absolute;top:-6px;right:'+Math.max(4,btnCenterOffset-6)+'px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(79,172,254,.28)"></div>&#9790; Dark mode available<br><span style="color:#4facfe;font-size:10px">Toggle in the nav above &#8593;</span>';
-    document.body.appendChild(tip);
-    setTimeout(function(){tip.style.opacity='1';},50);
-    setTimeout(function(){tip.style.opacity='0';setTimeout(function(){if(tip.parentNode)tip.remove();},450);},18000);
-  },3500);
-});
 
-// FLOW FIELD BACKGROUND — exact NeuralBackground algorithm (hero area)
-(function(){
-  var cvs=document.getElementById('webgl-bg');
-  if(!cvs)return;
-  var ctx=cvs.getContext('2d');
-  if(!ctx)return;
-  var W,H,dpr=1,particles=[],animId,resizeTimer,paused=false;
-  var mouse={x:-1000,y:-1000};
-  var speed=1;
-
-  function isLt(){return document.documentElement.classList.contains('light');}
-  function pColor(){return isLt()?'rgba(79,100,220,0.55)':'rgba(129,140,248,0.65)';}
-  function tColor(){return isLt()?'rgba(240,244,248,0.15)':'rgba(0,0,0,0.15)';}
-  function pCount(){return W<768?150:W<1200?350:600;}
-
-  // Exact NeuralBackground Particle
-  function Particle(){
-    this.x=Math.random()*W; this.y=Math.random()*H;
-    this.vx=0; this.vy=0;
-    this.age=0; this.life=Math.random()*200+100;
-  }
-  Particle.prototype.update=function(){
-    // EXACT src angle formula
-    var angle=(Math.cos(this.x*0.005)+Math.sin(this.y*0.005))*Math.PI;
-    this.vx+=Math.cos(angle)*0.2*speed;
-    this.vy+=Math.sin(angle)*0.2*speed;
-    // Mouse repulsion — exact src
-    var dx=mouse.x-this.x,dy=mouse.y-this.y;
-    var dist=Math.sqrt(dx*dx+dy*dy),ir=150;
-    if(dist<ir){var f=(ir-dist)/ir;this.vx-=dx*f*0.05;this.vy-=dy*f*0.05;}
-    this.x+=this.vx; this.y+=this.vy;
-    this.vx*=0.95; this.vy*=0.95;
-    this.age++;
-    if(this.age>this.life){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=0;this.vy=0;this.age=0;this.life=Math.random()*200+100;}
-    if(this.x<0)this.x=W; if(this.x>W)this.x=0;
-    if(this.y<0)this.y=H; if(this.y>H)this.y=0;
-  };
-  Particle.prototype.draw=function(){
-    // Exact src: fade in/out based on age
-    ctx.globalAlpha=Math.max(0,1-Math.abs((this.age/this.life)-0.5)*2);
-    ctx.fillRect(this.x,this.y,1.5,1.5);
-  };
-
-  function setupCanvas(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    W=window.innerWidth; H=window.innerHeight;
-    cvs.width=W*dpr; cvs.height=H*dpr;
-    cvs.style.width=W+'px'; cvs.style.height=H+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  function init(){
-    setupCanvas();
-    particles=[];
-    var n=pCount();
-    for(var i=0;i<n;i++)particles.push(new Particle());
-  }
-  function animate(){
-    if(paused){animId=requestAnimationFrame(animate);return;}
-    ctx.fillStyle=tColor();
-    ctx.globalAlpha=1;
-    ctx.fillRect(0,0,W,H);
-    ctx.fillStyle=pColor();
-    for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw();}
-    ctx.globalAlpha=1;
-    animId=requestAnimationFrame(animate);
-  }
-
-  // Pause when scrolled well past hero to save battery
-  window.addEventListener('scroll',function(){paused=window.scrollY>H*1.2;},{passive:true});
-
-  window._setWebGLTheme=function(){ctx.clearRect(0,0,W,H);};
-
-  window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
-  document.addEventListener('mouseleave',function(){mouse.x=-1000;mouse.y=-1000;});
-  window.addEventListener('touchmove',function(e){
-    if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}
-  },{passive:true});
-  window.addEventListener('touchend',function(){mouse.x=-1000;mouse.y=-1000;},{passive:true});
-  window.addEventListener('resize',function(){
-    if(resizeTimer) cancelAnimationFrame(resizeTimer);
-    resizeTimer=requestAnimationFrame(function(){
-      setupCanvas();
-      var n=pCount();
-      while(particles.length>n)particles.pop();
-      while(particles.length<n)particles.push(new Particle());
+  /* ---------- PRESS FEEDBACK (every device, every control, one at a time) ---------- */
+  // Only the control under the finger/cursor sinks, then springs back. It animates the
+  // independent `scale` property, so it stacks on top of hover lifts and tilts instead of
+  // fighting them, and it works for elements the chatbot adds later (delegated listener).
+  (function () {
+    if (!Element.prototype.animate || !(window.CSS && CSS.supports && CSS.supports('scale', '1'))) return;
+    var SEL = 'a[href], button, .pills li, [role="button"]';
+    var state = new WeakMap(), held = null;
+    function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+    function curScale(el) { var s = parseFloat(getComputedStyle(el).scale); return isNaN(s) ? 1 : s; }
+    function press(el) {
+      var st = state.get(el) || {};
+      clearTimeout(st.t);
+      var r = el.getBoundingClientRect();
+      // small controls sink more, big cards less, so every press feels about the same
+      var depth = Math.max(0.025, Math.min(0.08, 3.4 / (Math.min(r.width, r.height) || 40)));
+      var from = curScale(el);
+      if (st.a) st.a.cancel();
+      st.a = el.animate([{ scale: String(from) }, { scale: String(1 - depth) }], { duration: 130, easing: 'cubic-bezier(.2,0,.2,1)', fill: 'forwards' });
+      st.at = now();
+      state.set(el, st);
+    }
+    function release(el) {
+      var st = state.get(el);
+      if (!st || !st.a) return;
+      clearTimeout(st.t);
+      // a quick tap still shows the full dip before the spring back
+      st.t = setTimeout(function () {
+        var from = curScale(el);
+        st.a.cancel();
+        st.a = el.animate([{ scale: String(from) }, { scale: '1' }], { duration: 520, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+      }, Math.max(0, 110 - (now() - st.at)));
+    }
+    function up() { if (held) { release(held); held = null; } }
+    document.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      var el = e.target.closest && e.target.closest(SEL);
+      if (!el || el.classList.contains('skip')) return;
+      up();
+      held = el;
+      press(el);
+    }, { passive: true });
+    window.addEventListener('pointerup', up, { passive: true });
+    window.addEventListener('pointercancel', up, { passive: true });
+    window.addEventListener('blur', up);
+    // keyboard users get the same feedback on Enter / Space
+    document.addEventListener('keydown', function (e) {
+      if (e.repeat || (e.key !== 'Enter' && e.key !== ' ')) return;
+      var el = document.activeElement;
+      if (el && el.matches && el.matches(SEL) && held !== el) { up(); held = el; press(el); }
     });
+    document.addEventListener('keyup', up);
+  })();
+  // Touch screens: a press lifts the element and the glow appears where the finger lands.
+  $$('.tilt, .btn, .chip, .stat-grid, .skills').forEach(function (el) {
+    var t = 0;
+    function release() { clearTimeout(t); t = setTimeout(function () { el.classList.remove('pressed'); }, 260); }
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) { el.addEventListener(ev, release, { passive: true }); });
+    el.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      clearTimeout(t);
+      el.classList.add('pressed');
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    }, { passive: true });
   });
+  document.addEventListener('touchstart', function () {}, { passive: true }); // lets :active styles show on iOS
 
-  init();
-  animate();
+  /* ---------- POINTER EXTRAS: spotlight (cards, buttons, panels), card tilt, cursor ring (mouse only) ---------- */
+  if (finePointer && !reduced) {
+    $$('.tilt, .btn, .chip, .stat-grid, .skills, .hv-stage').forEach(function (card) {
+      var raf = 0, ev = null;
+      // small pills lean more, the wide stats strip leans less, so the motion feels the same
+      var max = card.matches('.btn, .chip') ? 14 : card.matches('.hv-stage') ? 13 : card.matches('.stat-grid') ? 3.5 : card.matches('.skills') ? 5 : 7;
+      function apply() {
+        raf = 0;
+        var r = card.getBoundingClientRect();
+        var px = (ev.clientX - r.left) / r.width, py = (ev.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        card.style.setProperty('--ry', ((px - 0.5) * max).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((0.5 - py) * max).toFixed(2) + 'deg');
+      }
+      card.addEventListener('pointermove', function (e) { ev = e; card.classList.add('tilting'); if (!raf) raf = requestAnimationFrame(apply); });
+      card.addEventListener('pointerleave', function () {
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
+        card.classList.remove('tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+
+    var ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ring);
+    var tx = 0, ty = 0, cx = 0, cy = 0, moving = false, seen = false;
+    function follow() {
+      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      ring.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      if (Math.abs(tx - cx) > 0.2 || Math.abs(ty - cy) > 0.2) requestAnimationFrame(follow); else moving = false;
+    }
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      tx = e.clientX; ty = e.clientY;
+      if (!seen) { seen = true; cx = tx; cy = ty; ring.classList.add('on'); }
+      ring.classList.toggle('hover', !!e.target.closest('a,button,.card,.pills li,input'));
+      if (!moving) { moving = true; requestAnimationFrame(follow); }
+    }, { passive: true });
+    document.addEventListener('mouseleave', function () { ring.classList.remove('on'); seen = false; });
+  }
+
+  /* ---------- HERO FLOW FIELD (canvas) ---------- */
+  // Runs only while the hero is on screen and the tab is visible; starts after the loader.
+  (function () {
+    var cvs = $('#flow'), hero = $('#hero');
+    if (!cvs || !hero || reduced) return;
+    var ctx = cvs.getContext('2d', { alpha: true });
+    if (!ctx) return;
+    var W = 0, H = 0, particles = [], raf = 0, visible = true, started = false;
+    var mouse = { x: -9999, y: -9999 };
+
+    function light() { return root.classList.contains('light'); }
+    function count() { return Math.round(Math.max(90, Math.min(520, (W * H) / 3600))); }
+    function spawn(p) {
+      p.x = Math.random() * W; p.y = Math.random() * H; p.vx = 0; p.vy = 0;
+      p.age = 0; p.life = Math.random() * 200 + 100;
+      return p;
+    }
+    function size() {
+      var r = hero.getBoundingClientRect();
+      var w = Math.round(r.width), h = Math.round(r.height);
+      if (w === W && h === H) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = w; H = h;
+      cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = count();
+      while (particles.length > n) particles.pop();
+      while (particles.length < n) particles.push(spawn({}));
+    }
+    function frame() {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      // fade the previous frame toward transparent so trails decay, whatever the theme
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = 'rgba(0,0,0,0.14)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = light() ? 'rgb(48,84,214)' : 'rgb(138,160,255)';
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var a = (Math.cos(p.x * 0.005) + Math.sin(p.y * 0.005)) * Math.PI;
+        p.vx += Math.cos(a) * 0.2; p.vy += Math.sin(a) * 0.2;
+        var dx = mouse.x - p.x, dy = mouse.y - p.y, d2 = dx * dx + dy * dy;
+        if (d2 < 22500) { var f = (150 - Math.sqrt(d2)) / 150; p.vx -= dx * f * 0.05; p.vy -= dy * f * 0.05; }
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.95; p.vy *= 0.95;
+        if (++p.age > p.life) spawn(p);
+        if (p.x < 0) p.x = W; else if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; else if (p.y > H) p.y = 0;
+        ctx.globalAlpha = Math.max(0, 1 - Math.abs(p.age / p.life - 0.5) * 2) * 0.6;
+        ctx.fillRect(p.x, p.y, 1.5, 1.5);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function kick() { if (started && !raf && visible && !document.hidden) raf = requestAnimationFrame(frame); }
+
+    flowApi = { clear: function () { ctx.clearRect(0, 0, W, H); } };
+    onReady.push(function () { started = true; size(); kick(); });
+
+    if (hasIO) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; kick(); }).observe(hero);
+    document.addEventListener('visibilitychange', kick);
+    if ('ResizeObserver' in window) new ResizeObserver(function () { if (started) size(); }).observe(hero);
+    else window.addEventListener('resize', function () { if (started) size(); });
+    if (finePointer) {
+      hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; }, { passive: true });
+      hero.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
+    }
+  })();
 })();
