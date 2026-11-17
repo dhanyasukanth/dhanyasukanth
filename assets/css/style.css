@@ -331,6 +331,7 @@ html:not(.light) .theme-pun{color:#0a1226;background:#eef4ff;border-color:rgba(1
 .job-list li{position:relative;padding:.4rem 0 .4rem 1.5rem;font-size:1.02rem;color:var(--muted);line-height:1.8;transition:color .2s}
 .job-list li::before{content:'';position:absolute;left:.15rem;top:1.15em;width:.4rem;height:.4rem;border-right:1.5px solid var(--accent);border-top:1.5px solid var(--accent);transform:rotate(45deg);transition:transform .25s var(--ease)}
 .job-list li:hover{color:var(--heading)}
+.job-list-key strong{color:var(--heading);font-weight:700}
 .job-list li:hover::before{transform:translateX(.2rem) rotate(45deg)}
 
 /* CARDS */
